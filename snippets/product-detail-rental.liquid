@@ -239,18 +239,20 @@
  </form>
 
     {% else %}
-
+      
     <hr id="variantBreak" class="hr--clear hr--small">
     
+    {% unless settings.rental_button_text != blank %}
       <div class="grid">
-      <div class="grid-item small--one-whole medium--one-half large--one-whole">
-        <a href="{{ settings.rental_button_link }}" style="display:block;">
-          <button id="rental-contact" type="button" class="btn" style="width:100%">
-            {{ settings.rental_button_text }}
-          </button>
-        </a>
+        <div class="grid-item small--one-whole medium--one-half large--one-whole">
+          <a href="{{ settings.rental_button_link }}" style="display:block;">
+            <button id="rental-contact" type="button" class="btn" style="width:100%">
+              {{ settings.rental_button_text }}
+            </button>
+          </a>
+        </div>
       </div>
-    </div>
+    {% endunless %}
     
   {% endif %}
   <hr>
