@@ -1,0 +1,378 @@
+{% unless grid_item_width %}
+  {% assign grid_item_width = 'large--one-quarter medium-down--one-half' %}
+{% endunless %}
+
+{% unless image_size %}
+  {%- assign image_size = '600x600' -%}
+{% endunless %}
+
+{% unless current_collection %}
+  {% assign current_collection = collection %}
+{% endunless %}
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available  %}
+  {% assign sold_out = false %}
+{% endif %}
+
+{% assign lowest_price = product.price %}
+{% assign highest_compare_price = product.compare_at_price %}
+{% assign highest_savings = 0 %}
+{% assign first_price = product.price %}
+{% assign last_price = product.price %}
+
+{% for variant in product.variants %}
+  {% if variant.price < lowest_price %}
+    {% assign lowest_price = variant.price %}
+  {% endif %}
+  {% if variant.price < first_price %}
+    {% assign first_price = variant.price %}
+  {% endif %}
+  {% if variant.price > last_price %}
+    {% assign last_price = variant.price %}
+  {% endif %}
+  {% if variant.compare_at_price > highest_compare_price %}
+    {% assign highest_compare_price = variant.compare_at_price %}
+  {% endif %}
+  {% if variant.compare_at_price > variant.price %}
+    {% assign variant_savings = variant.compare_at_price | minus: variant.price %}
+    {% if variant_savings > highest_savings %}
+      {% assign highest_savings = variant_savings %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if shop.money_format contains 'money' %}
+  {% assign first_price = first_price | money %}
+  {% assign last_price = last_price | money %}
+{% else %}
+  {% assign first_price = first_price | money_without_trailing_zeros %}
+  {% assign last_price = last_price | money_without_trailing_zeros %}
+{% endif %}
+
+<div class="grid-item {{ grid_item_width }}{% unless section.settings.hide_sold_out_overlay %}{% if sold_out %}{% unless product.tags contains "Rental" %} sold-out {% endunless %}{% endif %}{% endunless %}{% if on_sale %} on-sale{% endif %}">
+
+  <a href="{{ product.url | within: current_collection }}" class="product-grid-item">
+    <div class="product-grid-image">
+      <div class="product-grid-image--centered">
+        {% if sold_out %}
+          <div class="badge badge--sold-out"><span class="badge-label">{{ 'products.product.sold_out' | t }}</span></div>
+        {% endif %}
+
+        {% if product.featured_image %}
+          {%- assign image = product.featured_image -%}
+          {%- assign max_width = width | plus: 0 -%}
+          {%- assign max_height = height | plus: 0 -%}
+
+          {%- include 'image-logic' with width: max_width, height: max_height -%}
+
+          {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          <div class="lazyload__image-wrapper no-js" style="max-width: {{ max_width }}px">
+            <div style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
+              <img
+                class="lazyload no-js"
+                data-src="{{ img_url }}"
+                data-widths="[125, 180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                data-aspectratio="{{ image.aspect_ratio }}"
+                data-sizes="auto"
+                alt="{{ image.alt | escape }}"
+                {% comment %}style="max-height: {{ height }}px;">{% endcomment %}>
+            </div>
+          </div>
+          <noscript>
+           <img src="{{ image | img_url: '580x' }}"
+             srcset="{{ image | img_url: '580x' }} 1x, {{ image | img_url: '580x', scale: 2 }} 2x"
+             alt="{{ image.alt }}" style="opacity:1;">
+         </noscript>
+        {% else %}
+        {% capture current %}{% cycle 1, 2, 3, 4 %}{% endcapture %}
+        {% comment %}<div>
+        {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>{% endcomment %}
+        {% unless sold_out%}
+          <div class="no-product-image-available">
+            <p>No Image Available</p>
+          </div>
+        {% endunless %}
+      {% endif %}
+      </div>
+    </div>
+    
+    {% unless product.vendor == 'Hardware-Catalyst' or product.vendor == "Do It Best" or product.vendor == shop.name %} 
+      {% unless settings.hide_brands %}
+        <div class="list-view-item__vendor medium-up--hide">{{ product.vendor }}</div>
+      {% endunless %}
+    {% endunless %}
+
+    <p>{{ product.title }}</p>   
+    
+    {% if section.settings.show_pickup_message %}
+    <p class="pickup-message" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}>{{ section.settings.pickup_message }}</p>
+    {% endif %}
+    {% if section.settings.show_delivery_message %}
+    <p class="delivery-message" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}>{{ section.settings.delivery_message }}</p>
+    {% endif %}
+    {% if section.settings.show_shipping_message %}
+    <p class="shipping-message" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}>{{ section.settings.shipping_message }}</p>
+    {% endif %}
+    
+    
+    {% if section.settings.enable_tag_message_1 %}
+    {% assign tag_condition_1 = section.settings.tag_condition_1 %}
+      {% for tag in product.tags %}
+        {% if tag == tag_condition_1 %}
+             <p class="tag-message" style="color:{{ section.settings.tag_message_color }};{% if section.settings.capitalize_pricing_text %}text-transform: uppercase;{% endif %}" > {{ section.settings.tag_message_1 }} </p>
+    	{% endif %}
+      {% endfor %}   
+    {% endif %}
+    {% if section.settings.enable_tag_message_2 %}
+    {% assign tag_condition_2 = section.settings.tag_condition_2 %}
+      {% for tag in product.tags %}
+        {% if tag == tag_condition_2 %}
+             <p class="tag-message" style="color:{{ section.settings.tag_message_color }};{% if section.settings.capitalize_pricing_text %}text-transform: uppercase;{% endif %}"> {{ section.settings.tag_message_2 }} </p>
+    	{% endif %}
+      {% endfor %}   
+    {% endif %}
+    {% if section.settings.enable_tag_message_3 %}
+    {% assign tag_condition_3 = section.settings.tag_condition_3 %}
+      {% for tag in product.tags %}
+        {% if tag == tag_condition_3 %}
+             <p class="tag-message" style="color:{{ section.settings.tag_message_color }};{% if section.settings.capitalize_pricing_text %}text-transform: uppercase;{% endif %}"> {{ section.settings.tag_message_3 }} </p>
+    	{% endif %}
+      {% endfor %}   
+    {% endif %}
+    {% if section.settings.enable_tag_message_4 %}
+    {% assign tag_condition_4 = section.settings.tag_condition_4 %}
+      {% for tag in product.tags %}
+        {% if tag == tag_condition_4 %}
+             <p class="tag-message" style="color:{{ section.settings.tag_message_color }};{% if section.settings.capitalize_pricing_text %}text-transform: uppercase;{% endif %}"> {{ section.settings.tag_message_4 }} </p>
+    	{% endif %}
+      {% endfor %}   
+    {% endif %}
+    {% if section.settings.enable_tag_message_5 %}
+    {% assign tag_condition_5 = section.settings.tag_condition_5 %}
+      {% for tag in product.tags %}
+        {% if tag == tag_condition_5 %}
+             <p class="tag-message" style="color:{{ section.settings.tag_message_color }};{% if section.settings.capitalize_pricing_text %}text-transform: uppercase;{% endif %}"> {{ section.settings.tag_message_5 }} </p>
+    	{% endif %}
+      {% endfor %}   
+    {% endif %}
+    
+    
+    <!-- Adding messages based on the product type field --> 
+      
+    {% if section.settings.enable_type_message_1 %}
+    {% assign type_condition_1 = section.settings.type_condition_1 %}
+        {% if product.type == type_condition_1 %}
+             <p class="type-message" style="color:{{ section.settings.tag_message_color }};{% if section.settings.capitalize_pricing_text %}text-transform: uppercase;{% endif %}"> {{ section.settings.type_message_1 }} </p>
+    	{% endif %}
+    {% endif %} 
+      
+      {% if section.settings.enable_type_message_2 %}
+    {% assign type_condition_2 = section.settings.type_condition_2 %}
+        {% if product.type == type_condition_2 %}
+             <p class="type-message" style="color:{{ section.settings.tag_message_color }};{% if section.settings.capitalize_pricing_text %}text-transform: uppercase;{% endif %}"> {{ section.settings.type_message_2 }} </p>
+    	{% endif %}
+    {% endif %} 
+      
+      {% if section.settings.enable_type_message_3 %}
+    {% assign type_condition_3 = section.settings.type_condition_3 %}
+        {% if product.type == type_condition_3 %}
+             <p class="type-message" style="color:{{ section.settings.tag_message_color }};{% if section.settings.capitalize_pricing_text %}text-transform: uppercase;{% endif %}"> {{ section.settings.type_message_3 }} </p>
+    	{% endif %}
+    {% endif %} 
+      
+      {% if section.settings.enable_type_message_4 %}
+    {% assign type_condition_4 = section.settings.type_condition_4 %}
+        {% if product.type == type_condition_4 %}
+             <p class="type-message" style="color:{{ section.settings.tag_message_color }};{% if section.settings.capitalize_pricing_text %}text-transform: uppercase;{% endif %}"> {{ section.settings.type_message_4 }} </p>
+    	{% endif %}
+    {% endif %}
+      
+      {% if section.settings.enable_type_message_5 %}
+    {% assign type_condition_5 = section.settings.type_condition_5 %}
+        {% if product.type == type_condition_5 %}
+             <p class="type-message" style="color:{{ section.settings.type_message_color }};"> {{ section.settings.type_message_5 }} </p>
+    	{% endif %}
+    {% endif %}
+      
+      <!-- Adding messages based on the product type field --> 
+        
+    {% if section.settings.show_pickup_message %}
+    <style>
+    	.product-item--price {
+    		margin-top: 15px;
+		}
+    </style>
+    {% endif %}
+      
+ {% if settings.display_logged_in_customer_pricing %}
+  {% if customer %}
+    {% if product.type == 'MAP' or 
+          settings.map_brand_1 == product.vendor or 
+          settings.map_brand_2 == product.vendor or 
+          settings.map_brand_3 == product.vendor or 
+          settings.map_brand_4 == product.vendor or 
+          settings.map_brand_5 == product.vendor or 
+          settings.map_brand_6 == product.vendor or 
+          settings.map_brand_7 == product.vendor or 
+          settings.map_brand_8 == product.vendor or 
+          settings.map_brand_9 == product.vendor or 
+          settings.map_brand_10 == product.vendor or 
+          settings.map_brand_11 == product.vendor or 
+          settings.map_brand_12 == product.vendor or 
+          settings.map_brand_13 == product.vendor or 
+          settings.map_brand_14 == product.vendor or 
+          settings.map_brand_15 == product.vendor or 
+          settings.map_brand_16 == product.vendor or 
+          settings.map_brand_17 == product.vendor or 
+          settings.map_brand_18 == product.vendor or 
+          settings.map_brand_19 == product.vendor or 
+          settings.map_brand_20 == product.vendor 
+    %} 
+      {% if settings.map_message != blank %}
+        <p class="MAP-Disclaimer" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}><strong><em>{{ settings.map_message }}</em></strong></p>
+      {% else %}
+        <p class="MAP-Disclaimer" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}><strong><em>Add to cart to see price</em></strong></p>
+      {% endif %}
+    {% else %}
+      {% if product.price > 0 %}
+        <div class="product-item--price">     
+          <span class="h1 medium--left">
+            {% if product.price_varies and section.settings.show_price_range %}
+              <span class="product-pricing">
+                {% comment %}
+                  Apply <sup> tags to cents if settings.superscript_decimals is enabled
+                {% endcomment %}
+                {% if settings.superscript_decimals %}
+                  {% if shop.money_format contains '{{amount}}' or shop.money_format contains '{{ amount }}' %}
+                    {% capture first_price %}{{ first_price | replace: '.', '<sup>' }}</sup>{% endcapture %}
+                    {% capture last_price %}{{ last_price | replace: '.', '<sup>' }}</sup>{% endcapture %}
+                  {% elsif shop.money_format contains '{{amount_with_comma_separator}}' or shop.money_format contains '{{ amount_with_comma_separator }}' %}
+                    {% capture first_price %}{{ first_price | replace: ',', '<sup>' }}</sup>{% endcapture %}
+                    {% capture last_price %}{{ last_price | replace: ',', '<sup>' }}</sup>{% endcapture %}
+                  {% endif %}
+                {% endif %}
+                {{ first_price }} - {{ last_price }}
+              </span>
+            {% elsif product.price_varies %}
+              <span class="price-varies">{% if section.settings.capitalize_pricing_text %}<span style="text-transform: uppercase;">from</span>{% else %}<small>from</small>{% endif %}</span>
+              {% include 'price' with lowest_price %}
+            {% else %}
+              {% include 'price' with product.price %}
+            {% endif %}
+          </span> 
+          {%- if product.selected_or_first_available_variant.available and product.selected_or_first_available_variant.unit_price_measurement -%}
+            {% include 'product-unit-price', variant: product.selected_or_first_available_variant %}
+          {%- endif -%}
+        </div>
+      {% endif %}
+      {% if on_sale and section.settings.product_savings and highest_savings > 0 %}
+        <div class="sale-tag{% if section.settings.product_savings %} medium--right{% endif %}{% if section.settings.product_reviews_enable %} has-reviews{% endif %}">
+          {% if product.variants.size > 1 %}
+            {% if shop.money_format contains 'money' %}
+              {% assign saved_amount = highest_savings | money %}
+            {% else %}
+              {% assign saved_amount = highest_savings | money_without_trailing_zeros %}
+            {% endif %}
+            Save Up To {{ saved_amount }}
+          {% else %}
+            {% assign compare_price = product.compare_at_price %}
+            {% assign product_price = product.price %}
+            {% include 'price-sale' with compare_price: compare_price, product_price: product_price %}
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% else %}
+  {% unless settings.hide_price or section.settings.hide_price %}
+    {% if product.type == 'MAP' or 
+          settings.map_brand_1 == product.vendor or 
+          settings.map_brand_2 == product.vendor or 
+          settings.map_brand_3 == product.vendor or 
+          settings.map_brand_4 == product.vendor or 
+          settings.map_brand_5 == product.vendor or 
+          settings.map_brand_6 == product.vendor or 
+          settings.map_brand_7 == product.vendor or 
+          settings.map_brand_8 == product.vendor or 
+          settings.map_brand_9 == product.vendor or 
+          settings.map_brand_10 == product.vendor or 
+          settings.map_brand_11 == product.vendor or 
+          settings.map_brand_12 == product.vendor or 
+          settings.map_brand_13 == product.vendor or 
+          settings.map_brand_14 == product.vendor or 
+          settings.map_brand_15 == product.vendor or 
+          settings.map_brand_16 == product.vendor or 
+          settings.map_brand_17 == product.vendor or 
+          settings.map_brand_18 == product.vendor or 
+          settings.map_brand_19 == product.vendor or 
+          settings.map_brand_20 == product.vendor 
+    %} 
+      {% if settings.map_message != blank %}
+        <p class="MAP-Disclaimer" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}><strong><em>{{ settings.map_message }}</em></strong></p>
+      {% else %}
+        <p class="MAP-Disclaimer" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}><strong><em>Add to cart to see price</em></strong></p>
+      {% endif %}
+    {% else %}
+      {% if product.price > 0 %}
+        <div class="product-item--price">     
+          <span class="h1 medium--left">
+            {% if product.price_varies and section.settings.show_price_range %}
+              <span class="product-pricing">
+                {% comment %}
+                  Apply <sup> tags to cents if settings.superscript_decimals is enabled
+                {% endcomment %}
+                {% if settings.superscript_decimals %}
+                  {% if shop.money_format contains '{{amount}}' or shop.money_format contains '{{ amount }}' %}
+                    {% capture first_price %}{{ first_price | replace: '.', '<sup>' }}</sup>{% endcapture %}
+                    {% capture last_price %}{{ last_price | replace: '.', '<sup>' }}</sup>{% endcapture %}
+                  {% elsif shop.money_format contains '{{amount_with_comma_separator}}' or shop.money_format contains '{{ amount_with_comma_separator }}' %}
+                    {% capture first_price %}{{ first_price | replace: ',', '<sup>' }}</sup>{% endcapture %}
+                    {% capture last_price %}{{ last_price | replace: ',', '<sup>' }}</sup>{% endcapture %}
+                  {% endif %}
+                {% endif %}
+                {{ first_price }} - {{ last_price }}
+              </span>
+            {% elsif product.price_varies %}
+              <span class="price-varies">{% if section.settings.capitalize_pricing_text %}<span style="text-transform: uppercase;">from</span>{% else %}<small>from</small>{% endif %}</span>
+              {% include 'price' with lowest_price %}
+            {% else %}
+              {% include 'price' with product.price %}
+            {% endif %}
+          </span> 
+          {%- if product.selected_or_first_available_variant.available and product.selected_or_first_available_variant.unit_price_measurement -%}
+            {% include 'product-unit-price', variant: product.selected_or_first_available_variant %}
+          {%- endif -%}
+        </div>
+      {% endif %}
+      {% if on_sale and section.settings.product_savings and highest_savings > 0 %}
+        <div class="sale-tag{% if section.settings.product_savings %} medium--right{% endif %}{% if section.settings.product_reviews_enable %} has-reviews{% endif %}">
+          {% if product.variants.size > 1 %}
+            {% if shop.money_format contains 'money' %}
+              {% assign saved_amount = highest_savings | money %}
+            {% else %}
+              {% assign saved_amount = highest_savings | money_without_trailing_zeros %}
+            {% endif %}
+            Save Up To {{ saved_amount }}
+          {% else %}
+            {% assign compare_price = product.compare_at_price %}
+            {% assign product_price = product.price %}
+            {% include 'price-sale' with compare_price: compare_price, product_price: product_price %}
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endunless %}
+{% endif %}
+    
+    {% if section.settings.product_reviews_enable %}
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+    {% endif %}
+  </a> 
+</div>

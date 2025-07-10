@@ -1,0 +1,17 @@
+<section>
+    {% for variant in product.variants %}
+    <div style="margin-top: 5px;  font-weight: bold;">{{ variant.title}}</div>
+    <ul>
+        {% for location in variant.metafields.metastock.inventory %}
+        <li>
+            {% for ldata in shop.metafields.metastock.locations %}
+            {% if ldata.id == location.location_id %}
+            {{ ldata.name }}
+            {% endif %}
+            {% endfor %}
+            - {{ location.available }} available
+        </li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+</section>

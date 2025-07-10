@@ -1,0 +1,70 @@
+<div class="filter-form">
+  {%- for filter in context.filters -%}
+    {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
+
+    {%- comment -%} Check if we're in a Catalyst collection {%- endcomment -%}
+    {%- assign is_catalyst_collection = false -%}
+    {%- assign catalyst_collections = 'automotive,building-materials,clothing-apparel,electrical,farm,food-snacks,heating-cooling,hardware,home-cleaning,kitchen-bath,lawn-garden,lighting-ceiling-fans,live-plants,lumber,outdoor-living,paint,pet,plumbing,seasonal-holiday,small-appliances-electronics,sporting-goods,storage-organization,tools'
+      | split: ','
+    -%}
+
+    {%- if collection.handle -%}
+      {%- for catalyst_handle in catalyst_collections -%}
+        {%- if collection.handle == catalyst_handle -%}
+          {%- assign is_catalyst_collection = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- if is_catalyst_collection -%}
+      {%- comment -%} For Catalyst collections, exclude Departments entirely {%- endcomment -%}
+      {%- unless filter.label == 'Departments' -%}
+        {%- comment -%} Use custom filter for Categories and Subcategories {%- endcomment -%}
+        {%- if filter.label == 'Categories' -%}
+          {%- comment -%} Get allowed categories from taxonomy snippet {%- endcomment -%}
+          {%- capture allowed_values_string -%}
+            {%- render 'catalyst-taxonomy', collection_handle: collection.handle, filter_label: 'Categories' -%}
+          {%- endcapture -%}
+          {%- assign allowed_values = allowed_values_string | strip | split: ',' -%}
+
+          {%- comment -%} Only render if we have allowed values for this filter {%- endcomment -%}
+          {%- if allowed_values.size > 0 and allowed_values[0] != '' -%}
+            {%- render 'catalyst-filter-group',
+              filter: filter,
+              show_product_count: show_product_count,
+              forloop: forloop,
+              allowed_values: allowed_values
+            -%}
+          {%- endif -%}
+        {%- elsif filter.label == 'Subcategories' -%}
+          {%- comment -%} Get allowed subcategories from taxonomy snippet {%- endcomment -%}
+          {%- capture allowed_values_string -%}
+            {%- render 'catalyst-taxonomy', collection_handle: collection.handle, filter_label: 'Subcategories' -%}
+          {%- endcapture -%}
+          {%- assign allowed_values = allowed_values_string | strip | split: ',' -%}
+
+          {%- comment -%} Only render if we have allowed values for this filter {%- endcomment -%}
+          {%- if allowed_values.size > 0 and allowed_values[0] != '' -%}
+            {%- render 'catalyst-filter-group',
+              filter: filter,
+              show_product_count: show_product_count,
+              forloop: forloop,
+              allowed_values: allowed_values
+            -%}
+          {%- endif -%}
+        {%- else -%}
+          {%- comment -%} Show all other filters normally (price, availability, etc.) {%- endcomment -%}
+          {%- render 'faceted-filter-group',
+            filter: filter,
+            show_product_count: show_product_count,
+            forloop: forloop
+          -%}
+        {%- endif -%}
+      {%- endunless -%}
+    {%- else -%}
+      {%- comment -%} For non-Catalyst collections, show all filters normally {%- endcomment -%}
+      {%- render 'faceted-filter-group', filter: filter, show_product_count: show_product_count, forloop: forloop -%}
+    {%- endif -%}
+  {%- endfor -%}
+</div>

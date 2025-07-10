@@ -1,0 +1,148 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+<h1>{{ 'customer.account.title' | t }}</h1>
+
+<hr class="hr--small">
+
+{% comment %} Temp hide this, was causing issues when accounts we not linked prior to clicking this div
+{% if settings.astro %}
+  <div class="grid">
+    
+      <div class="grid-item one-whole">
+        
+        <a href="/apps/loyalty/welcome">
+          
+          <div class="astro-block" style="padding:20px;background:{{ settings.color_nav_bg }};color:{{ settings.color_nav_text }}!important;border-radius:4px; display:inline-block;margin-bottom:30px;">
+            <div class="grid">
+              <div class="grid-item one-quarter">
+                {% if settings.astro_image %}
+                  <img src="{{ settings.astro_image }}" alt="{{ settings.astro_title }}">
+                {% else %}
+                  <img style="background:#FFF;padding:10px;border-radius:4px;" src="https://cdn.shopify.com/s/files/1/0509/2766/5342/files/astro_logo_weathered_dark.png?v=1691440148" alt="Astro Loyalty Link">
+                {% endif %}
+              </div>
+              <div class="grid-item three-quarters">
+                <h2 class="h4" style="color:{{ settings.color_nav_text }};">{{ settings.astro_title }}</h2>
+                <span>Connect your online account with Astro Loyalty to view frequent buyer progress, get credit for online sales, and redeem deals online!</span>
+              </div>
+              
+            </div>
+          </div>
+        </a>
+        
+      </div>
+    
+  </div> 
+{% endif %}
+{% endcomment %}
+
+<div class="grid">
+
+  <div class="grid-item two-thirds medium-down--one-whole">
+    <h3>{{ 'customer.orders.title' | t }}</h3>
+
+    {% paginate customer.orders by 20 %}
+    {% if customer.orders.size != 0 %}
+
+      <table class="full">
+        <thead>
+          <tr>
+            <th>{{ 'customer.orders.order_number' | t }}</th>
+            <th>{{ 'customer.orders.date' | t }}</th>
+            <th>{{ 'customer.orders.payment_status' | t }}</th>
+            <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+            <th>{{ 'customer.orders.total' | t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in customer.orders %}
+            <tr>
+              <td>{{ order.name | link_to: order.customer_url }}</td>
+              <td>{{ order.created_at | date: format: 'date' }}</td>
+              <td>{{ order.financial_status_label }}</td>
+              <td>{{ order.fulfillment_status_label }}</td>
+              <td>{{ order.total_price | money }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    {% else %}
+
+      <p>{{ 'customer.orders.none' | t }}</p>
+
+    {% endif %}
+
+    {% if paginate.pages > 1 %}
+    <div class="text-center">
+      {% include 'pagination-custom' %}
+    </div>
+    {% endif %}
+    {% endpaginate %}
+  </div>
+
+  <div class="grid-item one-third medium-down--one-whole account-heading-mobile">
+    <h3>{{ 'customer.account.details' | t }}</h3>
+
+    {{ customer.default_address | format_address }}
+
+    <h5 style="text-decoration: underline;"><a href="{{ routes.account_addresses_url }}">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a></h5>
+  </div>
+
+</div>
+
+  <br>
+    {% if customer %}
+      <a class="btn" href="/account/logout" class="logout-button">Logout</a>
+    {% endif %}
+  <br>
+
+  <div class="grid">
+    
+    {% if settings.bold_v2 %}
+      <div class="grid-item one-third medium-down--one-whole">
+        <!-- Bold V2 -->
+        <h3>Subscriptions</h3>
+          <div class="bold account-widget rounded shadow">
+            <p><b>Edit the following details on your subscriptions:</b></p>
+            <ul>
+              <li>Change Upcoming Order Date</li>
+              <li>Change Order Frequency</li>
+              <li>Pause/Resume Subscriptions</li>
+              <li>Change Product Quantity</li>
+              <li>Cancel/Reactivate a Subscription</li>
+              <li>Update Existing Subscription Account Info (First Name, Last Name, Email Address, Phone Number)</li>
+              <li>Update Payment Method/Billing Address</li>
+              <li>Update Shipping Information</li>
+              <li>Swap a Product within an Existing Subscription</li>
+              <li>Skip/Resume an Order</li>
+            </ul>
+            <p><a href="/pages/my-subscriptions" class="btn"><i class="fas fa-sync"></i>My Subscriptions</a></p>
+          </div>
+       </div>
+    {% endif %}
+    
+    {% if settings.bold_v1 %}
+       <div class="grid-item one-third medium-down--one-whole"> 
+        <!-- Bold V1 -->
+        <h3>Subscriptions</h3>
+          <div class="bold account-widget rounded shadow">
+            <p><a class="btn" href="/tools/checkout/api/manage/subscription/app" class="text-link"><i class="fas fa-sync"></i>Manage Subscription</a></p>
+          </div>
+       </div>
+    {% endif %}
+  
+  </div>
+
+
+
+
+

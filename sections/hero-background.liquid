@@ -1,0 +1,175 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+{% if section.settings.full_width %}
+<style>
+  .hero-full-width {
+ 	margin-left: calc(-100vw / 2 + 100% / 2);
+    margin-right: calc(-100vw / 2 + 100% / 2); 
+}
+</style>
+{% endif %}
+
+
+{% unless section.settings.top_of_page %}
+<hr>
+{% endunless %}
+<div class="{% if section.settings.full_width %}hero-full-width {% endif %}hero-background text-center" style="{% if section.settings.top_of_page %}margin-top: -30px!important;{% endif %}background:url('{{ section.settings.hero_background | img_url:'master' }}');{% if section.settings.enable_image_scoll %}background-attachment: fixed;{% endif %} {% if section.settings.hero_overlay_color != '0' %}background-color: rgba(0,0,0, {% if section.settings.hero_overlay_color == 100%} 1 {% else %}0.{{section.settings.hero_overlay_color}} {% endif %}{% endif %}">
+  <div style="text-align:{% if section.settings.hero_background_content_alignment == 'left' %}left{% elsif section.settings.hero_background_content_alignment == 'center' %}center{% else section.settings.hero_background_content_alignment == 'right' %}right{% endif %};">
+    <div class="hero-background-content">
+      {% if section.settings.hero_background_eyebrow_heading != blank %}
+        <p class="hero-background-eyebrow-heading">{{ section.settings.hero_background_eyebrow_heading }}</p>
+      {% endif %}
+      {% if section.settings.hero_title %}
+        <h2 class="h1" {% if section.settings.hero_subtitle == blank %}style="margin-bottom:15px;"{% endif %}>{{ section.settings.hero_title }}</h2>
+      {% endif %}  
+      {% unless section.settings.hero_subtitle == blank %}
+        <p>{{ section.settings.hero_subtitle }}</p>
+      {% endunless %}
+      {% if section.settings.hero_button_text != blank and section.settings.hero_button_url != blank %}
+        <a href="{{ section.settings.hero_button_url }}" class="btn btn_c" title="{{ section.settings.hero_button_text}}" {% if section.settings.new_window == true %}target="_blank"{% endif %}>
+          {{ section.settings.hero_button_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": {
+    "en": "Hero Background"
+  },
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_background",
+      "label": {
+        "en": "Hero Background"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "top_of_page",
+      "label": {
+        "en": "Top of Page"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_scoll",
+      "label": {
+        "en": "Enable Image Scroll"
+      }
+    },
+    {
+      "type": "text",
+      "id": "hero_background_eyebrow_heading",
+      "label": {
+        "en": "Eyebrow Heading Text"
+      }
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": {
+        "en": "Hero Title"
+      }
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": {
+        "en": "Hero Subtitle"
+      }
+    },
+    {
+      "type": "text",
+      "id": "hero_button_text",
+      "label": {
+        "en": "Hero Button Text"
+      }
+    },
+    {
+      "type": "url",
+      "id": "hero_button_url",
+      "label": {
+        "en": "Hero button URL"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "new_window",
+      "label": {
+        "en": "Open link in a new window"
+        },
+        "default": false
+    },
+    {
+        "type": "range",
+        "id": "hero_overlay_color",
+        "label": "Overlay opacity",
+        "info": "Add a darkened overlay over your slide to make text easier to read.  Higher percentages produce darker overlays.",
+          "min":       0,
+        "max":        100,
+        "step":       10,
+        "unit":       "%",
+        "default": 20
+    },
+    {
+    "type": "select",
+    "id": "hero_background_content_alignment",
+    "label": {
+    "en": "Hero Background Content Alignment"
+    },
+    "default": "center",
+    "options": [
+      {
+        "value": "left",
+        "label": {
+        "en": "Left"
+        }
+      },
+      {
+        "value": "center",
+        "label": {
+        "en": "Center"
+        }
+      },
+      {
+        "value": "right",
+        "label": {
+        "en": "Right"
+        }
+      }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": {
+        "en": "Full width"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Hero Background Image"
+      },
+      "category": {
+        "en": "Image"
+      }
+    }
+  ]
+}
+{% endschema %}
+

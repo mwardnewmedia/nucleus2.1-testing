@@ -1,0 +1,411 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+<style>
+  @media (max-width:430px) {
+    .video-hero-desktop {
+    display:none!important;
+    }
+    .cards-container .h1 {
+    padding-top:30px;
+    }
+  }
+  @media (min-width:431px) {
+    .video-hero-mobile {
+    display:none!important;
+    }
+  }
+</style>
+
+<div class="video-hero-section">
+      <div class="video-hero-wrapper video-hero-mobile-image">
+        <div class="shadow-overlay" {% if section.settings.video_caption_val != '0' %}style="background: rgba(0,0,0, {% if section.settings.video_caption_val == 100%} 1 {% else %}0.{{ section.settings.video_caption_val}} {% endif %}{% endif %}">  
+         </div>
+        {% if section.settings.video_hero_id == blank %}
+          <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+        {% else %}
+
+<div class="video-hero-desktop">        
+<iframe id="video_hero" src="https://www.youtube.com/embed/{{ section.settings.video_hero_id }}?rel=0&amp;autoplay=1&amp;controls=0&amp;loop=1&amp;mute=1&playlist={{ section.settings.video_hero_id }}" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen=""></iframe>
+</div>
+
+<div class="video-hero-mobile">        
+  <div {% if section.settings.full_width_slider %}style="margin-top:-30px;" {% endif %}class="flexslider" id="heroSlider--{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="slideshow-section" data-slider-home-auto="{{ section.settings.slider_home_auto }}" data-slider-home-rate="{{ section.settings.slider_home_rate }}">
+  <ul class="slides">
+    {% for block in section.blocks %}  
+     {% assign now = "now" | date: "%s" %}<!--Slider scheduling-->
+     {% assign show_at = block.settings.show_at | date: "%s" %}<!--Slider scheduling-->
+     {% assign remove_at = block.settings.remove_at | date: "%s" %}<!--Slider scheduling-->
+     {% if show_at == blank or now > show_at %}<!--Slider scheduling-->
+      {% if remove_at == blank or now < remove_at %}<!--Slider scheduling-->
+      <li id="slide--{{ block.id }}" data-flexslider-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+        {% if block.settings.slide != blank %}
+          {% if block.settings.link %}
+            <a href="{{ block.settings.link }}" class="slide-link"><span class="sr-only">slideshow image link</span>
+          {% endif %}
+              
+				<!--- VIDEO --->
+                  {% if block.settings.video_link != blank %}
+    			  <div class="video-hero-wrapper">
+                  {% if block.settings.video_link.type == "youtube" %}
+                    <iframe src="//www.youtube.com/embed/{{ block.settings.video_link.id }}?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if block.settings.video_link.type == "vimeo" %}
+                    <iframe src="//player.vimeo.com/video/{{ block.settings.video_link.id }}?byline=0&portrait=0&badge=0" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                  </div>  
+                  {% else %}
+                  {% endif %} 
+                <!--- VIDEO --->
+              
+            {%- assign image = block.settings.slide -%}
+            {%- capture img_wrapper_id -%}slideShowImageWrapper-{{ section.id }}-{{ image.id }}{%- endcapture -%}
+            {%- assign max_width = 1400 -%}
+            {%- assign max_height = 1500 -%}
+
+            {%- include 'image-logic' with width: max_width, height: max_height -%}
+
+            {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            <div id="{{ img_wrapper_id }}" class="lazyload__image-wrapper video-hero-mobile-image" data-image-id="{{ image.id }}" {% unless section.settings.full_width_slider %}style="max-width: {{ max_width }}px"{% endunless %}>
+              <div class="lazyload__image-wrapper no-js" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
+                                   
+                <img
+                  class="video-hero-mobile-image lazyload js {% if forloop.index > 1%}lazypreload{% endif %}"
+                  src="{{ image | img_url: '300x' }}"
+                  data-src="{{ img_url }}"
+                  data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ image.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ image.alt | escape }}">
+                {% comment %} Only show the overlay if the slide title is filled out {% endcomment %}
+
+              {% if block.settings.title != blank %}
+                <div class="banner_overlay" {% if block.settings.slideshow_caption_val != '0' %}style="background: rgba(0,0,0, {% if block.settings.slideshow_caption_val == 100%} 1 {% else %}0.{{block.settings.slideshow_caption_val}} {% endif %}{% endif %}">  
+                  <div class="banner-caption">
+                  <h2>{{ block.settings.title | escape }}</h2>          
+                    {% if block.settings.title != blank and block.settings.slideshow_subtitle != blank %}
+                    <div class="line_1"></div>
+                    {% endif %}
+                    {% if block.settings.slideshow_subtitle != blank %}
+                    <h3>{{ block.settings.slideshow_subtitle }}</h3>
+                    {% endif %}
+
+                    {% if section.settings.slideshow_button_link != blank and section.settings.slideshow_button_text != blank %}
+                      <a class="btn_c" href="{{ section.settings.slideshow_button_link }}" {% if section.settings.new_window == true %}target="_blank"{% endif %}>{{ section.settings.slideshow_button_text | escape }}</a>
+                    {% endif %}
+                    {% if section.settings.second_slideshow_button_link != blank and section.settings.second_slideshow_button_text != blank %}
+                      <a class="btn_c second_btn_c" href="{{ section.settings.second_slideshow_button_link }}" {% if section.settings.new_window_2 == true %}target="_blank"{% endif %}>{{ section.settings.second_slideshow_button_text | escape }}</a>
+                    {% endif %}
+                
+                  </div>
+                </div>
+                {% endif %} 
+              </div>
+              
+            </div>
+
+            <noscript>
+              <img src="{{ image | img_url: '580x' }}"
+                srcset="{{ image | img_url: '580x' }} 1x, {{ image | img_url: '580x', scale: 2 }} 2x"
+                alt="{{ image.alt }}" style="opacity:1;">
+            </noscript>
+            {% comment %}<img src="{{ image | img_url: '1024x' }}"
+            srcset="{{ image | img_url: '1024x' }} 1x, {{ image | img_url: '1024x', scale: 2 }} 2x" alt="{{ image.alt }}">{% endcomment %}
+
+          {% if block.settings.link %}
+            </a>
+          {% endif %}
+
+        {% else %}
+          {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+          {% capture svg_tag_class %}placeholder-noblocks slide-link slide-link--{{ block.id }}{% endcapture %}
+          {%- assign placeholder = 'placeholder-lifestyle-' | append: current -%}
+          {{ 'lifestyle-' | append: current | placeholder_svg_tag: svg_tag_class }}
+        {% endif %}
+
+      </li>
+     {% endif %}<!--Slider scheduling-->
+    {% endif %}<!--Slider scheduling-->
+    
+    {% endfor %}
+  </ul>
+</div>  
+</div>        
+        
+        {% endif %}
+        <div class="banner_overlay">
+          <div class="banner-caption video-banner-caption" style="text-align:{% if section.settings.video_hero_content_alignment == 'left' %}left{% elsif section.settings.video_hero_content_alignment == 'center' %}center{% else section.settings.video_hero_content_alignment == 'right' %}right{% endif %};">
+            {% if section.settings.video_hero_eyebrow_heading != blank %}
+              <p class="video-hero-eyebrow-heading">
+                {{ section.settings.video_hero_eyebrow_heading }}
+              </p>
+            {% endif %}
+			<h2>{{ section.settings.video_hero_heading }}</h2>             
+            {% if section.settings.heading != blank and section.settings.video_hero_subheading != blank %}
+            <div class="line_1"></div>
+            {% endif %}
+            {% if section.settings.video_hero_subheading != blank %}
+            <p>{{ section.settings.video_hero_subheading }}</p>
+            {% endif %}
+            
+            {% if section.settings.slideshow_button_link != blank and section.settings.slideshow_button_text != blank %}
+              <a class="btn_c" href="{{ section.settings.slideshow_button_link }}" {% if section.settings.new_window == true %}target="_blank"{% endif %}>{{ section.settings.slideshow_button_text | escape }}</a>
+            {% endif %}
+            {% if section.settings.second_slideshow_button_link != blank and section.settings.second_slideshow_button_text != blank %}
+              <a class="btn_c second_btn_c" href="{{ section.settings.second_slideshow_button_link }}" {% if section.settings.new_window_2 == true %}target="_blank"{% endif %}>{{ section.settings.second_slideshow_button_text | escape }}</a>
+            {% endif %}   
+        </div>
+         </div>
+</div>
+</div>
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Video Hero"
+  },
+  "settings": [
+     {
+      "type": "text",
+      "id": "video_hero_eyebrow_heading",
+      "label": "Eyebrow Heading Text"
+      },
+    {
+      "type": "text",
+      "id": "video_hero_heading",
+      "label": {
+        "en": "Heading"
+      },
+      "default": {
+        "en": "Video Hero"
+      }
+    },
+    {
+      "type": "text",
+      "id": "video_hero_subheading",
+      "label": {
+        "en": "Subheading"
+      },
+      "default": {
+        "en": "Subheading"
+      }
+    },
+    {
+      "type": "text",
+      "id": "video_hero_id",
+      "label": {
+        "en": "Youtube Video ID"
+      }
+    },
+    {
+      "type": "range",
+      "id": "video_caption_val",
+      "label": "Overlay Opacity",
+      "info": "Add a darkened overlay over your slide to make text easier to read.  Higher percentages produce darker overlays.",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "default": 20
+    },
+    {
+      "type": "text",
+      "id": "slideshow_button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "slideshow_button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "new_window",
+      "label": {
+        "en": "Open Link in a New Window"
+        },
+        "default": false
+    },
+    {
+      "type": "text",
+      "id": "second_slideshow_button_text",
+      "label": "Second Button Text"
+    },
+    {
+      "type": "url",
+      "id": "second_slideshow_button_link",
+      "label": "Second Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "new_window_2",
+      "label": {
+        "en": "Open Link in a New Window"
+        },
+        "default": false
+    },
+     {
+        "type": "select",
+        "id": "video_hero_content_alignment",
+        "label": {
+          "en": "Video Hero Content Alignment"
+        },
+        "default": "center",
+        "options": [
+          {
+          "value": "left",
+          "label": {
+            "en": "Left"
+          }
+          },
+          {
+            "value": "center",
+            "label": {
+              "en": "Center"
+            }
+          },
+          {
+            "value": "right",
+            "label": {
+              "en": "Right"
+            }
+          }
+          ]
+        }
+  ],
+  "presets": [
+    {
+      "name": {
+        "da": "Video",
+        "de": "Video",
+        "en": "Video Hero",
+        "es": "Video",
+        "fi": "Video",
+        "fr": "Vidéo",
+        "hi": "वीडियो",
+        "it": "Video",
+        "ja": "ビデオ",
+        "ko": "동영상",
+        "nb": "Video",
+        "nl": "Video",
+        "pt-BR": "Vídeo",
+        "pt-PT": "Vídeo",
+        "sv": "Video",
+        "th": "วิดีโอ",
+        "zh-CN": "视频",
+        "zh-TW": "影片"
+      },
+      "category": {
+        "da": "Video",
+        "de": "Video",
+        "en": "Video",
+        "es": "Video",
+        "fi": "Video",
+        "fr": "Vidéo",
+        "hi": "वीडियो",
+        "it": "Video",
+        "ja": "ビデオ",
+        "ko": "동영상",
+        "nb": "Video",
+        "nl": "Video",
+        "pt-BR": "Vídeo",
+        "pt-PT": "Vídeo",
+        "sv": "Video",
+        "th": "วิดีโอ",
+        "zh-CN": "视频",
+        "zh-TW": "影片"
+      }
+    }
+  ],
+ "blocks": [
+    {
+      "type": "image",
+      "name": {
+        "da": "Billede",
+        "de": "Foto",
+        "en": "Image for Mobile",
+        "es": "Imagen",
+        "fi": "Kuva",
+        "fr": "Image",
+        "hi": "इमेज",
+        "it": "Immagine",
+        "ja": "画像",
+        "ko": "이미지",
+        "nb": "Bilde",
+        "nl": "Afbeelding",
+        "pt-BR": "Imagem",
+        "pt-PT": "Imagem",
+        "sv": "Bild",
+        "th": "รูปภาพ",
+        "zh-CN": "图片",
+        "zh-TW": "圖片"
+      },
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "slide",
+          "label": {
+            "da": "Billede",
+            "de": "Foto",
+            "en": "Image",
+            "es": "Imagen",
+            "fi": "Kuva",
+            "fr": "Image",
+            "hi": "इमेज",
+            "it": "Immagine",
+            "ja": "画像",
+            "ko": "이미지",
+            "nb": "Bilde",
+            "nl": "Afbeelding",
+            "pt-BR": "Imagem",
+            "pt-PT": "Imagem",
+            "sv": "Bild",
+            "th": "รูปภาพ",
+            "zh-CN": "图片",
+            "zh-TW": "圖片"
+          },
+          "info": {
+            "da": "1.000 x 500 px anbefales",
+            "de": "1000 x 500px empfohlen",
+            "en": "The Theme currently only supports 1 image shown on mobile. 1000 x 500px recommended.",
+            "es": "1000 x 500px recomendado",
+            "fi": "Suositus 1000 x 500 px",
+            "fr": "1000 x 500 px recommandé",
+            "hi": "1000 x 500px की अनुशंसा की जाती है",
+            "it": "Dimensione consigliata: 1000 x 500 pixel",
+            "ja": "1000 x 500ピクセルを推奨",
+            "ko": "1280 x 800 픽셀 권장",
+            "nb": "1000 x 500 piksler anbefales",
+            "nl": "1000 x 500px aanbevolen",
+            "pt-BR": "1.000 x 500 px recomendado",
+            "pt-PT": "1000 x 500 px recomendado",
+            "sv": "1 280 x 800px rekommenderas",
+            "th": "แนะนำขนาด 1000 x 500px พิกเซล",
+            "zh-CN": "推荐使用 1000 x 500 px 大小",
+            "zh-TW": "建議使用 1000 x 500px"
+          }
+        },
+		{
+        "type": "range",
+        "id": "slideshow_caption_val",
+        "label": "Overlay Opacity",
+        "info": "Add a darkened overlay over your slide to make text easier to read.  Higher percentages produce darker overlays.",
+          "min":       0,
+        "max":        100,
+        "step":       10,
+        "unit":       "%",
+        "default": 20
+      	}
+      ]
+    }
+  ]
+}
+{% endschema %}

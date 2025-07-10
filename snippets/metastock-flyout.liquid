@@ -1,0 +1,125 @@
+<nav role="navigation">
+    <div id="js-metastock-flyout" class="metastock-flyout">
+        <div class="metastock-flyout-header-container">
+            <h2 class="metastock-flyout-title">
+                Select a Store
+            </h2>
+            <div class="close-flyout-container">
+                <button onclick="MetastockFlyout.close()"
+                    class="close-flyout-button"
+                    type="button"
+                    title="Close location list menu"
+                >
+                    <svg class="icon icon-close" viewBox="0 0 40 40"
+                         aria-hidden="true" focusable="false" role="presentation"
+                    >
+                        <path d="M23.868 20.015L39.117 4.78c1.11-1.108 1.11-2.77 0-3.877-1.109-1.108-2.773-1.108-3.882 0L19.986 16.137 4.737.904C3.628-.204 1.965-.204.856.904c-1.11 1.108-1.11 2.77 0 3.877l15.249 15.234L.855 35.248c-1.108 1.108-1.108 2.77 0 3.877.555.554 1.248.831 1.942.831s1.386-.277 1.94-.83l15.25-15.234 15.248 15.233c.555.554 1.248.831 1.941.831s1.387-.277 1.941-.83c1.11-1.109 1.11-2.77 0-3.878L23.868 20.015z" class="layer"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        {% assign metastock_google_api_key = "" %}
+        {% if metastock_google_api_key %}
+        <div id="metastock-geo-form-container" style="display:none;">
+            <form id="metastock-form-address">
+                <label for="metastock-address-input" class="metastock-sr-only">
+                    Address
+                </label>
+                <input id="metastock-address-input"
+                   class="metastock-store-search-input"
+                   type="search" placeholder="Enter address"
+                >
+
+                <button type="submit"
+                   class="button metastock-button metastock-address-button"
+                >
+                    Submit
+                </button>
+            </form>
+            <div class="metastock-clear-address-container">
+                <button id="js-metastock-clear-address"
+                    class="metastock-button-clear-address"
+                >
+                    &times; Clear Address
+                </button>
+            </div>
+        </div>
+        {% endif %}
+
+        <div id="js-metastock-location-list"
+             class="metastock-location-list-container"
+        ></div>
+    </div>
+</nav>
+
+<script>
+{% if metastock_google_api_key and metastock_google_api_key != '' %}
+    async function init_metastock_distance_api () {}
+{% else %}
+    console.debug('You cannot use Metastock Geolocation search without a Google API Key');
+{% endif %}
+</script>
+
+{% if block.settings.location_bar_background_color or block.settings.location_bar_text_color %}
+<style>
+    {% if block.settings.location_bar_background_color %}
+    .metastock-selected-location-container {
+        background-color: {{ block.settings.location_bar_background_color }}
+    }
+    {% endif %}
+
+    {% if block.settings.location_bar_text_color %}
+    .metastock-selected-location-container,
+    .metastock-selected-location-container a,
+    .metastock-selected-location-container span,
+    .metastock-selected-location-container svg {
+        color: {{ block.settings.location_bar_text_color }};
+        fill: {{ block.settings.location_bar_text_color }};
+    }
+    {% endif %}
+</style>
+{% endif %}
+
+<script>
+	let metastock_locations;
+
+    let raw_metastock_locations = [
+        {% for location in shop.metafields.metastock.locations.value %}
+        {
+            id: "{{ location.id }}",
+            name: "{{ location.name }}",
+            address1: "{{ location.address1 }}",
+            address2: "{{ location.address2 }}",
+            city: "{{ location.city }}",
+            province: "{{ location.province }}",
+            province_code: "{{ location.province_code }}",
+            zip: "{{ location.zip }}",
+            country: "{{ location.country }}",
+        },
+        {% endfor %}
+      ];
+</script>
+
+<script>
+window.addEventListener('load', () => {
+    metastock_locations = MetastockLocations.standardize(
+      raw_metastock_locations
+	);
+
+    let metastock_options = {
+        disable_add_when_quantity_exceeded: true, /* Can be true or false */
+        add_to_cart_selector: '', /* The css selector for the Add to Cart button */
+        track_quantities: 'exact', /* Can be 'exact' or 'ranges' */
+        low_stock_max: 5, /* Can be any number greater than 0 (Used with 'ranges' only) */
+        range_allows_add: true, /* Can be true or false */
+        pdp_location_display_type: 'selected_location', /* Can be 'selected_location' or 'all_locations' */
+    };
+
+    {% if metastock_google_api_key and metastock_google_api_key != '' %}
+        metastock_options['api'] = new MetastockGoogleApi("{{ metastock_google_api_key }}");
+    {% endif %}
+
+    Metastock.init(metastock_options);
+});
+</script>

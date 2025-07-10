@@ -1,0 +1,11 @@
+{% unless collection.all_products_count == 0 %} 
+    <li{% if collection.url.active %} class="site-nav--active"{% endif %}>
+      <a
+        href="{{ collection.url }}"
+        class="site-nav--link"
+        data-meganav-type="child"
+        tabindex="-1">
+          {{ collection.title | escape }}
+      </a>
+    </li>
+{% endunless %}

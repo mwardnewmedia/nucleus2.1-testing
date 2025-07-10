@@ -1,0 +1,65 @@
+{% assign store_product = false %}
+{% assign warehouse_product = false %}
+
+{% for tag in product.tags %}
+{% if tag == 'Store Product' %}
+{% assign store_product = true %}
+{% elsif tag == 'Warehouse Product' %}
+{% assign warehouse_product = true %}
+{% endif %}
+{% endfor %}
+
+
+{% if store_product == true %}
+<div class="PickupInventoryContainer">
+  	    <div tabindex="0" class="fulfillmentWrapper">
+          <div class="invWrapper">      
+            <span class="icWrapper">
+            <i class="fas fa-store"></i>
+            </span>
+            <div class="msgWrapper store-pickup-msg">
+              <div class="message">Ready for Pickup in 1 Hour</div>
+            <div class="info gp-info met-fulfillment-sp">
+              <span class="availability">                  
+                <span class="style__GreenWrapper-sc-9x0hx7-3 dLeLUA" style="color: #1aaf1a;">19 Available</span> at 
+                <button onclick="engageShift()" type="button" id="drawer-btn" class="store-availability-information__button js-modal-open-store-availability-modal store-availability-small-text" data-store-availability-modal-open="" aria-haspopup="dialog">
+                <span class="label link-label bold">Brightman's Hardware</span>
+                </button>
+              </span>
+              </div>
+            </div>
+            <span>
+              <div class="styles__SliderWrapper-RC__sc-1qvzua6-0 gKEIDV"></div>
+            </span>
+          </div>
+        </div>
+        <div tabindex="0" class="fulfillmentWrapper">
+          <div class="invWrapper"><span class="icWrapper">
+            <i class="fas fa-shipping-fast"></i>
+            </span>
+            <div class="msgWrapper truck-delivery-msg">
+              <div class="message" aria-label="Delivery">
+                <span aria-hidden="true">Delivery </span>
+              </div>
+              <div class="info gd-info met-fulfillment-td">
+                <span class="availability">Next Day Local Delivery</span>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+{% elsif warehouse_product == true and store_product == false %}
+<div class="PickupInventoryContainer">
+          <div tabindex="0" class="fulfillmentWrapper">
+            <div class="invWrapper">
+              <span class="icWrapper">
+              <i class="fas fa-box-open"></i>
+              </span>
+              <div class="msgWrapper store-pickup-msg">
+                <div class="message">Ship to Store</div>
+                <div class="locInfo">Ready for Pickup in 4-7 Days</div>
+              </div>
+            </div>
+          </div>
+</div>
+{% endif %}

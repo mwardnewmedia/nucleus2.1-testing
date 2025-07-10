@@ -1,0 +1,276 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+{% if section.settings.spacer %}<hr>{% endif %}
+  <section class="staff--container" style="background-color:{{ section.settings.staff_background_color }}; padding:30px; text-align: center">
+  {% if section.settings.staff_section_title != blank %}
+    <div class="section-header">
+      <div class="staff-section-header">
+        <h2 class="h2  {% if section.settings.align_text == 'left' %}text-left{% elsif section.settings.align_text == 'center' %}text-center{% elsif section.settings.align_text == 'right' %}text-right{% endif %}" style="color:{{ section.settings.staff_text_color }}">
+          {{ section.settings.staff_section_title | escape }}
+        </h2>
+      </div>
+      <div class="staff-section-description {% if section.settings.align_text == 'left' %}text-left{% elsif section.settings.align_text == 'center' %}text-center{% elsif section.settings.align_text == 'right' %}text-right{% endif %}" style="color:{{ section.settings.staff_text_color }};">
+        {% if section.settings.staff_section_subtitle != blank %}
+          {{ section.settings.staff_section_subtitle }}
+        {% endif %}
+      </div>
+    </div>
+   {% endif %}
+  
+  {% if section.settings.slick %}<!-- Carousel Setting -->
+    <div class="home-section--content staff--inner staff-slick-{{ section.id }} flex">
+    {% for block in section.blocks %}
+      <div class="staff-content {% if section.settings.rounded_images == true %}staff-flex-item{% endif %}" {{ block.shopify_attributes }}>
+        {% if block.settings.image %}
+          {%
+            include 'rimg',
+            img: block.settings.image,
+            class: 'logolist--image',
+            size: '350x350',
+            lazy: false,
+            canvas: true,
+            alt: block.settings.brand_title
+          %}
+        {% else %}
+          <img src="https://149596302.v2.pressablecdn.com/wp-content/uploads/newmediaretailer-logo.jpg" alt="nmr logo">
+        {% endif %}
+            <div class="staff-name text-center" style="color:{{ section.settings.staff_text_color }};">{{ block.settings.staff_name }}</div>
+            <div class="staff-title text-center" style="color:{{ section.settings.staff_text_color }};">{{ block.settings.staff_title }}</div>
+
+        {% if block.settings.staff_link != blank and block.settings.button_label != blank %}
+          <a href="{{ block.settings.staff_link }}" class="btn btn--secondary btn--small" style="margin-bottom: 20px; overflow: hidden;  max-width: 100%;" {% if block.settings.new_window == true %}target="_blank"{% endif %}>
+            {{ block.settings.button_label | escape }}
+          </a>
+       {% endif %}
+      </div>
+    {% endfor %}
+  </div>  
+  {% comment %}
+  Script to load the slick slider functionality with responsive 
+  {% endcomment %}
+  <script>
+    $(document).ready(function(){
+      $('.staff-slick-{{ section.id }}').slick({
+        dots: true,
+        arrows:true,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+              dots: true
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              dots: true
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              dots: false
+            }
+          }
+        ]
+        });
+      });
+  </script>
+  {% else %}<!-- Standard Setting -->
+  <div class="grid home-section--content staff--inner">
+    {% for block in section.blocks %}
+      <div class="grid-item one-whole medium--one-third large--one-third {% if section.settings.rounded_images == true %}staff-flex-item{% endif %}" {{ block.shopify_attributes }}>
+        {% if block.settings.image %}
+          {%
+            include 'rimg',
+            img: block.settings.image,
+            class: 'staff--image',
+            size: '350x350',
+            lazy: false,
+            canvas: true,
+            alt: block.settings.staff_title
+          %}
+        {% else %}
+          <img src="https://cdn.shopify.com/s/files/1/0509/2766/5342/files/Screen_Shot_2022-03-23_at_11.31.51_AM.png?v=1648049536" alt="staff">
+        {% endif %}
+            <div class="staff-name text-center" style="color:{{ section.settings.staff_text_color }};">{{ block.settings.staff_name }}</div>
+            <div class="staff-title text-center" style="color:{{ section.settings.staff_text_color }};">{{ block.settings.staff_title }}</div>
+        
+        {% if block.settings.staff_link != blank and block.settings.button_label != blank %}
+          <a href="{{ block.settings.staff_link }}" class="btn btn--secondary btn--small" style="margin-bottom: 20px; overflow: hidden;  max-width: 100%;">
+            {{ block.settings.button_label | escape }}
+          </a>
+        {% endif %}
+      
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+
+<style>
+  .slick-next:before, .slick-prev:before {
+    color:{{ section.settings.staff_text_color }}!important;
+  }
+</style>
+
+
+
+{% schema %}
+{
+  "name": "Staff",
+  "class": "staff--section",
+  "max_blocks": 18,
+  "settings": [
+    {
+      "type": "text",
+      "id": "staff_section_title",
+      "label": "Heading",
+      "default": "Staff Section Title"
+    },
+    {
+      "type": "text",
+      "id": "staff_section_subtitle",
+      "label": {
+        "en": "Text"
+      }
+    },
+    {
+      "type": "select",
+      "id": "align_text",
+      "label": {
+        "en": "Align Text"
+      },
+      "default": "left",
+      "options": [
+        {
+          "label": {
+            "en": "Left"
+          },
+          "value": "left"
+        },
+        {
+          "label": {
+            "en": "Center"
+          },
+          "value": "center"
+        },
+        {
+          "label": {
+            "en": "Right"
+          },
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "staff_background_color",
+      "label": {
+        "en": "Staff Section Background Color"
+      }
+    },	
+    {
+      "type": "color",
+      "id": "staff_text_color",
+      "label": {
+        "en": "Staff Section Text Color"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "spacer",
+      "label": "Include Spacer",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "slick",
+      "label": "Carousel"
+    },
+    {
+      "type": "checkbox",
+      "id": "rounded_images",
+      "label": "Round images"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "staff",
+      "name": "Staff",
+      "settings": [
+        {
+          "id": "image",
+          "type": "image_picker",
+          "label": "Image",
+          "info": "320 x 320px png or jpg recommended"
+        },
+        {
+          "type": "text",
+          "id": "staff_name",
+          "label": "Staff name"
+        },
+        {
+          "type": "text",
+          "id": "staff_title",
+          "label": "Staff title"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "staff_link",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "new_window",
+          "label": {
+            "en": "Open link in a new window"
+            },
+            "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Image",
+      "name": "Staff",
+      "blocks": [
+        {
+          "type": "staff"
+        },
+        {
+          "type": "staff"
+        },
+        {
+          "type": "staff"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 

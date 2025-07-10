@@ -1,0 +1,134 @@
+  <!-- Filterize & Alpine for Filters -->
+  <script src="https://foundational-cdn.s3.amazonaws.com/filterize/filterize-v3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+
+<style type="text/css">
+    #filterize-filters{
+        line-height: 1.5;
+    }
+    #filterize-filters a{
+        color: inherit;
+        text-decoration: inherit;
+    }
+    #filterize-filters ul{
+        padding: 0;
+    }
+    #filterize-filters ol,li{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .filterize-active-label{
+        font-size: 1.125rem;
+        line-height: 1.5rem;
+        font-weight: 500;
+    }
+    .filterize-remove-filters{
+        margin-bottom: 1.25rem;
+    }
+    .filterize-remove-filters > :not([hidden])~:not([hidden]){
+        margin-top: .25rem;
+        margin-bottom: .25rem;
+    }
+    .filterize-remove-filter{
+        display: flex;
+        align-items: center;
+        border: 1px solid rgb(209,213,219);
+        border-radius: .375rem;
+        background-color: rgb(255,255,255);
+        padding: .5rem 1rem;
+    }
+    .filterize-remove-group{
+        display: block;
+        font-size: .75rem;
+        line-height: 1rem;
+        color: rgb(156,163,175);
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+    .filterize-remove-tag{
+        display: block;
+    }
+    .filterize-filter-group{
+        font-size: 1.5rem;
+        line-height: 2rem;
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        font-weight: 700;
+    }
+    .filterize-group-links{
+        max-height: 13rem;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        border-radius: .375rem;
+        border: 1px solid rgb(209,213,219);
+        background-color: rgb(255,255,255);
+        margin-top: .5rem;
+        margin-bottom: 1.25rem;
+    }
+    .filterize-group-links li{
+        border-bottom: 1px solid rgb(229, 231, 235);
+    }
+    .filterize-group-links li:last-child{
+        border-bottom: none;
+    }
+    .filterize-link{
+        display: block;
+        padding: .5rem 1rem;
+    }
+    .filterize-flex-1{
+        flex: 1 1 0%;
+    }
+
+    .filterize-failure{
+        display: none;
+    }
+</style>
+
+<div x-data="Filterize()" x-init="loadFilters()" id="filterize-filters">
+    <template x-if="failedToInitialize()">
+        <div class="filterize-failure">
+            Filterize failed to initialize. (<span x-text="load_status_code"></span>)
+        </div>
+    </template>
+    <div id="customize-filterize">
+        <template x-for="active in active_filters">
+            <template x-if="active_filters.length > 0">
+                <div>
+                    <div class="filterize-active-label">Filtering:</div>
+                    <div class="filterize-remove-filters">
+                        <template x-for="active in active_filters">
+                            <a :href="getUrlWithoutFilter(active)" class="filterize-remove-filter" :title="getRemovalTitle(active.tag.name)">
+                                <div class="filterize-flex-1">
+                                    <span class="filterize-remove-group" x-text="active.name"></span>
+                                    <span class="filterize-remove-tag" x-text="active.tag.name"></span>
+                                </div>
+                                <div>
+                                    <span class="filterize-remove-icon" aria-hidden="true">&#10006;</span>
+                                </div>
+                            </a>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </template>
+
+        <template x-for="filter in filters">
+            <div>
+                <template x-if="!activeFilter(filter.name)">
+                    <div :id="getGroupIdFromFilter(filter.name)">
+                        <button class="filterize-filter-group" x-text="filter.name" x-on:click.prevent="activateGroup(filter.name)"></button>
+                        <ul class="filterize-group-links">
+                            <template x-for="option in filter.options">
+                                <li>
+                                    <a :href="getUrlForTag(option.tag)" class="filterize-link" tabindex="-1" x-text="option.name"></a>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+</div>

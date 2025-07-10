@@ -1,0 +1,121 @@
+<div id="mobileNavHeader">
+    <div class="display-table-cell">
+    <button class="menu-toggle mobileNavBar-link" aria-controls="navBar" aria-expanded="true">
+        <svg aria-label="close menu" style="height:25px;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+  </div>
+  <div class="display-table-cell">
+    
+    {% unless section.settings.hide_shopping_links %}
+    <a href="{{ routes.cart_url }}" class="cart-toggle mobileNavBar-link">
+      <span class="icon icon-cart"></span>
+      <span class="sr-only">Cart</span><span class="cart-count {% if cart.item_count == 0 %}hidden-count{% endif %}">{{ cart.item_count }}</span>
+    </a>
+    {% endunless %}
+    
+  </div>
+</div>
+
+<ul class="mobile-nav" id="MobileNav">
+
+  {% if shop.customer_accounts_enabled and section.settings.hide_customer_login == false %}
+  	  <li>
+    	<a href="/account"><span class="fa fa-user" aria-hidden="true" style="margin-right: 8px;"></span>My Account</a>
+  	  </li>
+  {% endif %}
+  {% for link in linklists[section.settings.menu].links %}
+    {% if link.links != blank %}
+      {% assign parent_index = forloop.index %}
+      <li
+        class="mobile-nav--has-dropdown {% if link.active %}mobile-nav--active{% endif %}"
+        aria-haspopup="true">
+        <a
+          href="{{ link.url }}"
+          class="mobile-nav--link"
+          data-meganav-type="parent"
+          {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+            {{ link.title | escape }}
+        </a>
+        <button class="icon icon-arrow-down mobile-nav--button"
+          aria-expanded="false"
+          aria-label="{{link.title | escape }} {{ 'layout.navigation.mobile_menu' | t }}">
+        </button>
+        <ul
+          id="MenuParent-{{ parent_index }}"
+          class="mobile-nav--dropdown {% if link.levels == 2 %}mobile-nav--has-grandchildren{% endif %}"
+          data-meganav-dropdown>
+          {% for childlink in link.links %}
+            {% if childlink.links != blank %}
+            {% assign child_index = forloop.index %}
+              <li
+                class="mobile-nav--has-dropdown mobile-nav--has-dropdown-grandchild {% if childlink.active %}mobile-nav--active{% endif %}"
+                aria-haspopup="true">
+                <a
+                  href="{{ childlink.url }}"
+                  class="mobile-nav--link"
+                  data-meganav-type="parent"
+                  {% unless request.page_type == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless%}>
+                    {{ childlink.title | escape }}
+                </a>
+                <button class="icon icon-arrow-down mobile-nav--button"
+                  aria-expanded="false"
+                  aria-label="{{ childlink.title | escape }} {{ 'layout.navigation.mobile_menu' | t }}">
+                </button>
+                <ul
+                  id="MenuChildren-{{ parent_index }}-{{ child_index }}"
+                  class="mobile-nav--dropdown-grandchild"
+                  data-meganav-dropdown>
+                  {% for grandchildlink in childlink.links %}
+                    <li{% if grandchildlink.active %} class="mobile-nav--active"{% endif %}>
+                      <a
+                        href="{{ grandchildlink.url }}"
+                        class="mobile-nav--link"
+                        data-meganav-type="child"
+                        {% unless request.page_type == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless %}>
+                          {{ grandchildlink.title | escape }}
+                        </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </li>
+            {% else %}
+              <li{% if childlink.active %} class="mobile-nav--active"{% endif %}>
+                <a
+                  href="{{ childlink.url }}"
+                  class="mobile-nav--link"
+                  data-meganav-type="child"
+                  {% if childlink.active %}aria-current="page"{% endif %}>
+                    {{ childlink.title | escape }}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </li>
+    {% else %}
+      <li{% if link.active %} class="mobile-nav--active"{% endif %}>
+        <a
+          href="{{ link.url }}"
+          class="mobile-nav--link"
+          data-meganav-type="child"
+          {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+            {{ link.title | escape }}
+        </a>
+      </li>
+    {% endif %}
+  {% endfor %}
+
+  {% if shop.customer_accounts_enabled and section.settings.hide_customer_login == false %}
+    {% if customer %}
+      <li class="customer-navlink large--hide"><a href="{{ routes.account_url }}">{{ 'layout.customer.view_account' | t }}</a></li>
+      <li class="customer-navlink large--hide">{{ 'layout.customer.log_out' | t | customer_logout_link }}</li>
+    {% else %}
+      <li class="customer-navlink large--hide">{{ 'layout.customer.sign_in' | t | customer_login_link }}</li>
+      <li class="customer-navlink large--hide">{{ 'layout.customer.create_account' | t | customer_register_link }}</li>
+    {% endif %}
+  {% endif %}
+</ul>
+
+

@@ -1,0 +1,138 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+
+
+<div class="grid">
+
+  <div class="grid-item large--one-third push--large--one-third text-center">
+
+    <div class="note form-success" id="resetSuccess" style="display:none;">
+      We've sent you an email with a link to update your password.
+    </div>
+
+    {% if settings.astro %}
+       <div class="grid">
+    
+      <div class="grid-item one-whole">
+        
+        <a href="/apps/loyalty/welcome">
+          
+          <div class="astro-block" style="padding:20px;background:{{ settings.color_nav_bg }};color:{{ settings.color_nav_text }}!important;border-radius:4px; display:inline-block;margin-bottom:30px;">
+              <div class="astro-instructions">
+                <h2 class="h4" style="color:{{ settings.color_nav_text }};"> <i style="margin-right:7px;" class="fa-solid fa-circle-heart"></i>{{ settings.astro_title }}</h2>
+                <span>Login with the <b>same email you use in-store</b> to connect your online account to view frequent buyer progress, get credit for online sales, and redeem deals online!</span>
+              </div>
+              
+          </div>
+        </a>
+        
+      </div>
+    
+  </div> 
+    {% endif %}
+
+    {% form 'customer_login' %}
+
+      <h1>{{ 'customer.login.title' | t }}</h1>
+    
+    	<p class="text-center">New customer? <a href="/account/register">Create Account</a></p>
+
+      {% include 'form-errors-custom' %}
+
+      <label for="customer_email" class="hidden-label">{{ 'customer.login.email' | t }}</label>
+      <input type="email" value="" name="customer[email]" id="customer_email" placeholder="{{ 'customer.login.email' | t }}" {% if form.errors contains "email" %} class="error"{% endif %} autocorrect="off" autocapitalize="off" autofocus>
+
+      {% if form.password_needed %}
+
+        <label for="customer_password" class="hidden-label">{{ 'customer.login.password' | t }}</label>
+        <input type="password" value="" name="customer[password]" id="customer_password" placeholder="{{ 'customer.login.password' | t }}" {% if form.errors contains "password" %} class="error"{% endif %}>
+
+        <p>
+          <a href="#" onclick="showRecoverPasswordForm();return false;">{{ 'customer.login.forgot_password' | t }}</a>
+        </p>
+
+      {% endif %}
+
+        <p>
+          <input type="submit" class="btn" value="{{ 'customer.login.sign_in' | t }}">
+        </p>
+        {{ 'customer.login.or' | t }} <a href="{{ shop.url }}">{{ 'customer.login.cancel' | t }}</a>
+
+    {% endform %}
+
+
+    {% comment %}
+      This page uses JavaScript to show/hide the recover password form
+    {% endcomment %}
+    <div id="recover_password" style="display: none;">
+
+      <h2>{{ 'customer.recover_password.title' | t }}</h2>
+      <p>{{ 'customer.recover_password.subtext' | t }}</p>
+
+      {% form 'recover_customer_password' %}
+
+        {% include 'form-errors-custom' %}
+
+        {% if form.posted_successfully? %}
+          {% assign reset_success = true %}
+        {% endif %}
+
+        <label for="recover-email" class="hidden-label">{{ 'customer.recover_password.email' | t }}</label>
+        <input type="email" value="" name="email" id="recover-email" placeholder="{{ 'customer.recover_password.email' | t }}" autocorrect="off" autocapitalize="off">
+
+        <p>
+          <input type="submit" class="btn" value="{{ 'customer.recover_password.submit' | t }}">
+        </p>
+        {{ 'customer.login.or' | t }} <a href="#" onclick="hideRecoverPasswordForm();return false;">{{ 'customer.recover_password.cancel' | t }}</a>
+        
+      {% endform %}
+
+    </div>
+
+    {% if shop.checkout.guest_login %}
+      <hr>
+
+      <h2>{{ 'customer.login.guest_title' | t }}</h2>
+
+      {% form 'guest_login' %}
+        <input  type="submit" class="btn" value="{{ 'customer.login.guest_continue' | t }}">
+      {% endform %}
+      
+    {% endif %}
+
+  </div>
+
+</div>
+
+
+
+<script>
+  /*
+    Show/hide the recover password form when requested.
+  */
+  function showRecoverPasswordForm() {
+    document.getElementById('recover_password').style.display = 'block';
+    document.getElementById('customer_login').style.display='none';
+  }
+
+  function hideRecoverPasswordForm() {
+    document.getElementById('recover_password').style.display = 'none';
+    document.getElementById('customer_login').style.display = 'block';
+  }
+
+  // Allow deep linking to the recover password form
+  if (window.location.hash == '#recover') { showRecoverPasswordForm() }
+
+  // reset_success is only true when the reset form is
+  {% if reset_success %}
+    document.getElementById('resetSuccess').style.display = 'block';
+  {% endif %}
+</script>
