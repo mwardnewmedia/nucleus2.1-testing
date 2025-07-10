@@ -126,6 +126,8 @@
     {% endunless %}
   {% endif %}
 
+
+  
   {% if product.tags contains 'Rental' and settings.enable_enquiry %} 
     <hr id="variantBreak" class="hr--clear hr--small">
 
@@ -238,7 +240,39 @@
   </div>
  </form>
 
-    {% else %}
+    {% elsif product.tags contains 'Rental' and settings.enable_durations_pricing and not settings.enable_enquiry %}
+  <hr id="variantBreak" class="hr--clear hr--small">
+  <div class="enquiry-durations-disabled">
+    <label>Rental Durations & Pricing</label>
+    <div class="enquiry-select flex disabled">
+      {% for variant in product.variants %}
+        <div class="option disabled">
+          {% unless settings.rental_rates or settings.hide_price %}
+            {{ variant.price | money_with_currency }} - 
+          {% endunless %}
+          {{ variant.title }}
+          {% if settings.rental_rate_disclaimer %}
+            <span class="product-rental-rate-disclaimer-wrapper">
+              <span class="product-rental-rate-disclaimer"> {{ settings.rental_rate_disclaimer }} </span> 
+            </span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <p style="color: #888; font-size: 0.9em;">Request Availability is currently disabled. Please contact us for more information.</p>
+    {% unless settings.rental_button_text == blank %}
+      <div class="grid">
+        <div class="grid-item small--one-whole medium--one-half large--one-whole">
+          <a href="{{ settings.rental_button_link }}" style="display:block;">
+            <button id="rental-contact" type="button" class="btn" style="width:100%">
+              {{ settings.rental_button_text }}
+            </button>
+          </a>
+        </div>
+      </div>
+    {% endunless %}
+  </div>
+{% else %}
 
     <hr id="variantBreak" class="hr--clear hr--small">
     
@@ -296,5 +330,11 @@
 .option.selected {
   background-color: {{ settings.color_accent | hex_to_rgba: 0.1 }};
   border: 2px solid {{ settings.color_accent }};
+}
+.enquiry-select.disabled .option.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  background: #f8f8f8;
+  cursor: not-allowed;
 }
 </style> 
