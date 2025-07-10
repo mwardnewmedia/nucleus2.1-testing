@@ -159,4 +159,28 @@ td.enquiry-thumbnail-column{
   width:100%;
   margin-bottom: 15px;
 }
+
+<style>
+.disabled-request-form-option {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: 1px solid #E9E9E9;
+  cursor: default;
+  border-radius: 3px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.disabled-request-form-option.selected {
+  background-color: {{ settings.color_accent | hex_to_rgba: 0.1 }};
+  border: 2px solid {{ settings.color_accent }};
+}
+.enquiry-select.disabled .disabled-request-form-option.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  background: #f8f8f8;
+  cursor: not-allowed;
+}
+</style> 
+
 /*# sourceMappingURL=/s/files/1/0509/2766/5342/t/2/assets/enquiry.css.map?v=1715965687 */
