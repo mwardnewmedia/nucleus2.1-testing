@@ -77,49 +77,49 @@
         "type": "checkbox",
         "id": "enable_enquiry",
         "label": {
-          "en": "Enable Enquiry"
+          "en": "Enable request availability"
         }
       },
       {
         "type": "text",
         "id": "enquiry_form_url",
         "label": {
-          "en": "Enquiry Form Url"
+          "en": "Request availability form url"
         }
       },
       {
         "type": "checkbox",
         "id": "enquiry_delivery",
         "label": {
-          "en": "Allow Enquiry Delivery"
+          "en": "Allow delivery"
         }
       },
       {
         "type": "checkbox",
         "id": "enquiry_company_field",
         "label": {
-          "en": "Show Company Field on Form"
+          "en": "Show company input field"
         }
       },
        {
         "type": "text",
         "id": "rental_reservation_banner_text",
         "label": {
-          "en": "Rental Reservation Banner & Button Text"
+          "en": "Request avialability banner & button text"
         }
       },
        {
         "type": "text",
         "id": "rental_button_text",
         "label": {
-          "en": "Rental Button Label (When Enquiry is Off)"
+          "en": "Rental button label (When request availability is off)"
         }
       },
       {
         "type": "text",
         "id": "rental_button_link",
         "label": {
-          "en": "Rental Button Link (When Enquiry is Off)"
+          "en": "Rental button link (When request availability is off)"
         }
       }
     ]
