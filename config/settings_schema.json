@@ -70,9 +70,15 @@
   },
   {
     "name": {
-      "en": "Request Availability"
+      "en": "Rental Settings"
     },
     "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Request Availability Form"
+        }
+      },
       {
         "type": "checkbox",
         "id": "enable_enquiry",
@@ -101,14 +107,14 @@
           "en": "Show company input field"
         }
       },
-       {
+      {
         "type": "text",
         "id": "rental_reservation_banner_text",
         "label": {
           "en": "Request avialability banner & button text"
         }
       },
-       {
+      {
         "type": "text",
         "id": "rental_button_text",
         "label": {
@@ -121,14 +127,13 @@
         "label": {
           "en": "Rental button link (When request availability is off)"
         }
-      }
-    ]
-  },
-  {
-    "name": {
-      "en": "Rental Settings"
-    },
-    "settings": [
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Rental Settings"
+        }
+      },
       {
         "type": "checkbox",
         "id": "rental_rates",
@@ -144,7 +149,7 @@
         },
         "default": false
       },
-     {
+      {
         "type": "text",
         "id": "rental_pricing_disclaimer",
         "label": {
@@ -2868,4 +2873,4 @@
       }
     ]
   }
-] 
+]
