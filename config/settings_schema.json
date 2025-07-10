@@ -138,7 +138,7 @@
         "type": "checkbox",
         "id": "rental_badge",
         "label": {
-          "en": "Display catalog rental badge"
+          "en": "Display rental catalog badge"
         },
         "default": false
       },
