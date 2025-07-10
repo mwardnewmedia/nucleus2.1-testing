@@ -104,14 +104,14 @@
         "type": "checkbox",
         "id": "enquiry_delivery",
         "label": {
-          "en": "Allow delivery"
+          "en": "Enable delivery"
         }
       },
       {
         "type": "checkbox",
         "id": "enquiry_company_field",
         "label": {
-          "en": "Show company input field"
+          "en": "Enable company input field"
         }
       },
       {
