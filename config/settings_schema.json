@@ -91,7 +91,8 @@
         "id": "enable_durations_pricing",
         "label": {
           "en": "Enable rental durations / pricing (When request availability is off)"
-        }
+        },
+        "default": false
       },
       {
         "type": "text",
