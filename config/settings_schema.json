@@ -160,7 +160,7 @@
         "type": "text",
         "id": "rental_rate_disclaimer",
         "label": {
-          "en": "Rental rate / duration disclaimer"
+          "en": "Rental rate / durations disclaimer"
         }
       }
     ]
