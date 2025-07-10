@@ -326,6 +326,14 @@
 {% endcomment %}
 
 <style>
+.option {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: 1px solid #E9E9E9;
+  cursor: default;
+  border-radius: 3px;
+}
+
 .option.selected {
   background-color: {{ settings.color_accent | hex_to_rgba: 0.1 }};
   border: 2px solid {{ settings.color_accent }};
