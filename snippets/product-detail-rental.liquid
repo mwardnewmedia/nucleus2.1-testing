@@ -239,10 +239,10 @@
  </form>
 
     {% else %}
-      
+
     <hr id="variantBreak" class="hr--clear hr--small">
     
-    {% unless settings.rental_button_text != blank %}
+    {% unless settings.rental_button_text == blank %}
       <div class="grid">
         <div class="grid-item small--one-whole medium--one-half large--one-whole">
           <a href="{{ settings.rental_button_link }}" style="display:block;">
