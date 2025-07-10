@@ -243,10 +243,10 @@
     {% elsif product.tags contains 'Rental' and settings.enable_durations_pricing and settings.enable_enquiry == false %}
   <hr id="variantBreak" class="hr--clear hr--small">
   <div class="enquiry-durations-disabled">
-    <label>Rental Durations & Pricing</label>
-    <div class="enquiry-select flex disabled">
+    <label>Available Rental Durations</label>
+    <div class="enquiry-select flex">
       {% for variant in product.variants %}
-        <div class="option disabled">
+        <div class="option">
           {% unless settings.rental_rates or settings.hide_price %}
             {{ variant.price | money_with_currency }} - 
           {% endunless %}
