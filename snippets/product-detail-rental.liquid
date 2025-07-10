@@ -240,7 +240,7 @@
   </div>
  </form>
 
-    {% elsif product.tags contains 'Rental' and settings.enable_durations_pricing and not settings.enable_enquiry %}
+    {% elsif product.tags contains 'Rental' and settings.enable_durations_pricing and settings.enable_enquiry == false %}
   <hr id="variantBreak" class="hr--clear hr--small">
   <div class="enquiry-durations-disabled">
     <label>Rental Durations & Pricing</label>
