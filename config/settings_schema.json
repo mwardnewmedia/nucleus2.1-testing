@@ -138,7 +138,7 @@
         "type": "checkbox",
         "id": "rental_badge",
         "label": {
-          "en": "Display rental badge"
+          "en": "Display catalog rental badge"
         },
         "default": false
       },
@@ -146,14 +146,14 @@
         "type": "checkbox",
         "id": "rental_rates",
         "label": {
-          "en": "Hide Rental Rates"
+          "en": "Hide rental rates"
         }
       },
       {
         "type": "text",
         "id": "rental_pricing_disclaimer",
         "label": {
-          "en": "Rental item disclaimer"
+          "en": "Rental item disclaimer (When rates are hidden"
         }
       },
       {
