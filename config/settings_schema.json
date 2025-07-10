@@ -153,7 +153,7 @@
         "type": "text",
         "id": "rental_pricing_disclaimer",
         "label": {
-          "en": "Rental item disclaimer (When rates are hidden"
+          "en": "Hidden rental rates disclaimer"
         }
       },
       {
