@@ -136,18 +136,18 @@
       },
       {
         "type": "checkbox",
-        "id": "rental_rates",
-        "label": {
-          "en": "Hide Rental Rates"
-        }
-      },
-      {
-        "type": "checkbox",
         "id": "rental_badge",
         "label": {
           "en": "Display rental badge"
         },
         "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "rental_rates",
+        "label": {
+          "en": "Hide Rental Rates"
+        }
       },
       {
         "type": "text",
