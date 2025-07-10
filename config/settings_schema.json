@@ -87,6 +87,13 @@
         }
       },
       {
+        "type": "checkbox",
+        "id": "enable_durations_pricing",
+        "label": {
+          "en": "Enable rental durations / pricing (when request availability is off)"
+        }
+      },
+      {
         "type": "text",
         "id": "enquiry_form_url",
         "label": {
