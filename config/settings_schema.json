@@ -16,7 +16,7 @@
         "type": "checkbox",
         "id": "hide_price",
         "label": {
-          "en": "Hide all pricing"
+          "en": "Hide All Pricing"
         },
         "default": false
       },
@@ -24,7 +24,7 @@
         "type": "checkbox",
         "id": "hide_brands",
         "label": {
-          "en": "Hide brands"
+          "en": "Hide Brands"
         },
         "default": false
       },
@@ -32,21 +32,21 @@
         "type": "checkbox",
         "id": "hide_contact_form_math",
         "label": {
-          "en": "Hide contact form math problem"
+          "en": "Hide Contact Form Math Problem"
         },
         "default": true
       },
       {
         "type": "header",
         "content": {
-          "en": "Logged in customer catalog settings"
+          "en": "Logged In Customer Catalog Settings"
         }
       },
       {
         "type": "checkbox",
         "id": "display_logged_in_customer_pricing",
         "label": {
-          "en": "Show pricing for logged in customers / Hide for others"
+          "en": "Show Pricing for Logged In Customers / Hide for Others"
         },
         "default": false
       },
@@ -54,7 +54,7 @@
         "type": "checkbox",
         "id": "display_logged_in_customer_upcs",
         "label": {
-          "en": "Show UPCs for logged in customers / Hide for others"
+          "en": "Show UPCs for Logged In Customers / Hide for Others"
         },
         "default": false
       },
@@ -62,7 +62,7 @@
         "type": "checkbox",
         "id": "display_logged_in_customer_skus",
         "label": {
-          "en": "Show SKUs for logged in customers / Hide for others"
+          "en": "Show SKUs for Logged In Customers / Hide for Others"
         },
         "default": false
       }
@@ -83,56 +83,57 @@
         "type": "checkbox",
         "id": "enable_enquiry",
         "label": {
-          "en": "Enable request availability"
+          "en": "Enable Request Availability"
         }
       },
-      {
+     {
         "type": "checkbox",
         "id": "enable_durations_pricing",
         "label": {
-          "en": "Enable rental durations / pricing (When request availability is off)"
-        }
+          "en": "Enable Rental Durations / Pricing (When request availability is off)"
+        },
+        "default": false
       },
       {
         "type": "text",
         "id": "enquiry_form_url",
         "label": {
-          "en": "Request availability form url"
+          "en": "Request Availability Form Url"
         }
       },
       {
         "type": "checkbox",
         "id": "enquiry_delivery",
         "label": {
-          "en": "Enable delivery"
+          "en": "Enable Delivery"
         }
       },
       {
         "type": "checkbox",
         "id": "enquiry_company_field",
         "label": {
-          "en": "Enable company input field"
+          "en": "Enable Company Input Field"
         }
       },
       {
         "type": "text",
         "id": "rental_reservation_banner_text",
         "label": {
-          "en": "Request avialability banner & button text"
+          "en": "Request Availability Banner & Button Text"
         }
       },
       {
         "type": "text",
         "id": "rental_button_text",
         "label": {
-          "en": "Rental button label (When request availability is off)"
+          "en": "Rental Button Label (When request availability is off)"
         }
       },
       {
         "type": "text",
         "id": "rental_button_link",
         "label": {
-          "en": "Rental button link (When request availability is off)"
+          "en": "Rental Button Link (When request availability is off)"
         }
       },
       {
@@ -145,7 +146,7 @@
         "type": "checkbox",
         "id": "rental_badge",
         "label": {
-          "en": "Display rental catalog badge"
+          "en": "Display Rental Catalog Badge"
         },
         "default": false
       },
@@ -153,21 +154,21 @@
         "type": "checkbox",
         "id": "rental_rates",
         "label": {
-          "en": "Hide rental rates"
+          "en": "Hide Rental Rates"
         }
       },
       {
         "type": "text",
         "id": "rental_pricing_disclaimer",
         "label": {
-          "en": "Hidden rental rates disclaimer"
+          "en": "Hidden Rental Rates Disclaimer"
         }
       },
       {
         "type": "text",
         "id": "rental_rate_disclaimer",
         "label": {
-          "en": "Rental rates / durations disclaimer"
+          "en": "Rental Rates / Durations Disclaimer"
         }
       }
     ]
@@ -344,7 +345,7 @@
         "type": "html",
         "id": "general_head_tags",
         "label": {
-          "en": "General <head> Tags (placed before <\/head>)"
+          "en": "General <head> Tags (Placed before <\/head>)"
         }
       }
     ]
@@ -358,7 +359,7 @@
         "type": "html",
         "id": "general_body_tags",
         "label": {
-          "en": "General <body> Tags (placed before <\/body>)"
+          "en": "General <body> Tags (Placed before <\/body>)"
         }
       }
     ]
@@ -372,7 +373,7 @@
         "type": "html",
         "id": "general_footer_tags",
         "label": {
-          "en": "General <footer> Tags (placed before <\/footer>)"
+          "en": "General <footer> Tags (Placed before <\/footer>)"
         }
       }
     ]
@@ -386,7 +387,7 @@
         "type": "html",
         "id": "general_cart_tags",
         "label": {
-          "en": "General <cart> Tags (placed before <\/head> on the /cart page)"
+          "en": "General <cart> Tags (Placed before <\/head> on the /cart page)"
         }
       }
     ]
@@ -518,7 +519,7 @@
         "label": {
           "da": "Primært indhold",
           "de": "Primärer Inhalt",
-          "en": "Primary content",
+          "en": "Primary Content",
           "es": "Contenido principal",
           "fi": "Ensisijainen sisältö",
           "fr": "Contenu principal",
@@ -539,7 +540,7 @@
         "info": {
           "da": "Tekstlinks og primære knapper",
           "de": "Textlinks und primäre Schaltflächen",
-          "en": "Text links and primary buttons",
+          "en": "Text Links & Primary Buttons",
           "es": "Enlaces de texto y botones principales",
           "fi": "Tekstilinkit ja ensisijaiset painikkeet",
           "fr": "Liens de texte et boutons principaux",
@@ -563,7 +564,7 @@
         "label": {
           "da": "Sekundært indhold",
           "de": "Sekundärer Inhalt",
-          "en": "Secondary content",
+          "en": "Secondary Content",
           "es": "Contenido secundario",
           "fi": "Toissijainen sisältö",
           "fr": "Contenu secondaire",
@@ -584,7 +585,7 @@
         "info": {
           "da": "Sekundære knapper",
           "de": "Sekundäre Schaltflächen",
-          "en": "Secondary buttons",
+          "en": "Secondary Buttons",
           "es": "Botones secundarios",
           "fi": "Toissijaiset painikkeet",
           "fr": "Boutons secondaires",
@@ -629,7 +630,7 @@
         "info": {
           "da": "Antal i indkøbskurven",
           "de": "Warenkorbmenge",
-          "en": "Cart quantity",
+          "en": "Cart Quantity",
           "es": "Cantidad del carrito",
           "fi": "Määrä",
           "fr": "Quantité du panier",
@@ -653,7 +654,7 @@
         "label": {
           "da": "Baggrund for brødtekst",
           "de": "Körperhintergrund",
-          "en": "Body background",
+          "en": "Body Background",
           "es": "Fondo del cuerpo",
           "fi": "Näytön pääosan tausta",
           "fr": "Arrière-plan du corps",
@@ -678,7 +679,7 @@
         "label": {
           "da": "Baggrund for brødtekst",
           "de": "Körperhintergrund",
-          "en": "Image background",
+          "en": "Image Background",
           "es": "Fondo del cuerpo",
           "fi": "Näytön pääosan tausta",
           "fr": "Arrière-plan du corps",
@@ -727,7 +728,7 @@
         "label": {
           "da": "Farve på anmeldelsesstjerner",
           "de": "Farbe Bewertungssterne",
-          "en": "Review Star color",
+          "en": "Review Star Color",
           "es": "Revisar color de la estrella",
           "fi": "Arvostelujen tähden väri",
           "fr": "Couleur des étoiles d'avis",
@@ -748,7 +749,7 @@
         "info": {
           "da": "Dette valg tilsidesætter indstillingerne for din app til Produktanmeldelser.",
           "de": "Diese Auswahl überschreibt die Einstellungen Ihrer Produktbewertungsanwendung.",
-          "en": "This selection overrides your product review app settings.",
+          "en": "This Selection Overrides Your Product Review App Settings.",
           "es": "Esta selección anula la configuración de tu aplicación de reseña de producto.",
           "fi": "Tämä valinta ohittaa tuotearvostelusovelluksen asetukset.",
           "fr": "Cette sélection remplace les paramètres de votre application d'avis sur les produits.",
@@ -820,7 +821,7 @@
         "label": {
           "da": "Baggrund",
           "de": "Hintergrund",
-          "en": "Search bar text",
+          "en": "Search Bar Text",
           "es": "Fondo",
           "fi": "Tausta",
           "fr": "Arrière-plan",
@@ -845,7 +846,7 @@
         "label": {
           "da": "Baggrund",
           "de": "Hintergrund",
-          "en": "Search bar border",
+          "en": "Search Bar Border",
           "es": "Fondo",
           "fi": "Tausta",
           "fr": "Arrière-plan",
@@ -870,7 +871,7 @@
         "label": {
           "da": "Tekst og links",
           "de": "Text und Links",
-          "en": "Text and links",
+          "en": "Text & Links",
           "es": "Texto y enlaces",
           "fi": "Teksti ja linkit",
           "fr": "Texte et liens",
@@ -895,7 +896,7 @@
         "label": {
           "da": "Baggrund for hovedmenu",
           "de": "Hintergrund Hauptmenü",
-          "en": "Main menu background",
+          "en": "Main Menu Background",
           "es": "Fondo del menú principal",
           "fi": "Päävalikon tausta",
           "fr": "Arrière-plan du menu principal",
@@ -920,7 +921,7 @@
         "label": {
           "da": "Baggrund for menupunkter",
           "de": "Hauptmenüpunkte",
-          "en": "Main menu items",
+          "en": "Main Menu Items",
           "es": "Elementos del menú principal",
           "fi": "Päävalikon kohdat",
           "fr": "Éléments du menu principal",
@@ -943,7 +944,7 @@
         "type": "color",
         "id": "metastock_header_background",
         "label": {
-          "en": "Metastock background",
+          "en": "Metastock Background",
           "zh-TW": "主選單項目"
         },
         "default": "#fff"
@@ -952,7 +953,7 @@
         "type": "color",
         "id": "metastock_header_text",
         "label": {
-          "en": "Metastock text color",
+          "en": "Metastock Text Color",
           "zh-TW": "主選單項目"
         },
         "default": "#fff"
@@ -1032,7 +1033,7 @@
         "info": {
           "da": "Alle overskrifter og produktpriser med fed",
           "de": "Alle Überschriften und fett gedruckte Produktpreise",
-          "en": "All headings and bold product prices",
+          "en": "All Headings & Bold Product Prices",
           "es": "Todos los encabezados y precios de productos en negrita",
           "fi": "Kaikki otsikot ja lihavoitujen tuotteiden hinnat",
           "fr": "Tous les titres et les prix des produits en gras",
@@ -1129,7 +1130,7 @@
         "label": {
           "da": "Ikoner for sociale medier og betaling",
           "de": "Social-Media- und Zahlungs-Symbole",
-          "en": "Social media and payment icons",
+          "en": "Social Media & Payment Icons",
           "es": "Iconos de redes sociales y de pago",
           "fi": "Some- ja maksukuvakkeet",
           "fr": "Icônes de médias sociaux et de paiement",
@@ -1227,7 +1228,7 @@
         "content": {
           "da": "Basistypografier",
           "de": "Basisstile",
-          "en": "Base styles",
+          "en": "Base Styles",
           "es": "Estilos base",
           "fi": "Pohjatyylit",
           "fr": "Styles de base",
@@ -1276,7 +1277,7 @@
         "label": {
           "da": "Skriftstørrelse",
           "de": "Schriftgröße",
-          "en": "Font size",
+          "en": "Font Size",
           "es": "Tamaño de fuente",
           "fi": "Fonttikoko",
           "fr": "Taille de la police",
@@ -1416,7 +1417,7 @@
         "content": {
           "da": "Overskriftstypografier",
           "de": "Überschriftstile",
-          "en": "Heading styles",
+          "en": "Heading Styles",
           "es": "Estilos de título",
           "fi": "Otsikkotyyli",
           "fr": "Styles de titre",
@@ -1465,7 +1466,7 @@
         "label": {
           "da": "Skriv overskrifter med store bogstaver",
           "de": "Überschriften groß schreiben",
-          "en": "Capitalize headings",
+          "en": "Capitalize Headings",
           "es": "Poner títulos en mayúsculas",
           "fi": "Kirjoita otsikot isoilla kirjaimilla",
           "fr": "Mettre les titres en majuscules",
@@ -1488,7 +1489,7 @@
         "content": {
           "da": "Typografier for navigation og knapper",
           "de": "Navigations- und Schaltflächenstile",
-          "en": "Navigation and buttons styles",
+          "en": "Navigation & Buttons Styles",
           "es": "Estilos de navegación y botones",
           "fi": "Navigointi ja painiketyylit",
           "fr": "Styles de navigation et de boutons",
@@ -1512,7 +1513,7 @@
         "label": {
           "da": "Skrifttype for hovedmenu og knap",
           "de": "Schriftart Hauptmenü und Schaltflächen",
-          "en": "Main menu and button font",
+          "en": "Main Menu & Button Font",
           "es": "Fuente de menú principal y botón",
           "fi": "Päävalikko ja painikkeen fontti",
           "fr": "Police du menu principal et du bouton",
@@ -1537,7 +1538,7 @@
         "label": {
           "da": "Skriftstørrelse for hovedmenu",
           "de": "Schriftgröße Hauptmenü",
-          "en": "Main menu font size",
+          "en": "Main Menu Font Size",
           "es": "Tamaño de fuente del menú principal",
           "fi": "Päävalikon fonttikoko",
           "fr": "Taille de la police du menu principal",
@@ -1701,7 +1702,7 @@
         "label": {
           "da": "Skriv hovedmenuens punkter med store bogstaver",
           "de": "Hauptmenüpunkte groß schreiben",
-          "en": "Capitalize main menu items",
+          "en": "Capitalize Main Menu Items",
           "es": "Poner en mayúsculas los elementos del menú principal",
           "fi": "Kirjoita päävalikon valinnat isoilla kirjaimilla",
           "fr": "Mettre en majuscules les éléments du menu principal",
@@ -1723,7 +1724,7 @@
         "type": "select",
         "id": "type_button_size",
         "label": {
-          "en": "Button font size"
+          "en": "Button Font Size"
         },
         "options": [
           {
@@ -1764,7 +1765,7 @@
         "type": "checkbox",
         "id": "type_button_transform",
         "label": {
-          "en": "Capitalize buttons"
+          "en": "Capitalize Buttons"
         }
       }
     ]
@@ -1797,7 +1798,7 @@
         "label": {
           "da": "Favicon-billede",
           "de": "Favicon-Bild",
-          "en": "Favicon image",
+          "en": "Favicon Image",
           "es": "Imagen de favicon",
           "fi": "Favicon-kuva",
           "fr": "Image favicon",
@@ -1865,7 +1866,7 @@
         "label": {
           "da": "Aktivér ordrebemærkninger",
           "de": "Bestellhinweis aktivieren",
-          "en": "Enable order notes",
+          "en": "Enable Order Notes",
           "es": "Habilitar notas de pedido",
           "fi": "Ota tilauksen huomautukset käyttöön",
           "fr": "Activer les notes de commande",
@@ -1889,7 +1890,7 @@
         "label": {
           "da": "Indkøbskurvtype",
           "de": "Warenkorbstil",
-          "en": "Cart type",
+          "en": "Cart Type",
           "es": "Tipo de carrito",
           "fi": "Ostoskorin tyyppi",
           "fr": "Type de panier",
@@ -2007,7 +2008,7 @@
         "content": {
           "da": "Billede til deling på sociale medier",
           "de": "Social-Sharing-Bild",
-          "en": "Social sharing image",
+          "en": "Social Sharing Image",
           "es": "Imagen para redes sociales",
           "fi": "Sosiaalisen median jakamiskuva",
           "fr": "Image de partage social",
@@ -2571,7 +2572,7 @@
         "label": {
           "da": "Knaptypografi",
           "de": "Schaltflächenstil",
-          "en": "Button style",
+          "en": "Button Style",
           "es": "Estilo de botón",
           "fi": "Painikkeen tyyli",
           "fr": "Style de bouton",
@@ -2880,4 +2881,4 @@
       }
     ]
   }
-]
+] 
