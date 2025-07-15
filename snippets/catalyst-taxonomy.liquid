@@ -120,6 +120,48 @@
       {%- comment -%} No subcategories for Plumbing collection {%- endcomment -%}
       {%- assign allowed_values = '' | split: ',' -%}
     {%- endif -%}
+   {%- when 'dog' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- comment -%} No categories for Dog collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Fish Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Litter & Accessories, Reptile Food, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food' | split: ',' -%}
+    {%- endif -%}
+  {%- when 'cat' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- comment -%} No categories for Cat collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Fish Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Litter & Accessories, Reptile Food, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food' | split: ',' -%}
+    {%- endif -%}
+  {%- when 'small-animal' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- comment -%} No categories for Small Animal collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Fish Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Litter & Accessories, Reptile Food, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food' | split: ',' -%}
+    {%- endif -%}
+  {%- when 'bird' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- comment -%} No categories for Bird collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Fish Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Litter & Accessories, Reptile Food, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food' | split: ',' -%}
+    {%- endif -%}
+   {%- when 'reptile' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- comment -%} No categories for Reptile collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Fish Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Litter & Accessories, Reptile Food, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food' | split: ',' -%}
+    {%- endif -%}
+  {%- when 'fish' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- comment -%} No categories for Fish collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Fish Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Litter & Accessories, Reptile Food, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food' | split: ',' -%}
+    {%- endif -%}
 {%- endcase -%}
 
 {{- allowed_values | join: ',' -}}
