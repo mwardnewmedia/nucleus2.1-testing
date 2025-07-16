@@ -27,7 +27,7 @@ Modify at your own peril, a broken website is the likely result.
   {% if section.settings.slick %}<!-- Carousel Setting -->
     <div class="logolist--inner responsive-{{ section.id }} flex" style="margin-left:40px;margin-right:40px;" >
     {% for block in section.blocks %}
-      <div class="logo-flex-item" {{ block.shopify_attributes }}>
+      <div class="logo-flex-item flex flex-col items-center justify-center" {{ block.shopify_attributes }}>
         {% if block.settings.link != blank %}
           <a href="{{ block.settings.link | escape }}" {% if block.settings.new_window == true %}target="_blank"{% endif %}> 
         {% endif %}
@@ -42,7 +42,7 @@ Modify at your own peril, a broken website is the likely result.
             alt: block.settings.brand_title
           %}
         {% else %}
-          <img src="https://149596302.v2.pressablecdn.com/wp-content/uploads/newmediaretailer-logo.jpg" alt="nmr logo">
+          <img src="https://149596302.v2.pressablecdn.com/wp-content/uploads/newmediaretailer-logo.jpg" alt="nmr logo" width="200" height="200">
         {% endif %}
             <h3 class="brands-title">{{ block.settings.brand_title }}</h3>
 
@@ -101,7 +101,7 @@ Modify at your own peril, a broken website is the likely result.
   {% elsif section.settings.center_align_items == true %}
   <div class="grid flex-container logolist--inner">
     {% for block in section.blocks %}
-      <div class="grid-item one-half medium--one-third large--one-sixth" {{ block.shopify_attributes }}>
+      <div class="grid-item one-half medium--one-third large--one-sixth" {{ block.shopify_attributes }} style="text-align: center;">
         {% if block.settings.link != blank %}
           <a href="{{ block.settings.link | escape }}" {% if block.settings.new_window == true %}target="_blank"{% endif %}>
         {% endif %}
@@ -116,7 +116,7 @@ Modify at your own peril, a broken website is the likely result.
             alt: block.settings.brand_title
           %}
         {% else %}
-          <img src="https://149596302.v2.pressablecdn.com/wp-content/uploads/newmediaretailer-logo.jpg" alt="nmr logo">
+          <img src="https://149596302.v2.pressablecdn.com/wp-content/uploads/newmediaretailer-logo.jpg" alt="nmr logo" width="200" height="200">
         {% endif %}
             <h3 class="brands-title">{{ block.settings.brand_title }}</h3>
 
@@ -130,24 +130,24 @@ Modify at your own peril, a broken website is the likely result.
   {% else %}<!-- Standard Setting -->
   <div class="grid logolist--inner">
     {% for block in section.blocks %}
-      <div class="grid-item one-half medium--one-third large--one-sixth" {{ block.shopify_attributes }}>
+      <div class="grid-item one-half medium--one-third large--one-sixth" {{ block.shopify_attributes }} style="text-align: center;">
         {% if block.settings.link != blank %}
           <a href="{{ block.settings.link | escape }}" {% if block.settings.new_window == true %}target="_blank"{% endif %}>
         {% endif %}
 
         {% if block.settings.image %}
-          <div class="flex items-center justify-center" style="height:6rem;">
-            {%
-              include 'rimg', 
-              img: block.settings.image,
-              size: '200x200',
-              lazy: false,
-              canvas: true,
-              alt: block.settings.brand_title
-            %}
-          </div>
+          {%
+            include 'rimg', 
+            img: block.settings.image,
+            size: '200x200',
+            lazy: false,
+            canvas: true,
+            alt: block.settings.brand_title
+          %}
         {% else %}
-          <img src="https://149596302.v2.pressablecdn.com/wp-content/uploads/newmediaretailer-logo.jpg" alt="nmr logo">
+          <div class="flex items-center justify-center" style="height:6rem;">
+            <img src="https://149596302.v2.pressablecdn.com/wp-content/uploads/newmediaretailer-logo.jpg" alt="nmr logo" width="200" height="200">
+          </div>
         {% endif %}
             <h4>{{ block.settings.brand_title }}</h4>
 
