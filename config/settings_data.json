@@ -134,7 +134,6 @@
           "secondary_megamenu": "",
           "tertiary_megamenu": "",
           "sticky_header": false,
-          "site_full_width": false,
           "mobile_sign_in": false,
           "search_border": false,
           "show_site_toggle": true,
@@ -375,7 +374,6 @@
           "shipping_disclaimer": true,
           "enable_bold_v2": false,
           "enable_bold_v1": false,
-          "enable_bubble_option_selector": true,
           "hide_variant_selector": false,
           "product_savings": false,
           "hide_price": false,
@@ -830,6 +828,42 @@
       "brands_we_love_Ta69Jk": {
         "type": "brands-we-love",
         "blocks": {
+          "logo_wDAkga": {
+            "type": "logo",
+            "settings": {
+              "image": "shopify://shop_images/800px-Husqvarna_Logo.png",
+              "link": "",
+              "new_window": false,
+              "brand_title": "Husqvarna"
+            }
+          },
+          "logo_8it3VF": {
+            "type": "logo",
+            "settings": {
+              "image": "shopify://shop_images/images.png",
+              "link": "",
+              "new_window": false,
+              "brand_title": "Hilti"
+            }
+          },
+          "logo_8ckUpd": {
+            "type": "logo",
+            "settings": {
+              "image": "shopify://shop_images/bosch-logo-big.png",
+              "link": "",
+              "new_window": false,
+              "brand_title": "Bosch"
+            }
+          },
+          "logo_dNk3VT": {
+            "type": "logo",
+            "settings": {
+              "image": "shopify://shop_images/DeWalt-Logo.png",
+              "link": "",
+              "new_window": false,
+              "brand_title": "Dewalt"
+            }
+          },
           "logo_RcjMKd": {
             "type": "logo",
             "settings": {
@@ -904,6 +938,10 @@
           }
         },
         "block_order": [
+          "logo_wDAkga",
+          "logo_8it3VF",
+          "logo_8ckUpd",
+          "logo_dNk3VT",
           "logo_RcjMKd",
           "logo_HWRM6L",
           "logo_CNEPtg",
