@@ -479,73 +479,6 @@ Modify at your own peril, a broken website is the likely result.
   
 {% endif %}
 
-
-{% if section.settings.site_full_width %}
-    <style>
-      .wrapper,.container,.max-w-xl {
-       max-width:100%!important; 
-      }
-      .mortar-detail-content {
-      max-width:1200px!important;
-      }
-      .site-footer .form-vertical {
-      margin:0!important;
-      }
-      @media (min-width:769px) {
-      .mortar-item-link-service, .mortar-item-link-location, .mortar-item-link-department, .flex-wrap.mt-10 .max-w-sm {
-      width: auto;
-      max-width: 100% !important;
-      display: block !important;
-      margin: 0 auto;
-      }
-      }
-    </style>
-	{% if request.path contains "/a/pages/" %}
-    <style>
-      /* Make Mortar heros full width with no white space against the header */
-      .main-content {
-          padding: 0;
-          margin-top: -20px;
-      }
-	</style>
-	{% endif %}
-	{% if template == 'page' %}
-		<style>
-          /* Class to make an image on the internal Shopify pages full width */
-          .rte .page-fw {
-            width: 100vw!important;    
-            max-width: 100vw!important;
-            margin-left: calc(50% - 50vw)!important;
-            padding-bottom:25px;
-          }
-          .breadcrumb {
-          margin-bottom:30px!important;
-          }
-        </style>
-	{% endif %}
-	{% if request.path contains "/a/pages/locations"%}
-    <style>
-      .mortar-item .flex {
-      padding-top:15px;
-      max-width:1200px!important;
-      margin:0 auto;
-      }
-    </style>
-	{% endif %}
-    {% if request.path == '/a/pages/offers' or request.path == '/a/pages/events' or request.path == '/a/pages/departments' or request.path == '/a/pages/services' or request.path == '/a/pages/locations' or request.path == '/a/pages/staff' or request.path == '/a/pages/careers' %}
-    <style>
-     @media (min-width: 1200px){
-		.container {
-    		max-width: 1400px!important;
-        }
-     }
-    .main-content {
-     	margin-top:0!important; 
-    }
-    </style>
-	{% endif %}
-{% endif %}
-
 {% endif %}
 {% schema %}
 {
@@ -644,14 +577,6 @@ Modify at your own peril, a broken website is the likely result.
       "id": "sticky_header",
       "label": {
         "en": "Sticky header"
-      },
-      "default": false
-    },
-	{
-      "type": "checkbox",
-      "id": "site_full_width",
-      "label": {
-        "en": "Site full width"
       },
       "default": false
     },
