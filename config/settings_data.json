@@ -935,6 +935,15 @@
               "new_window": false,
               "brand_title": "Shopify"
             }
+          },
+          "logo_Maa6KH": {
+            "type": "logo",
+            "settings": {
+              "image": "shopify://shop_images/Shopify_Collections_500x500px_Shopify_1.png",
+              "link": "",
+              "new_window": false,
+              "brand_title": ""
+            }
           }
         },
         "block_order": [
@@ -949,7 +958,8 @@
           "logo_F7rbgt",
           "logo_4jaRzD",
           "logo_QMt4Vr",
-          "logo_XdzmFB"
+          "logo_XdzmFB",
+          "logo_Maa6KH"
         ],
         "settings": {
           "title": "Partnering with Industry Leaders",
