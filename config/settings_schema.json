@@ -2805,10 +2805,15 @@
   },
   {
     "name": {
-      "en": "Astro",
-      "zh-TW": "價格格式"
+      "en": "Applications",
     },
     "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Request Availability Form"
+        }
+      },
       {
         "type": "checkbox",
         "id": "astro",
