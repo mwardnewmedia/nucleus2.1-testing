@@ -2805,21 +2805,8 @@
   },
   {
     "name": {
-      "en": "Slick"
-    },
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "slick",
-        "label": {
-          "en": "Slick"
-        }
-      }
-    ]
-  },
-   {
-    "name": {
-      "en": "Applications"
+      "en": "Astro",
+      "zh-TW": "價格格式"
     },
     "settings": [
       {
@@ -2848,40 +2835,50 @@
       }
     ]
   },
-   {
-    "name": "Shopify Subscriptions",
+  {
+    "name": {
+      "en": "Slick"
+    },
     "settings": [
       {
         "type": "checkbox",
-        "id": "shopify_subscriptions",
+        "id": "slick",
         "label": {
-          "en": "Enable Shopify Subscriptions (On PDPs)",
-        }
-      }
-    ]
-  },
-   {
-    "name": "Bold V1",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "bold_v1",
-        "label": {
-          "en": "Enable Bold V1",
+          "en": "Slick"
         }
       }
     ]
   },
   {
-    "name": "Bold V2",
+    "name": {
+      "en": "Bold V1",
+      "zh-TW": "價格格式"
+    },
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "bold_v1",
+        "label": {
+          "en": "Bold V1",
+          "zh-TW": "將美分顯示為上標"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Bold V2",
+      "zh-TW": "價格格式"
+    },
     "settings": [
       {
         "type": "checkbox",
         "id": "bold_v2",
         "label": {
-          "en": "Enable Bold V2",
+          "en": "Bold V2",
+          "zh-TW": "將美分顯示為上標"
         }
       }
     ]
   }
-]
+] 
