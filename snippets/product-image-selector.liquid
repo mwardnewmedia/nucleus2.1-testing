@@ -8,7 +8,7 @@
                       {%- assign max_width = 700 -%}
                       {%- assign max_height = 1024 -%}
                   
-                      {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                      {%- assign img_url = media | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
                       {% comment %}LightBox Modal{% endcomment %}
                       <div x-data="{ imgModal : false, imgModalSrc : '', imgModalDesc : '' }">
                         <template @img-modal.window="imgModal = true; imgModalSrc = $event.detail.imgModalSrc; imgModalDesc = $event.detail.imgModalDesc;" x-if="imgModal">
@@ -23,7 +23,7 @@
                                 </button>
                               </div>
                               <div class="p-2">
-                                <img :alt="imgModalSrc" class="object-contain h-1/2-screen" :src="imgModalSrc">
+                                <img :alt="imgModalSrc" class="object-contain h-1/2-screen" :src="imgModalSrc" width="800" height="800">
                                 <p x-text="imgModalDesc" class="text-center text-white"></p>
                               </div>
                             </div>
@@ -39,14 +39,18 @@
                       >
                         <div class="no-js product__image-wrapper">
                           <div x-data="{}">
-                            <a @click="$dispatch('img-modal', {  imgModalSrc: '{{ media | img_url: '800x800'}}', imgModalDesc: '{{ media.alt | replace: '"', '' }}' })">
-                              <img id="{{ media_id }}"
+                            <a @click="$dispatch('img-modal', {  imgModalSrc: '{{ media | img_url: '800x800' }}', imgModalDesc: '{{ media.alt | replace: '"', '' }}' })" style="position: relative; display: block;">
+                              <img id="{{ media.id }}"
                                 loading="lazy"
-                                src="{{ media | img_url: '500x500'}}"
+                                src="{{ media | img_url: '500x500' }}"
                                 data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
-                                data-aspectratio="{{ image.aspect_ratio }}"
+                                data-aspectratio="{{ media.aspect_ratio }}"
                                 data-sizes="auto"
                                 alt="{{ media.alt | replace: '"', '' }}"
+                                class="product-main-image"
+                                data-zoom-image="{{ media | img_url: '1024x1024', scale: 2 }}"
+                                width="{{ media.width }}"
+                                height="{{ media.height }}"
                                 >
                             </a>
                           </div>
@@ -89,7 +93,7 @@
                     @click="selectedId = {{ media.id }}"
                     type="button"
                     class="inline-flex px-4 py-2 border-t border-l border-r">               
-                      <img src="{{ media | img_url: '100x100'}}" alt="{{ media.alt | replace: '"', '' }}">
+                      <img src="{{ media | img_url: '100x100'}}" alt="{{ media.alt | replace: '"', '' }}" width="100" height="100">
                   </button>
                 </li>
               {% when 'external_video' %}
@@ -99,7 +103,7 @@
                     @click="selectedId = {{ media.id }}"
                     type="button"
                     class="inline-flex px-4 py-2 border-t border-l border-r relative">                    
-                      <img src="{{ media | img_url: '100x100'}}" alt="{{ media.alt | replace: '"', '' }}" style="position:relative;">
+                      <img src="{{ media | img_url: '100x100'}}" alt="{{ media.alt | replace: '"', '' }}" style="position:relative;" width="100" height="100">
                       <div class="product-video-overlay">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
@@ -227,4 +231,36 @@
   cursor:pointer;
 }
 
+/* Styles for image zoom functionality */
+.product-main-image {
+  cursor: zoom-in; /* Standard magnifying glass cursor */
+}
+
+.zoom-container {
+  position: absolute;
+  width: 150px; /* Adjust as needed */
+  height: 150px; /* Adjust as needed */
+  border: 1px solid #ddd;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-color: transparent; /* Ensure transparent background */
+  display: none; /* Hidden by default, shown on hover */
+  z-index: 10; /* Ensure it's above the image */
+  pointer-events: none; /* Important: ensures mouse events go to the underlying image */
+}
+
+/* The .zoom-image styles are no longer needed as we are using background-image on .zoom-container */
+/*
+.zoom-image {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  opacity: 0;
+}
+*/
 </style>
+
+<script src="{{ 'image-zoom.js' | asset_url }}" defer></script>
