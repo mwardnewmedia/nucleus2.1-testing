@@ -24,7 +24,7 @@
         "type": "checkbox",
         "id": "hide_brands",
         "label": {
-          "en": "Hide Brands"
+          "en": "Hide All Brands"
         },
         "default": false
       },
