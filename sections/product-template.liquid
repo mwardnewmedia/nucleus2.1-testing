@@ -450,17 +450,56 @@ Modify at your own peril, a broken website is the likely result.
                 {% endif %}
               {% endunless %}
 
-              <select name="id" data-productid="{{ product.id }}" id="productSelect-{{ section.id }}" class="product-variant-selector product-variants-{{ section.id }}" style="color:{{ settings.color_borders }};">
-                {% for variant in product.variants %}
-                  {% if variant.available %}
-                    <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}" data-media-id="{{ section.id }}-{% for media in product.media %}{{ featured.media.id }}{% unless forloop.last %}{% endunless %}{% endfor %}">{{ variant.title }}</option>
-                  {% else %}
-                    <option disabled="disabled">
-                      {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+              {% if section.settings.enable_variant_swatches %}
+                {% comment %} New swatch display {% endcomment %}
+                <div class="product-variant-swatches">
+                  {% for option in product.options_with_values %}
+                    <div class="swatch-option">
+                      <label>{{ option.name }}:</label>
+                      <div class="swatch-values">
+                        {% for value in option.values %}
+                          {% assign variant_for_value = product.variants | where: option.name, value | first %}
+                          <div
+                            class="swatch-item {% if variant_for_value.available == false %}sold-out{% endif %}"
+                            data-option-name="{{ option.name | handleize }}"
+                            data-option-value="{{ value | handleize }}"
+                            data-variant-id="{{ variant_for_value.id }}"
+                            {% if variant_for_value.image %}data-image-id="{{ variant_for_value.image.id }}"{% endif %}
+                          >
+                            {{ value }}
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+                <select name="id" data-productid="{{ product.id }}" id="productSelect-{{ section.id }}" class="product-variant-selector product-variants-{{ section.id }}" style="display: none;">
+                  {% for variant in product.variants %}
+                    <option
+                      {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %}
+                      data-sku="{{ variant.sku }}"
+                      value="{{ variant.id }}"
+                      data-media-id="{{ variant.featured_media.id }}"
+                      {% if variant.available == false %}disabled="disabled"{% endif %}
+                    >
+                      {{ variant.title }}
                     </option>
-                  {% endif %}
-                {% endfor %}
-              </select>
+                  {% endfor %}
+                </select>
+              {% else %}
+                {% comment %} Existing dropdown {% endcomment %}
+                <select name="id" data-productid="{{ product.id }}" id="productSelect-{{ section.id }}" class="product-variant-selector product-variants-{{ section.id }}" style="color:{{ settings.color_borders }};">
+                  {% for variant in product.variants %}
+                    {% if variant.available %}
+                      <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}" data-media-id="{{ section.id }}-{% for media in product.media %}{{ featured.media.id }}{% unless forloop.last %}{% endunless %}{% endfor %}">{{ variant.title }}</option>
+                    {% else %}
+                      <option disabled="disabled">
+                        {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                      </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              {% endif %}
 
             </div>
           
@@ -1335,6 +1374,12 @@ $(document).ready(function () {
           }
         }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_variant_swatches",
+      "label": "Enable Variant Swatches",
+      "default": false
     }
   ]
 }
