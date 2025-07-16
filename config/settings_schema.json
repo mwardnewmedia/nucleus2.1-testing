@@ -2837,6 +2837,38 @@
           "en": "Location Contact Form"
         }
       },
+      {
+        "type": "header",
+        "content": {
+          "en": "Shopify Subscriptions"
+        }
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Bold V1"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "bold_v1",
+        "label": {
+          "en": "Bold V1",
+        }
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Bold V2"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "bold_v2",
+        "label": {
+          "en": "Bold V2",
+        }
+      },
     ]
   },
   {
@@ -2849,38 +2881,6 @@
         "id": "slick",
         "label": {
           "en": "Slick"
-        }
-      }
-    ]
-  },
-  {
-    "name": {
-      "en": "Bold V1",
-      "zh-TW": "價格格式"
-    },
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "bold_v1",
-        "label": {
-          "en": "Bold V1",
-          "zh-TW": "將美分顯示為上標"
-        }
-      }
-    ]
-  },
-  {
-    "name": {
-      "en": "Bold V2",
-      "zh-TW": "價格格式"
-    },
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "bold_v2",
-        "label": {
-          "en": "Bold V2",
-          "zh-TW": "將美分顯示為上標"
         }
       }
     ]
