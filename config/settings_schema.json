@@ -175,27 +175,6 @@
   },
   {
     "name": {
-      "en": "Mortar"
-    },
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "career_posted_date",
-        "label": {
-          "en": "Career Posted Date"
-        }
-      },
-      {
-        "type": "checkbox",
-        "id": "location_contact",
-        "label": {
-          "en": "Location Contact Form"
-        }
-      }
-    ]
-  },
-  {
-    "name": {
       "en": "True Value"
     },
     "settings": [
@@ -2837,7 +2816,27 @@
         "type": "checkbox",
         "id": "astro_informational",
         "label": "Informational Astro Customer"
-      }
+      },
+       {
+        "type": "header",
+        "content": {
+          "en": "Mortar"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "career_posted_date",
+        "label": {
+          "en": "Career Posted Date"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "location_contact",
+        "label": {
+          "en": "Location Contact Form"
+        }
+      },
     ]
   },
   {
