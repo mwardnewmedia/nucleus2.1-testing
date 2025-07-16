@@ -428,6 +428,10 @@ Modify at your own peril, a broken website is the likely result.
         {% include 'astro-pdp' %}
       {% endif %}  
 
+      {% if settings.shopify_subscriptions %}
+        <div class="subscriptions_app_embed_block"></div>
+      {% endif %}
+
       {%- capture "form_id" -%}addToCartForm-{{ section.id }}{%- endcapture -%}
      
       {% form 'product', product, data-productid: product.id, class:form_class, id:form_id, data-product-form: '' %}
