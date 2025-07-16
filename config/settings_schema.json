@@ -2853,7 +2853,7 @@
       {
         "type": "header",
         "content": {
-          "en": "Bold V1"
+          "en": "Bold"
         }
       },
       {
@@ -2861,12 +2861,6 @@
         "id": "bold_v1",
         "label": {
           "en": "Enable Bold V1",
-        }
-      },
-      {
-        "type": "header",
-        "content": {
-          "en": "Bold V2"
         }
       },
       {
