@@ -316,6 +316,7 @@
           "grid": "4",
           "rows": "6",
           "collection_sidebar_filters": "search_discovery_app",
+          "round_product_borders": false,
           "product_savings": false,
           "capitalize_pricing_text": false,
           "show_price_range": true,
@@ -510,7 +511,7 @@
         "settings": {
           "search_sidebar_filters": "search_discovery_app",
           "product_show_compare_at_price": false,
-          "hide_price": true,
+          "hide_price": false,
           "product_show_saved_amount": true,
           "hide_sold_out_overlay": false,
           "tag_message_color": "#53db8d",
