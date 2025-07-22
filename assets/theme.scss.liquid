@@ -3214,7 +3214,6 @@ a.product-grid-item,
 .product-grid-item {
   display: block;
   color: $colorTextBody;
-  margin-bottom: $gutter*2;
 
   &:hover img {
     opacity: 0.9;
@@ -3222,8 +3221,6 @@ a.product-grid-item,
   }
 
   @include at-query ($min, $large) {
-    margin-bottom: $gutter;
-
     .template-list-collections & {
       margin-bottom: 0;
     }
