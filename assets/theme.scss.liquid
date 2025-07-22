@@ -3214,6 +3214,7 @@ a.product-grid-item,
 .product-grid-item {
   display: block;
   color: $colorTextBody;
+  margin-bottom: $gutter*2;
 
   &:hover img {
     opacity: 0.9;
@@ -3221,6 +3222,8 @@ a.product-grid-item,
   }
 
   @include at-query ($min, $large) {
+    margin-bottom: $gutter;
+
     .template-list-collections & {
       margin-bottom: 0;
     }
@@ -3228,9 +3231,6 @@ a.product-grid-item,
 }
 
 .product-item--price {
-  position: absolute;
-  bottom: 10px;
-  
   @include clearfix;
   margin-bottom: $gutter/2;
 
@@ -6200,15 +6200,6 @@ div#icf-placeholder {
   text-transform: uppercase;
   border-radius: 2px;
 }
-
-.product-content-wrap {
-  position: relative;
-  border: 1px solid #eaeaea;
-  margin-bottom: 30px;
-  padding: 20px;
-  display: flex;
-  min-height: 575px;
-}
   
 /*** BRANDS WE LOVE ***/
   
@@ -8521,10 +8512,7 @@ span.featured-box--title {
 }
 
 .MAP-Disclaimer {
-  position: absolute;
-  bottom: 30px;
-  margin-bottom: 15px;
-  color:$colorPrimary;
+color:$colorPrimary;
 }
 
 
@@ -9702,16 +9690,21 @@ span.rental-price-varies {
 
 .rental-grid-item-wrap {
   border: 1px solid #eaeaea;
+  border-radius: 5px;
   margin-bottom: 30px;
   padding: 20px;
   display: flex;
-  min-height: 575px;
+  min-height: 450px;
 }
 
 @media screen and (max-width: 767px) {
   .rental-grid-item-wrap {
-    min-height: 525px;
+    min-height: 450px;
   }
+}
+
+.rental-grid-item-wrap p {
+  text-align:center;
 }
 
 .rental-image-wrapper {
