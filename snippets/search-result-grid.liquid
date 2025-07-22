@@ -20,7 +20,7 @@
   {%- assign height = '225' -%}
   
   <div class="grid-item search-result {{ grid_item_width }} mobile-product-grid-item-wrap {% if sold_out %}{% unless item.tags contains "Rental" %} sold-out{% endunless %}{% endif %}{% if on_sale %} on-sale{% endif %}" >
-
+   <div class="product-grid-item-wrap" {% if section.settings.round_product_borders %}style="border-radius: 5px;"{% endif %}>
     {% if item.tags contains 'Rental' %}
       {% if settings.rental_badge %}
       <div class="rental-badge">
@@ -306,8 +306,6 @@
           {% endif %}
         </div>
       {% endif %}
-  
-  
     </a>
-  
+   </div>
   </div>
