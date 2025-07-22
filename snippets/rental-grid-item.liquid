@@ -20,7 +20,7 @@
   {% assign sold_out = false %}
 {% endif %}
 
-<div class="grid-item {{ grid_item_width }}{% unless section.settings.hide_sold_out_overlay %}{% if sold_out %} sold-out{% endif %}{% endunless %}{% if on_sale %} on-sale{% endif %}">
+<div class="grid-item {{ grid_item_width }} mobile-product-grid-item-wrap {% unless section.settings.hide_sold_out_overlay %}{% if sold_out %} sold-out{% endif %}{% endunless %}{% if on_sale %} on-sale{% endif %}">
     <div class="rental-grid-item-wrap">
       {% if settings.rental_badge %}
       <div class="rental-badge">
