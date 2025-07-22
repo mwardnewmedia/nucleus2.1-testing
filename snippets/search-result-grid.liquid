@@ -19,8 +19,8 @@
   {%- assign width = '250' -%}
   {%- assign height = '225' -%}
   
-  <div class="grid-item search-result {{ grid_item_width }} mobile-product-grid-item-wrap {% if sold_out %}{% unless item.tags contains "Rental" %} sold-out{% endunless %}{% endif %}{% if on_sale %} on-sale{% endif %}" >
-   <div class="product-grid-item-wrap" {% if section.settings.round_product_borders %}style="border-radius: 5px;"{% endif %}>
+  <div class="grid-item search-result {{ grid_item_width }}{% if sold_out %}{% unless item.tags contains "Rental" %} sold-out{% endunless %}{% endif %}{% if on_sale %} on-sale{% endif %}">
+
     {% if item.tags contains 'Rental' %}
       {% if settings.rental_badge %}
       <div class="rental-badge">
@@ -88,7 +88,7 @@
         {% endif %}
        
   
-        <p class="product-description">{{ item.title }}</p>
+        <p>{{ item.title }}</p>
       
       <!-- Adding messages based on the product tag field -->
         {% if section.settings.enable_tag_message_1 %}
@@ -173,106 +173,53 @@
         <!-- Adding messages based on the product type field -->
       
       
-      <!-- Adding messages based on the product type field --> 
-      
-      {% comment %} Pricing display logic for search results {% endcomment %}
-      {% if settings.display_logged_in_customer_pricing %}
-        {% if customer %}
-          {% unless section.settings.hide_price or settings.rental_rates  %}
-            {% if item.type == 'MAP' or settings.map_brand_1 == item.vendor or settings.map_brand_2 == item.vendor or settings.map_brand_3 == item.vendor or settings.map_brand_4 == item.vendor or settings.map_brand_5 == item.vendor or settings.map_brand_6 == item.vendor or settings.map_brand_7 == item.vendor or settings.map_brand_8 == item.vendor or settings.map_brand_9 == item.vendor or settings.map_brand_10 == item.vendor or settings.map_brand_11 == item.vendor or settings.map_brand_12 == item.vendor or settings.map_brand_13 == item.vendor or settings.map_brand_14 == item.vendor or settings.map_brand_15 == item.vendor or settings.map_brand_16 == item.vendor or settings.map_brand_17 == item.vendor or settings.map_brand_18 == item.vendor or settings.map_brand_19 == item.vendor or settings.map_brand_20 == item.vendor %}
+        {% unless section.settings.hide_price or settings.rental_rates  %}
+              {% if item.type == 'MAP' or settings.map_brand_1 == item.vendor or settings.map_brand_2 == item.vendor or settings.map_brand_3 == item.vendor or settings.map_brand_4 == item.vendor or settings.map_brand_5 == item.vendor or settings.map_brand_6 == item.vendor or settings.map_brand_7 == item.vendor or settings.map_brand_8 == item.vendor or settings.map_brand_9 == item.vendor or settings.map_brand_10 == item.vendor or settings.map_brand_11 == item.vendor or settings.map_brand_12 == item.vendor or settings.map_brand_13 == item.vendor or settings.map_brand_14 == item.vendor or settings.map_brand_15 == item.vendor or settings.map_brand_16 == item.vendor or settings.map_brand_17 == item.vendor or settings.map_brand_18 == item.vendor or settings.map_brand_19 == item.vendor or settings.map_brand_20 == item.vendor %}
               {% if settings.map_message != blank %}
                 <p class="MAP-Disclaimer"><strong><em>{{ settings.map_message }}</em></strong></p>
               {% else %}
                 <p class="MAP-Disclaimer"><strong><em>Add to cart to see price</em></strong></p>
               {% endif %}
-            {% else %}
-              {% if item.price > 0.00 %}
-                <div class="product-item--price">
-                  <span class="h1 medium--left">
-                    {% if item.price_varies %}<span class="price-varies">from </span>{% endif %}
-                    {% if on_sale and section.settings.product_show_compare_at_price %}
-                      <span class="visually-hidden">{{ "products.general.sale_price" | t }}</span>
-                    {% else %}
-                      <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
-                    {% endif %}
-                    {% include 'price' with item.price %}
-                    {% assign current_item = item.first_available_variant %}  
-                    {% if on_sale and section.settings.product_show_compare_at_price  %}
-                      {% if current_item.compare_at_price %}
-                        <small>
-                          <s>
-                            <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
-                            {% include 'price' with item.compare_at_price %}
-                          </s>
-                        </small>
-                      {% endif %}
-                    {% endif %}
-                  </span>
-                  {%- if item.first_available_variant.available and item.first_available_variant.unit_price_measurement -%}
-                    {% include 'product-unit-price', variant: item.first_available_variant %}
-                  {%- endif -%}
-                </div>
-              {% endif %}
-              {% if on_sale and section.settings.product_show_saved_amount %}
-                {% if current_item.compare_at_price %}
-                  <div class="sale-tag medium--right">
-                    {% assign compare_price = item.compare_at_price %}
-                    {% assign product_price = item.price %}
-                    {% include 'price-sale' %}
-                  </div>
-                {% endif %}
-              {% endif %}
-            {% endif %}
-          {% endunless %}
-        {% endif %}
-      {% else %}
-        {% unless section.settings.hide_price or settings.hide_price or settings.rental_rates  %}
-          {% if item.type == 'MAP' or settings.map_brand_1 == item.vendor or settings.map_brand_2 == item.vendor or settings.map_brand_3 == item.vendor or settings.map_brand_4 == item.vendor or settings.map_brand_5 == item.vendor or settings.map_brand_6 == item.vendor or settings.map_brand_7 == item.vendor or settings.map_brand_8 == item.vendor or settings.map_brand_9 == item.vendor or settings.map_brand_10 == item.vendor or settings.map_brand_11 == item.vendor or settings.map_brand_12 == item.vendor or settings.map_brand_13 == item.vendor or settings.map_brand_14 == item.vendor or settings.map_brand_15 == item.vendor or settings.map_brand_16 == item.vendor or settings.map_brand_17 == item.vendor or settings.map_brand_18 == item.vendor or settings.map_brand_19 == item.vendor or settings.map_brand_20 == item.vendor %}
-            {% if settings.map_message != blank %}
-              <p class="MAP-Disclaimer"><strong><em>{{ settings.map_message }}</em></strong></p>
-            {% else %}
-              <p class="MAP-Disclaimer"><strong><em>Add to cart to see price</em></strong></p>
-            {% endif %}
           {% else %}
-            {% if item.price > 0.00 %}
-              <div class="product-item--price">
-                <span class="h1 medium--left">
-                  {% if item.price_varies %}<span class="price-varies">from </span>{% endif %}
-                  {% if on_sale and section.settings.product_show_compare_at_price %}
-                    <span class="visually-hidden">{{ "products.general.sale_price" | t }}</span>
-                  {% else %}
-                    <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
-                  {% endif %}
-                  {% include 'price' with item.price %}
-                  {% assign current_item = item.first_available_variant %}  
-                  {% if on_sale and section.settings.product_show_compare_at_price  %}
-                    {% if current_item.compare_at_price %}
-                      <small>
-                        <s>
-                          <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
-                          {% include 'price' with item.compare_at_price %}
-                        </s>
-                      </small>
-                    {% endif %}
-                  {% endif %}
-                </span>
-                {%- if item.first_available_variant.available and item.first_available_variant.unit_price_measurement -%}
-                  {% include 'product-unit-price', variant: item.first_available_variant %}
-                {%- endif -%}
-              </div>
+          {% if item.price > 0.00 %}
+            <div class="product-item--price">
+          <span class="h1 medium--left">
+            {% if item.price_varies %}<span class="price-varies">from </span>{% endif %}
+            {% if on_sale and section.settings.product_show_compare_at_price %}
+              <span class="visually-hidden">{{ "products.general.sale_price" | t }}</span>
+            {% else %}
+              <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
             {% endif %}
-            {% if on_sale and section.settings.product_show_saved_amount %}
+            {% include 'price' with item.price %}
+            {% assign current_item = item.first_available_variant %}  
+            {% if on_sale and section.settings.product_show_compare_at_price  %}
               {% if current_item.compare_at_price %}
-                <div class="sale-tag medium--right">
-                  {% assign compare_price = item.compare_at_price %}
-                  {% assign product_price = item.price %}
-                  {% include 'price-sale' %}
-                </div>
+              <small>
+                <s>
+                  <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
+                  {% include 'price' with item.compare_at_price %}
+                </s>
+              </small>
               {% endif %}
             {% endif %}
+          </span>
+  
+          {%- if item.first_available_variant.available and item.first_available_variant.unit_price_measurement -%}
+            {% include 'product-unit-price', variant: item.first_available_variant %}
+          {%- endif -%}
+        </div>
+        {% endif %}
+        {% if on_sale and section.settings.product_show_saved_amount %}
+          {% if current_item.compare_at_price %}
+          <div class="sale-tag medium--right">
+            {% assign compare_price = item.compare_at_price %}
+            {% assign product_price = item.price %}
+            {% include 'price-sale' %}
+          </div>
           {% endif %}
-        {% endunless %}
+        {% endif %}
       {% endif %}
+      {% endunless %}
       
       
       
@@ -306,6 +253,9 @@
           {% endif %}
         </div>
       {% endif %}
+  
+  
     </a>
-   </div>
+  
   </div>
+  
