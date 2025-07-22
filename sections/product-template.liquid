@@ -225,9 +225,9 @@ Modify at your own peril, a broken website is the likely result.
           <meta itemprop="price" content="{{ variant.price | divided_by: 100.00 }}">
           {% if product.type == 'MAP' or settings.map_brand_1 == product.vendor or settings.map_brand_2 == product.vendor or settings.map_brand_3 == product.vendor or settings.map_brand_4 == product.vendor or settings.map_brand_5 == product.vendor or settings.map_brand_6 == product.vendor or settings.map_brand_7 == product.vendor or settings.map_brand_8 == product.vendor or settings.map_brand_9 == product.vendor or settings.map_brand_10 == product.vendor or settings.map_brand_11 == product.vendor or settings.map_brand_12 == product.vendor or settings.map_brand_13 == product.vendor or settings.map_brand_14 == product.vendor or settings.map_brand_15 == product.vendor or settings.map_brand_16 == product.vendor or settings.map_brand_17 == product.vendor or settings.map_brand_18 == product.vendor or settings.map_brand_19 == product.vendor or settings.map_brand_20 == product.vendor %}
             {% if settings.map_message != blank %}
-              <p class="MAP-Disclaimer"><strong><em>{{ settings.map_message }}</em></strong></p>
+              <p class="MAP-Disclaimer-Interior"><strong><em>{{ settings.map_message }}</em></strong></p>
             {% else %}
-              <p class="MAP-Disclaimer"><strong><em>Add to cart to see price</em></strong></p>
+              <p class="MAP-Disclaimer-Interior"><strong><em>Add to cart to see price</em></strong></p>
             {% endif %}
           {% else %}
             <ul class="inline-list product-meta" data-price>
