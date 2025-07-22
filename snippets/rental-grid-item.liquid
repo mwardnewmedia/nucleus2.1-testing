@@ -21,7 +21,7 @@
 {% endif %}
 
 <div class="grid-item {{ grid_item_width }}{% unless section.settings.hide_sold_out_overlay %}{% if sold_out %} sold-out{% endif %}{% endunless %}{% if on_sale %} on-sale{% endif %}">
-    <div class="rental-grid-item-wrap">
+    <div class="rental-grid-item-wrap" {% if section.settings.round_border %}style="border-radius: 5px;"{% endif %}>
       {% if settings.rental_badge %}
       <div class="rental-badge">
         Rental
