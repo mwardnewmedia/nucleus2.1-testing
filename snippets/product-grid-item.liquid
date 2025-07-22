@@ -56,7 +56,7 @@
 {% endif %}
 
 <div class="grid-item {{ grid_item_width }}{% unless section.settings.hide_sold_out_overlay %}{% if sold_out %}{% unless product.tags contains "Rental" %} sold-out {% endunless %}{% endif %}{% endunless %}{% if on_sale %} on-sale{% endif %}">
-<div class="product-content-wrap">
+<div class="product-content-wrap" {% if section.settings.round_border %}style="border-radius: 5px;"{% endif %}>
   <a href="{{ product.url | within: current_collection }}" class="product-grid-item">
     <div class="product-grid-image">
       <div class="product-grid-image--centered">
