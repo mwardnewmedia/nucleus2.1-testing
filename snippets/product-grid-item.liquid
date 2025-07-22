@@ -109,7 +109,7 @@
         {% endunless %}
       {% endunless %}
   
-      <p>{{ product.title }}</p>   
+      <p class="product-description">{{ product.title }}</p>   
       
       {% if section.settings.show_pickup_message %}
       <p class="pickup-message" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}>{{ section.settings.pickup_message }}</p>
