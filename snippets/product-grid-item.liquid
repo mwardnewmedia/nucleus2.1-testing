@@ -103,7 +103,7 @@
         </div>
       </div>
       
-      {% unless product.vendor == 'Hardware-Catalyst' or product.vendor == "Do It Best" or product.vendor == shop.name %} 
+     {% unless product.vendor == 'Hardware-Catalyst' or product.vendor == "Do It Best" or product.vendor == shop.name %} 
         {% unless settings.hide_brands %}
           <div class="list-view-item__vendor medium-up--hide">{{ product.vendor }}</div>
         {% endunless %}
