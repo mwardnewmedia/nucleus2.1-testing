@@ -74,7 +74,7 @@
         {% unless product.vendor == 'Hardware-Catalyst' or product.vendor == "Do It Best" or productVendor == shopName or product.vendor == "True Value Rental" %} 
           {% unless settings.hide_brands %}
             {% if product.vendor %}
-              <div class="list-view-item__vendor medium-up--hide text-center">{{ product.vendor }}</div>             
+              <div class="list-view-item__vendor medium-up--hide">{{ product.vendor }}</div>             
             {% endif %}  
           {% endunless %}
         {% endunless %}
