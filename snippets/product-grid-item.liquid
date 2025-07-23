@@ -73,7 +73,7 @@
   
             {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
             <div class="lazyload__image-wrapper no-js" style="max-width: {{ max_width }}px">
-              <div style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
+              <div style="padding-top: 100%; position: relative; overflow: hidden;">
                 <img
                   class="lazyload no-js"
                   data-src="{{ img_url }}"
@@ -81,13 +81,13 @@
                   data-aspectratio="{{ image.aspect_ratio }}"
                   data-sizes="auto"
                   alt="{{ image.alt | escape }}"
-                  {% comment %}style="max-height: {{ height }}px;">{% endcomment %}>
+                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
               </div>
             </div>
             <noscript>
              <img src="{{ image | img_url: '580x' }}"
                srcset="{{ image | img_url: '580x' }} 1x, {{ image | img_url: '580x', scale: 2 }} 2x"
-               alt="{{ image.alt }}" style="opacity:1;">
+               alt="{{ image.alt }}" style="opacity:1; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
            </noscript>
           {% else %}
           {% capture current %}{% cycle 1, 2, 3, 4 %}{% endcapture %}
@@ -103,7 +103,7 @@
         </div>
       </div>
       
-     {% unless product.vendor == 'Hardware-Catalyst' or product.vendor == "Do It Best" or product.vendor == shop.name %} 
+      {% unless product.vendor == 'Hardware-Catalyst' or product.vendor == "Do It Best" or product.vendor == shop.name %} 
         {% unless settings.hide_brands %}
           <div class="list-view-item__vendor medium-up--hide">{{ product.vendor }}</div>
         {% endunless %}
@@ -374,7 +374,7 @@
   <div class="product-info-message">     
     <span>
       <span>View More Details</span>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="16" height="16" style="vertical-align: middle; margin-left: 4px;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" style="vertical-align: middle; margin-left: 4px;">
         <path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z"/>
       </svg>
     </span>
