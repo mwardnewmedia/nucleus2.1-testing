@@ -191,6 +191,39 @@
           "en": "True Value Styles"
         }
       },
+       {
+        "type": "header",
+        "content": {
+          "en": "Button & Input Style"
+        }
+      },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": {
+          "en": "Button Style"
+        },
+        "options": [
+          {
+            "value": "rounded",
+            "label": {
+              "en": "Rounded"
+            }
+          },
+          {
+            "value": "pill",
+            "label": {
+              "en": "Pill"
+            }
+          },
+          {
+            "value": "square",
+            "label": {
+              "en": "Square"
+            }
+          }
+        ]
+      }
     ]
   },
   {
@@ -374,40 +407,6 @@
         "label": {
           "en": "General <cart> Tags (Placed before <\/head> on the /cart page)"
         }
-      }
-    ]
-  },
-  {
-    "name": {
-      "en": "Button & Input Style"
-    },
-    "settings": [
-      {
-        "type": "select",
-        "id": "button_style",
-        "label": {
-          "en": "Button Style"
-        },
-        "options": [
-          {
-            "value": "rounded",
-            "label": {
-              "en": "Rounded"
-            }
-          },
-          {
-            "value": "pill",
-            "label": {
-              "en": "Pill"
-            }
-          },
-          {
-            "value": "square",
-            "label": {
-              "en": "Square"
-            }
-          }
-        ]
       }
     ]
   },
