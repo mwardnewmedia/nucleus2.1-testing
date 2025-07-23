@@ -163,7 +163,7 @@
           "sponsor_logo": "shopify://shop_images/Screen_Shot_2022-03-12_at_12.29.26_PM.png",
           "sponsor_logo_max_height": "50",
           "sponsor_link": "/collections/all/brand_nutrena",
-          "hide_shopping_links": false,
+          "hide_shopping_links": true,
           "hide_customer_login": false,
           "hide_search_bar": false,
           "nav_highlight_icon": "",
