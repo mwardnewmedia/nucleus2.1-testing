@@ -383,7 +383,7 @@
 
       <!-- CTA Buttons Based on Settings and Variant Count -->
       <div class="product-cta-section">
-        {% if section.settings.hide_shopping_links %}
+        {% if sections.header.settings.hide_shopping_links %}
           {% if product.variants.size > 1 %}
             <button type="button" class="button product-info-button" {% if settings.round_product_borders %}style="border-radius: 5px;"{% endif %} onclick="window.location.href='{{ product.url | within: current_collection }}'">View Options</button>
           {% else %}
@@ -404,4 +404,4 @@
       </div>
     </div> 
   </div>
-</div> 
+</div>
