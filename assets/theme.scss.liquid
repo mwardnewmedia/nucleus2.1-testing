@@ -3251,7 +3251,8 @@ a.product-grid-item,
   &:hover img {
     opacity: 0.9;
     transform: scale(1.1);
-    transition: opacity 0.05s ease-out, transform 0.35s ease-out;
+    @include transition(opacity 0.05s ease-out);
+    @include transition(transform 0.35s ease-in);
   }
 
   @include at-query ($min, $large) {
