@@ -267,7 +267,8 @@
               <p class="MAP-Disclaimer" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}><strong><em>Add to cart to see price</em></strong></p>
             {% endif %}
           {% else %}
-            {% unless settings.hide_price or section.settings.hide_price or (settings.rental_rates and item.tags contains "Rental")  %}
+            {% unless settings.hide_price or section.settings.hide_price %}
+              {% unless settings.rental_rates and item.tags contains "Rental" %}
               {% if item.price > 0 %}
                 <div class="product-item--price">     
                   <span class="h2 medium--left">
@@ -315,11 +316,13 @@
                   {% endif %}
                 </div>
               {% endif %}
+              {% endunless %}
             {% endunless %}
           {% endif %}
         {% endif %}
       {% else %}
-        {% unless settings.hide_price or section.settings.hide_price or (settings.rental_rates and item.tags contains "Rental")  %}
+        {% unless settings.hide_price or section.settings.hide_price %}
+          {% unless settings.rental_rates and item.tags contains "Rental" %}
           {% if item.type == 'MAP' or 
                 settings.map_brand_1 == item.vendor or 
                 settings.map_brand_2 == item.vendor or 
@@ -396,6 +399,7 @@
               </div>
             {% endif %}
           {% endif %}
+          {% endunless %}
         {% endunless %}
       {% endif %}
 
