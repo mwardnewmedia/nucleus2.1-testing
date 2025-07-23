@@ -227,13 +227,7 @@
        {
         "type": "header",
         "content": {
-          "en": "Colors"
-        }
-      },
-       {
-        "type": "header",
-        "content": {
-          "en": "General"
+          "en": "General Colors"
         }
       },
       {
@@ -495,7 +489,7 @@
         "content": {
           "da": "Overskrift",
           "de": "Header",
-          "en": "Header",
+          "en": "Header Colors",
           "es": "Encabezado",
           "fi": "Ylätunniste",
           "fr": "En-tête",
@@ -686,7 +680,7 @@
         "content": {
           "da": "Tekst",
           "de": "Text",
-          "en": "Text",
+          "en": "Text Colors",
           "es": "Texto",
           "fi": "Teksti",
           "fr": "Texte",
@@ -779,7 +773,7 @@
         "content": {
           "da": "Sidefod",
           "de": "Fußzeile",
-          "en": "Footer",
+          "en": "Footer Colors",
           "es": "Pie de página",
           "fi": "Alatunniste",
           "fr": "Bas de page",
