@@ -1466,7 +1466,21 @@
         "label": {
           "en": "Capitalize Buttons"
         }
-      }
+      },
+      {
+        "type": "header",
+        "content": {
+          "en": "Catalog Styles"
+        }
+      },
+  {
+        "type": "checkbox",
+        "id": "round_product_borders",
+        "label": {
+          "en": "Round Product Catalog Border"
+        },
+          "default": false
+      },
     ]
   },
   {
