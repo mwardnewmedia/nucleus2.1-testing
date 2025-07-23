@@ -398,9 +398,7 @@
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                 <button type="submit" class="button product-info-button" {% if settings.round_product_borders %}style="border-radius: 5px;"{% endif %} name="add">Add to Cart</button>
               </form>
-                          {% else %}
-                <button type="button" class="button product-info-button" {% if settings.round_product_borders %}style="border-radius: 5px; pointer-events: none;"{% else %}style="pointer-events: none;"{% endif %} disabled>Sold Out</button>
-              {% endunless %}
+            {% endunless %}
           {% endif %}
         {% endif %}
       </div>
