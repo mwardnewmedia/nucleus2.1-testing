@@ -57,8 +57,8 @@
 
 <div class="grid-item {{ grid_item_width }} mobile-product-grid-item-wrap {% unless section.settings.hide_sold_out_overlay %}{% if sold_out %}{% unless product.tags contains "Rental" %} sold-out {% endunless %}{% endif %}{% endunless %}{% if on_sale %} on-sale{% endif %}">
   <div class="product-grid-item-wrap" {% if settings.round_product_borders %}style="border-radius: 5px;"{% endif %}>
-    <a href="{{ product.url | within: current_collection }}" class="product-grid-item">
-      <div class="product-grid-image">
+    <div class="product-grid-item">
+      {% unless sold_out %}<a href="{{ product.url | within: current_collection }}" class="product-grid-image">{% else %}<div class="product-grid-image">{% endunless %}
         <div class="product-grid-image--centered">
           {% if sold_out %}
             <div class="badge badge--sold-out"><span class="badge-label">{{ 'products.product.sold_out' | t }}</span></div>
@@ -101,7 +101,7 @@
           {% endunless %}
         {% endif %}
         </div>
-      </div>
+      {% unless sold_out %}</a>{% else %}</div>{% endunless %}
       
       {% unless product.vendor == 'Hardware-Catalyst' or product.vendor == "Do It Best" or product.vendor == shop.name %} 
         {% unless settings.hide_brands %}
@@ -109,7 +109,13 @@
         {% endunless %}
       {% endunless %}
   
-      <p class="product-description">{{ product.title }}</p>   
+      {% unless sold_out %}
+        <a href="{{ product.url | within: current_collection }}">
+          <p class="product-description">{{ product.title }}</p>   
+        </a>
+      {% else %}
+        <p class="product-description">{{ product.title }}</p>   
+      {% endunless %}
       
       {% if section.settings.show_pickup_message %}
       <p class="pickup-message" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}>{{ section.settings.pickup_message }}</p>
@@ -197,7 +203,7 @@
         {% if section.settings.enable_type_message_5 %}
       {% assign type_condition_5 = section.settings.type_condition_5 %}
           {% if product.type == type_condition_5 %}
-               <p class="type-message" style="color:{{ section.settings.type_message_color }};"> {{ section.settings.type_message_5 }} </p>
+               <p class="type-message" style="color:{{ section.settings.tag_message_color }};"> {{ section.settings.type_message_5 }} </p>
       	{% endif %}
       {% endif %}
         
@@ -374,6 +380,30 @@
       {% if section.settings.product_reviews_enable %}
         <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
       {% endif %}
-    </a> 
+
+      <!-- CTA Buttons Based on Settings and Variant Count -->
+      <div class="product-cta-section">
+        {% if section.settings.hide_shopping_links %}
+          {% if product.variants.size > 1 %}
+            <button type="button" class="button product-info-button" {% if settings.round_product_borders %}style="border-radius: 5px;"{% endif %} onclick="window.location.href='{{ product.url | within: current_collection }}'">View Options</button>
+          {% else %}
+            <button type="button" class="button product-info-button" {% if settings.round_product_borders %}style="border-radius: 5px;"{% endif %} onclick="window.location.href='{{ product.url | within: current_collection }}'">Quick View</button>
+          {% endif %}
+        {% else %}
+          {% if product.variants.size > 1 %}
+            <button type="button" class="button product-info-button" {% if settings.round_product_borders %}style="border-radius: 5px;"{% endif %} onclick="window.location.href='{{ product.url | within: current_collection }}'">View Options</button>
+          {% else %}
+            {% unless sold_out %}
+              <form action="/cart/add" method="post" enctype="multipart/form-data" class="addToCartForm">
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <button type="submit" class="button product-info-button" {% if settings.round_product_borders %}style="border-radius: 5px;"{% endif %} name="add">Add to Cart</button>
+              </form>
+                          {% else %}
+                <button type="button" class="button product-info-button" {% if settings.round_product_borders %}style="border-radius: 5px; pointer-events: none;"{% else %}style="pointer-events: none;"{% endif %} disabled>Sold Out</button>
+              {% endunless %}
+          {% endif %}
+        {% endif %}
+      </div>
+    </div> 
   </div>
 </div>
