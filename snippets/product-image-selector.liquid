@@ -37,7 +37,7 @@
                         data-image-id="{{ media.id }}" 
                         style="max-width: {{ max_width }}px"
                       >
-                        <div class="no-js product__image-wrapper">
+                        <div class="no-js product__image-wrapper {% if settings.round_product_borders %}style="border-radius: 5px;"{% endif %}">
                           <div x-data="{}">
                             <a @click="$dispatch('img-modal', {  imgModalSrc: '{{ media | img_url: '800x800' }}', imgModalDesc: '{{ media.alt | replace: '"', '' }}' })" style="position: relative; display: block;">
                               <img id="{{ media.id }}"
