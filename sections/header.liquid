@@ -297,7 +297,7 @@ Modify at your own peril, a broken website is the likely result.
           
           <br class="medium-down--hide">
 
-        {% unless section.settings.hide_shopping_links%}
+        {% unless section.settings.hide_shopping_links %}
         <a href="{{ routes.cart_url }}" class="header-cart-btn cart-toggle" aria-label="shopping cart">
           <span class="icon icon-cart" style="color: #fff"></span>
           {{ 'layout.cart.cart' | t }} <span class="cart-count cart-badge--desktop {% if cart.item_count == 0 %}hidden-count{% endif %}">{{ cart.item_count }}</span>
