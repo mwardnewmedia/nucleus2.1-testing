@@ -292,7 +292,7 @@ If Catalyst inventory is true, display Availability filter group
       {%- endfor -%}
     {%- else -%}
       {%- for filter in collection.filters -%}
-        <details class="filter-group" {% if section.settings.round_product_borders %}style="border-radius: 5px;"{% endif %} open>
+        <details class="filter-group" {% if settings.round_product_borders %}style="border-radius: 5px;"{% endif %} open>
           <summary class="filter-group-summary">
             <div>
               <span>{{ filter.label }}</span>
