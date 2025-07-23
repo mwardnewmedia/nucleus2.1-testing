@@ -127,7 +127,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "header_type": "original",
+          "header_type": "ecommerce_3",
           "menu": "main-menu",
           "catalyst_megamenu": "Shop Online",
           "only_catalyst_categories": true,
@@ -1027,57 +1027,6 @@
           "full_width": true
         }
       },
-      "gallery_zMdxJ4": {
-        "type": "gallery",
-        "blocks": {
-          "image_3LUitw": {
-            "type": "image",
-            "settings": {
-              "promo": "shopify://shop_images/Home_Garden_500x500_Shopify_Collection.png",
-              "gallery_image_label": "Testing this Gallery",
-              "gallery_image_description": "<p>Testing this Gallery</p>"
-            }
-          },
-          "image_F9BwtM": {
-            "type": "image",
-            "settings": {
-              "promo": "shopify://shop_images/Home_Garden_500x500_Shopify_Collection.png",
-              "gallery_image_label": "Testing this Gallery",
-              "gallery_image_description": "<p>Testing this Gallery</p>"
-            }
-          },
-          "image_4zMiT6": {
-            "type": "image",
-            "settings": {
-              "promo": "shopify://shop_images/Home_Garden_500x500_Shopify_Collection.png",
-              "gallery_image_label": "Testing this Gallery",
-              "gallery_image_description": "<p>Testing this Gallery</p>"
-            }
-          },
-          "image_tD7tgt": {
-            "type": "image",
-            "settings": {
-              "promo": "shopify://shop_images/Home_Garden_500x500_Shopify_Collection.png",
-              "gallery_image_label": "Testing this Gallery",
-              "gallery_image_description": "<p>Testing this Gallery</p>"
-            }
-          }
-        },
-        "block_order": [
-          "image_3LUitw",
-          "image_F9BwtM",
-          "image_4zMiT6",
-          "image_tD7tgt"
-        ],
-        "settings": {
-          "gallery_title": "Take a look around...",
-          "text": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took...</p>",
-          "center_align_items": false,
-          "enable_gallery_zoom": false,
-          "align_text": "left",
-          "spacer": false
-        }
-      },
       "hero_kXFpXm": {
         "type": "hero",
         "settings": {
@@ -1124,137 +1073,6 @@
           "section_show_at": "",
           "section_remove_at": ""
         }
-      },
-      "collection_rows_JkR7w3": {
-        "type": "collection-rows",
-        "settings": {
-          "title": "Featured collection",
-          "slick": true,
-          "home_featured_row": "cat",
-          "grid": 5,
-          "rows": 5,
-          "product_savings": false,
-          "capitalize_pricing_text": false,
-          "show_price_range": false,
-          "hide_price": false
-        }
-      },
-      "gallery_9K9qwV": {
-        "type": "gallery",
-        "blocks": {
-          "image_wHYPRd": {
-            "type": "image",
-            "settings": {
-              "promo": "shopify://shop_images/Store_600x400px_Shopify_1.png",
-              "gallery_image_label": "Testing Formatting",
-              "gallery_image_description": "<p>Testing Formatting</p>"
-            }
-          },
-          "image_i3aht7": {
-            "type": "image",
-            "settings": {
-              "promo": "shopify://shop_images/0850dfbc-husqvarna-mowers_0k70dk0ep0dk00l00001o.jpg",
-              "gallery_image_label": "Testing Formatting",
-              "gallery_image_description": "<p>Testing Formatting</p>"
-            }
-          },
-          "image_LJNWpq": {
-            "type": "image",
-            "settings": {
-              "promo": "shopify://shop_images/DS_20ACA_20DOG_20Light_20and_20Fit_20PDP6_100x100_1fa30e43-7849-4f8d-9104-bed3a950c064.webp",
-              "gallery_image_label": "Testing Formatting",
-              "gallery_image_description": "<p>Testing Formatting</p>"
-            }
-          },
-          "image_3VmT3T": {
-            "type": "image",
-            "settings": {
-              "promo": "shopify://shop_images/Home_Garden_500x500_Shopify_Collection_48b04363-095e-4d0e-a0bf-de42af9260ad.png",
-              "gallery_image_label": "Testing Formatting",
-              "gallery_image_description": "<p>Testing Formatting</p>"
-            }
-          },
-          "image_iwjYd3": {
-            "type": "image",
-            "settings": {
-              "promo": "shopify://shop_images/caster_biljax_0026-962_061710_720a0dac-ebda-4082-b0c3-9ce2ea3ff48e.jpg",
-              "gallery_image_label": "Testing Formatting",
-              "gallery_image_description": "<p>Testing Formatting</p>"
-            }
-          },
-          "image_34mCNQ": {
-            "type": "image",
-            "settings": {
-              "promo": "shopify://shop_images/chafingdishb10282020_c3999f0a-d8ce-4bfa-9ca9-dfbdf504cc11.jpg",
-              "gallery_image_label": "Testing Formatting",
-              "gallery_image_description": "<p>Testing Formatting</p>"
-            }
-          }
-        },
-        "block_order": [
-          "image_wHYPRd",
-          "image_i3aht7",
-          "image_LJNWpq",
-          "image_3VmT3T",
-          "image_iwjYd3",
-          "image_34mCNQ"
-        ],
-        "settings": {
-          "gallery_title": "",
-          "text": "",
-          "center_align_items": false,
-          "enable_gallery_zoom": false,
-          "align_text": "left",
-          "spacer": true
-        }
-      },
-      "feature_columns_iKqzwQ": {
-        "type": "feature-columns",
-        "blocks": {
-          "text_block_MUwn68": {
-            "type": "text_block",
-            "settings": {
-              "enable_image": true,
-              "title": "",
-              "text": "",
-              "button_label": "More Information",
-              "button_link": "shopify://pages/same-title-tag",
-              "new_window": false
-            }
-          },
-          "text_block_gmDJxg": {
-            "type": "text_block",
-            "settings": {
-              "enable_image": true,
-              "title": "",
-              "text": "<p>Testing</p>",
-              "button_label": "More Information",
-              "button_link": "shopify://products/12-in-spring-tongs-default-title",
-              "new_window": false
-            }
-          },
-          "text_block_CwCYtL": {
-            "type": "text_block",
-            "settings": {
-              "enable_image": true,
-              "title": "Add a title or tagline",
-              "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
-              "button_label": "",
-              "button_link": "",
-              "new_window": false
-            }
-          }
-        },
-        "block_order": [
-          "text_block_MUwn68",
-          "text_block_gmDJxg",
-          "text_block_CwCYtL"
-        ],
-        "settings": {
-          "title": "Text columns with images",
-          "feature-column-section-description": "",
-          "align_text": "left"
-        }
       }
     },
     "content_for_index": [
@@ -1267,11 +1085,7 @@
       "newsletter_8kth3a",
       "hero_background_8fVdkL",
       "featured_blog_FeRq49",
-      "gallery_zMdxJ4",
-      "hero_kXFpXm",
-      "collection_rows_JkR7w3",
-      "gallery_9K9qwV",
-      "feature_columns_iKqzwQ"
+      "hero_kXFpXm"
     ],
     "blocks": {
       "11724500921838622758": {
