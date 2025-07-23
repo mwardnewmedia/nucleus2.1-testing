@@ -316,7 +316,7 @@
           "grid": "4",
           "rows": "6",
           "collection_sidebar_filters": "search_discovery_app",
-          "round_product_borders": false,
+          "round_product_borders": true,
           "product_savings": false,
           "capitalize_pricing_text": false,
           "show_price_range": true,
@@ -1073,6 +1073,21 @@
           "section_show_at": "",
           "section_remove_at": ""
         }
+      },
+      "collection_rows_4rmLXf": {
+        "type": "collection-rows",
+        "name": "Featured collection",
+        "settings": {
+          "title": "Featured collection",
+          "slick": false,
+          "home_featured_row": "dog",
+          "grid": 4,
+          "rows": 1,
+          "product_savings": false,
+          "capitalize_pricing_text": false,
+          "show_price_range": false,
+          "hide_price": false
+        }
       }
     },
     "content_for_index": [
@@ -1081,6 +1096,7 @@
       "cards_L77YFt",
       "brands_we_love_Ta69Jk",
       "highlights_YrXr3x",
+      "collection_rows_4rmLXf",
       "image_with_text_tNCj4p",
       "newsletter_8kth3a",
       "hero_background_8fVdkL",
