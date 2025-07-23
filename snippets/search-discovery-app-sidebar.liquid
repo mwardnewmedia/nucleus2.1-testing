@@ -40,26 +40,14 @@ If Catalyst inventory is true, display Availability filter group
 {%- endif -%}
 
 {% assign round_borders = section.settings.round_product_borders | default: false %}
-
-<!-- DEBUG: Round borders setting = {{ round_borders }} -->
-<!-- DEBUG: Section name = {{ section.settings.name | default: 'no section name' }} -->
-
 {% if round_borders %}
 <style>
-/* Force rounded corners on filter groups */
 details.filter-group {
   border-radius: 5px !important;
   border: 1px solid #e0e0e0 !important;
   background: #fafafa !important;
   margin-bottom: 10px !important;
   padding: 5px !important;
-}
-
-/* Also try targeting by class hierarchy */
-.nucleus-filters details.filter-group {
-  border-radius: 5px !important;
-  border: 1px solid #e0e0e0 !important;
-  background: #fafafa !important;
 }
 </style>
 {% endif %}
