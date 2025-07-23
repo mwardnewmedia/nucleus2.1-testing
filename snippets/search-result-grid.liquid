@@ -55,17 +55,17 @@
   {%- assign width = '250' -%}
   {%- assign height = '225' -%}
   
-  <div class="grid-item search-result {{ grid_item_width }}{% if sold_out %}{% unless item.tags contains "Rental" %} sold-out{% endunless %}{% endif %}{% if on_sale %} on-sale{% endif %}">
-
-    {% if item.tags contains 'Rental' %}
-      {% if settings.rental_badge %}
-      <div class="rental-badge">
-        Rental
-      </div>
+  <div class="grid-item search-result {{ grid_item_width }} mobile-product-grid-item-wrap{% unless section.settings.hide_sold_out_overlay %}{% if sold_out %}{% unless item.tags contains "Rental" %} sold-out{% endunless %}{% endif %}{% endunless %}{% if on_sale %} on-sale{% endif %}">
+    <div class="product-grid-item-wrap" {% if section.settings.round_product_borders %}style="border-radius: 5px;"{% endif %}>
+      {% if item.tags contains 'Rental' %}
+        {% if settings.rental_badge %}
+        <div class="rental-badge">
+          Rental
+        </div>
+        {% endif %}
       {% endif %}
-    {% endif %}
-  
-    <a href="{{ item.url | within: current_collection }}" class="product-grid-item">
+    
+      <a href="{{ item.url | within: current_collection }}" class="product-grid-item">
       {% if item.object_type == 'product' %}
         {% if item.featured_image %}
         <div class="product-grid-image">
@@ -442,6 +442,6 @@
       {% endif %}
   
   
-    </a>
-  
+      </a> 
+    </div>
   </div>
