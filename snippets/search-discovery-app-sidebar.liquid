@@ -39,24 +39,6 @@ If Catalyst inventory is true, display Availability filter group
   {%- endfor -%}
 {%- endif -%}
 
-{% if round_borders_setting %}
-<style>
-details.filter-group {
-  border-radius: 5px !important;
-  border: 1px solid #e0e0e0 !important;
-  background: #fafafa !important;
-  margin-bottom: 10px !important;
-  padding: 5px !important;
-}
-
-.nucleus-filters details.filter-group {
-  border-radius: 5px !important;
-  border: 1px solid #e0e0e0 !important;
-  background: #fafafa !important;
-}
-</style>
-{% endif %}
-
 <script src="//unpkg.com/alpinejs" defer></script>
 
 <div class="nucleus-filters" 
