@@ -8,32 +8,24 @@
     "theme_support_url": "https:\/\/support.shopify.com\/"
   },
   {
-    "name": {
-      "en": "Hide/Show Elements"
-    },
+    "name": "Hide/Show Elements",
     "settings": [
       {
         "type": "checkbox",
         "id": "hide_price",
-        "label": {
-          "en": "Hide All Pricing"
-        },
+        "label": "Hide All Pricing",
         "default": false
       },
        {
         "type": "checkbox",
         "id": "hide_brands",
-        "label": {
-          "en": "Hide All Brands"
-        },
+        "label": "Hide All Brands",
         "default": false
       },
       {
         "type": "checkbox",
         "id": "hide_shopping_links",
-        "label": {
-          "en": "Hide Shopping Links (Cart/Add to Cart)"
-        },
+        "label": "Hide Shopping Links (Cart/Add to Cart)",
         "default": false
       },
       {
