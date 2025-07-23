@@ -223,31 +223,13 @@
             }
           }
         ]
-      }
-    ]
-  },
-  {
-    "name": {
-      "da": "Farver",
-      "de": "Farben",
-      "en": "Colors",
-      "es": "Colores",
-      "fi": "Värit",
-      "fr": "Couleurs",
-      "hi": "रंग",
-      "it": "Colori",
-      "ja": "色",
-      "ko": "색상",
-      "nb": "Farger",
-      "nl": "Kleuren",
-      "pt-BR": "Cores",
-      "pt-PT": "Cores",
-      "sv": "Färger",
-      "th": "สี",
-      "zh-CN": "颜色",
-      "zh-TW": "色彩"
-    },
-    "settings": [
+      },
+       {
+        "type": "header",
+        "content": {
+          "en": "Colors"
+        }
+      },
       {
         "type": "header",
         "content": {
@@ -956,7 +938,7 @@
           "zh-TW": "背景"
         },
         "default": "#FFFFFF"
-      }
+      },
     ]
   },
   {
