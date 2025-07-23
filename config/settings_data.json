@@ -307,7 +307,7 @@
         "settings": {
           "show_catalog_disclaimer": true,
           "catalog_disclaimer": "<p>Not comfortable with on-line purchases? Give us a call and we'll handle your curbside or delivery order on the phone: <a href=\"tel:123-456-7890\">123-456-7890</a></p>",
-          "hide_sold_out_overlay": true,
+          "hide_sold_out_overlay": false,
           "show_pickup_message": false,
           "pickup_message": "Pickup Today",
           "show_delivery_message": false,
