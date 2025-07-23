@@ -39,6 +39,14 @@ If Catalyst inventory is true, display Availability filter group
   {%- endfor -%}
 {%- endif -%}
 
+{% if section.settings.round_product_borders %}
+<style>
+details {
+  border-radius: 5px!important;
+}
+</style>
+{% endif %}
+
 <script src="//unpkg.com/alpinejs" defer></script>
 
 <div class="nucleus-filters" 
@@ -79,7 +87,7 @@ If Catalyst inventory is true, display Availability filter group
         {% elsif all_collections == false and filter.label == 'Rental Department'  %}
           {% comment %} don't render departments filter when on /collections/all url (usually we're surpassing anything from loading due to the 1,000 product limit from Shopify) {% endcomment %} 
         {% else %}
-        <details class="filter-group" {% if section.settings.round_product_borders %}style="border-radius: 5px;"{% endif %} open>
+        <details class="filter-group" open>
           <summary class="filter-group-summary">
             <div>
               <span>{{ filter.label }}</span>
