@@ -191,7 +191,7 @@
           "en": "True Value Styles"
         }
       },
-       {
+      {
         "type": "header",
         "content": {
           "en": "Button & Input Style"
@@ -916,256 +916,12 @@
         },
         "default": "#FFFFFF"
       },
-    ]
-  },
-  {
-    "name": {
-      "en": "Shopping List"
-    },
-    "settings": [
       {
-        "type": "checkbox",
-        "id": "shopping_list",
-        "label": {
-          "en": "Activate Shopping List"
-        }
-      }
-    ]
-  },
-  {
-    "name": {
-      "en": "MAP"
-    },
-    "settings": [
-      {
-        "type": "text",
-        "id": "map_message",
-        "label": {
-          "en": "MAP Message"
+        "type": "header",
+        "content": {
+          "en": "Typography"
         }
       },
-      {
-        "type": "text",
-        "id": "map_brand_1",
-        "label": "Map Brand 1"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_2",
-        "label": "Map Brand 2"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_3",
-        "label": "Map Brand 3"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_4",
-        "label": "Map Brand 4"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_5",
-        "label": "Map Brand 5"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_6",
-        "label": "Map Brand 6"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_7",
-        "label": "Map Brand 7"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_8",
-        "label": "Map Brand 8"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_9",
-        "label": "Map Brand 9"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_10",
-        "label": "Map Brand 10"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_11",
-        "label": "Map Brand 11"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_12",
-        "label": "Map Brand 12"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_13",
-        "label": "Map Brand 13"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_14",
-        "label": "Map Brand 14"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_15",
-        "label": "Map Brand 15"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_16",
-        "label": "Map Brand 16"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_17",
-        "label": "Map Brand 17"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_18",
-        "label": "Map Brand 18"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_19",
-        "label": "Map Brand 19"
-      },
-      {
-        "type": "text",
-        "id": "map_brand_20",
-        "label": "Map Brand 20"
-      }
-    ]
-  },
-  {
-    "name": {
-      "en": "General Head Tags"
-    },
-    "settings": [
-      {
-        "type": "html",
-        "id": "general_head_tags",
-        "label": {
-          "en": "General <head> Tags (Placed before <\/head>)"
-        }
-      }
-    ]
-  },
-  {
-    "name": {
-      "en": "General Body Tags"
-    },
-    "settings": [
-      {
-        "type": "html",
-        "id": "general_body_tags",
-        "label": {
-          "en": "General <body> Tags (Placed before <\/body>)"
-        }
-      }
-    ]
-  },
-  {
-    "name": {
-      "en": "General Footer Tags"
-    },
-    "settings": [
-      {
-        "type": "html",
-        "id": "general_footer_tags",
-        "label": {
-          "en": "General <footer> Tags (Placed before <\/footer>)"
-        }
-      }
-    ]
-  },
-   {
-    "name": {
-      "en": "General Cart Tags"
-    },
-    "settings": [
-      {
-        "type": "html",
-        "id": "general_cart_tags",
-        "label": {
-          "en": "General <cart> Tags (Placed before <\/head> on the /cart page)"
-        }
-      }
-    ]
-  },
-  {
-    "name": {
-      "en": "New Shopify Accounts"
-    },
-    "settings": [
-      {
-        "type": "text",
-        "id": "new_shopify_accounts_url",
-        "label": {
-          "en": "URL"
-        }
-      }
-    ]
-  },
-  {
-    "name": {
-      "en": "GTM Head"
-    },
-    "settings": [
-      {
-        "type": "html",
-        "id": "gtm_head",
-        "label": {
-          "en": "GTM Head"
-        }
-      }
-    ]
-  },
-  {
-    "name": {
-      "en": "GTM Body"
-    },
-    "settings": [
-      {
-        "type": "html",
-        "id": "gtm_body",
-        "label": {
-          "en": "GTM Body"
-        }
-      }
-    ]
-  },
-  {
-    "name": {
-      "da": "Typografi",
-      "de": "Typografie",
-      "en": "Typography",
-      "es": "Tipografía",
-      "fi": "Typografia",
-      "fr": "Typographie",
-      "hi": "Typography",
-      "it": "Caratteri tipografici",
-      "ja": "文字体裁",
-      "ko": "입력 체계",
-      "nb": "Typografi",
-      "nl": "Typografie",
-      "pt-BR": "Tipografia",
-      "pt-PT": "Tipografia",
-      "sv": "Typografi",
-      "th": "ตัวพิมพ์",
-      "zh-CN": "版式",
-      "zh-TW": "印刷樣式"
-    },
-    "settings": [
       {
         "type": "header",
         "content": {
@@ -1709,6 +1465,232 @@
         "id": "type_button_transform",
         "label": {
           "en": "Capitalize Buttons"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Shopping List"
+    },
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "shopping_list",
+        "label": {
+          "en": "Activate Shopping List"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "MAP"
+    },
+    "settings": [
+      {
+        "type": "text",
+        "id": "map_message",
+        "label": {
+          "en": "MAP Message"
+        }
+      },
+      {
+        "type": "text",
+        "id": "map_brand_1",
+        "label": "Map Brand 1"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_2",
+        "label": "Map Brand 2"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_3",
+        "label": "Map Brand 3"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_4",
+        "label": "Map Brand 4"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_5",
+        "label": "Map Brand 5"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_6",
+        "label": "Map Brand 6"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_7",
+        "label": "Map Brand 7"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_8",
+        "label": "Map Brand 8"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_9",
+        "label": "Map Brand 9"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_10",
+        "label": "Map Brand 10"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_11",
+        "label": "Map Brand 11"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_12",
+        "label": "Map Brand 12"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_13",
+        "label": "Map Brand 13"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_14",
+        "label": "Map Brand 14"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_15",
+        "label": "Map Brand 15"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_16",
+        "label": "Map Brand 16"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_17",
+        "label": "Map Brand 17"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_18",
+        "label": "Map Brand 18"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_19",
+        "label": "Map Brand 19"
+      },
+      {
+        "type": "text",
+        "id": "map_brand_20",
+        "label": "Map Brand 20"
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "General Head Tags"
+    },
+    "settings": [
+      {
+        "type": "html",
+        "id": "general_head_tags",
+        "label": {
+          "en": "General <head> Tags (Placed before <\/head>)"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "General Body Tags"
+    },
+    "settings": [
+      {
+        "type": "html",
+        "id": "general_body_tags",
+        "label": {
+          "en": "General <body> Tags (Placed before <\/body>)"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "General Footer Tags"
+    },
+    "settings": [
+      {
+        "type": "html",
+        "id": "general_footer_tags",
+        "label": {
+          "en": "General <footer> Tags (Placed before <\/footer>)"
+        }
+      }
+    ]
+  },
+   {
+    "name": {
+      "en": "General Cart Tags"
+    },
+    "settings": [
+      {
+        "type": "html",
+        "id": "general_cart_tags",
+        "label": {
+          "en": "General <cart> Tags (Placed before <\/head> on the /cart page)"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "New Shopify Accounts"
+    },
+    "settings": [
+      {
+        "type": "text",
+        "id": "new_shopify_accounts_url",
+        "label": {
+          "en": "URL"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "GTM Head"
+    },
+    "settings": [
+      {
+        "type": "html",
+        "id": "gtm_head",
+        "label": {
+          "en": "GTM Head"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "GTM Body"
+    },
+    "settings": [
+      {
+        "type": "html",
+        "id": "gtm_body",
+        "label": {
+          "en": "GTM Body"
         }
       }
     ]
