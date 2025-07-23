@@ -316,7 +316,7 @@
           "grid": "4",
           "rows": "6",
           "collection_sidebar_filters": "search_discovery_app",
-          "round_product_borders": true,
+          "round_product_borders": false,
           "product_savings": false,
           "capitalize_pricing_text": false,
           "show_price_range": true,
