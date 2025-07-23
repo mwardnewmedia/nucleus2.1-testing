@@ -3134,6 +3134,44 @@ $shareBorderColor: #ececec;
   }
 }
 
+/* Disable hover effects for sold-out products */
+.sold-out {
+  /* Disable the main product grid wrapper hover effect */
+  .product-grid-item-wrap:hover {
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  /* Disable image hover effects */
+  .product-grid-item:hover img,
+  .product-grid-image:hover img {
+    opacity: 0.7 !important; /* Keep the sold-out opacity */
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  /* Disable button hover effects */
+  .product-info-button:hover {
+    background-color: $colorPrimary !important;
+    color: #fff !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+  
+  /* Make sold-out products non-interactive */
+  .product-grid-image,
+  .product-grid-item {
+    pointer-events: none;
+    cursor: default;
+  }
+  
+  /* Ensure badge stays visible and static */
+  .badge--sold-out {
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
 .badge {
   display: none;
   position: absolute;
@@ -3196,7 +3234,7 @@ $shareBorderColor: #ececec;
   margin-bottom: 30px;
   padding: 20px;
   display: flex;
-  min-height: 500px;
+  min-height: 525px;
   transition: transform 0.5s ease;
 }
 .product-grid-item-wrap:hover {
@@ -3336,12 +3374,21 @@ a.product-grid-item,
 
 .product-info-button {
   position: absolute;
-  bottom: 30px;
+  bottom: 20px;
   font-size: .875em;
   font-weight: 600;
-  border-radius: 5px;
+  padding: 5px 15px 5px 15px;
+  border: solid 2px $colorPrimary;
   background-color: $colorPrimary;
   color: #fff;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: #fff;
+    color: $colorPrimary;
+    opacity: 1;
+    transition: all 0.3s;
+  }
 }
 @media screen and (max-width: 768px) {
   .product-info-button {
@@ -9185,7 +9232,7 @@ p.gallery-image-description {
 @media screen and (max-width: 768px) {
   .gallery-grid-item {
     padding-left: 0px;
-  } 
+  }
 }
 
 /*********************
