@@ -79,7 +79,7 @@ If Catalyst inventory is true, display Availability filter group
         {% elsif all_collections == false and filter.label == 'Rental Department'  %}
           {% comment %} don't render departments filter when on /collections/all url (usually we're surpassing anything from loading due to the 1,000 product limit from Shopify) {% endcomment %} 
         {% else %}
-        <details class="filter-group" {% if round_borders_setting %}style="border-radius: 5px;"{% endif %} open>
+        <details class="filter-group" {% if section.settings.round_product_borders %}style="border-radius: 5px;"{% endif %} open>
           <summary class="filter-group-summary">
             <div>
               <span>{{ filter.label }}</span>
@@ -171,7 +171,7 @@ If Catalyst inventory is true, display Availability filter group
             {%- endcapture -%}
             {%- assign allowed_values = allowed_values_string | strip | split: ',' -%}
             {%- if allowed_values.size > 0 and allowed_values[0] != '' -%}
-            <details class="filter-group" {% if round_borders_setting %}style="border-radius: 5px;"{% endif %} open>
+            <details class="filter-group" {% if section.settings.round_product_borders %}style="border-radius: 5px;"{% endif %} open>
               <summary class="filter-group-summary">
                 <div>
                   <span>{{ filter.label }}</span>
@@ -210,7 +210,7 @@ If Catalyst inventory is true, display Availability filter group
             </details>
             {%- endif -%}
           {%- else -%}
-            <details class="filter-group" {% if round_borders_setting %}style="border-radius: 5px;"{% endif %} open>
+            <details class="filter-group" {% if section.settings.round_product_borders %}style="border-radius: 5px;"{% endif %} open>
               <summary class="filter-group-summary">
                 <div>
                   <span>{{ filter.label }}</span>
@@ -292,7 +292,7 @@ If Catalyst inventory is true, display Availability filter group
       {%- endfor -%}
     {%- else -%}
       {%- for filter in collection.filters -%}
-        <details class="filter-group" {% if round_borders_setting %}style="border-radius: 5px;"{% endif %} open>
+        <details class="filter-group" {% if section.settings.round_product_borders %}style="border-radius: 5px;"{% endif %} open>
           <summary class="filter-group-summary">
             <div>
               <span>{{ filter.label }}</span>
