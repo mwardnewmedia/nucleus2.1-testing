@@ -87,7 +87,7 @@
             <noscript>
              <img src="{{ image | img_url: '580x' }}"
                srcset="{{ image | img_url: '580x' }} 1x, {{ image | img_url: '580x', scale: 2 }} 2x"
-               alt="{{ image.alt }}" style="opacity:1; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+               alt="{{ image.alt }}" style="opacity:1;">
            </noscript>
           {% else %}
           {% capture current %}{% cycle 1, 2, 3, 4 %}{% endcapture %}
