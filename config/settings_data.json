@@ -11,6 +11,7 @@
   "current": {
     "hide_price": false,
     "hide_brands": false,
+    "hide_shopping_links": true,
     "hide_contact_form_math": true,
     "display_logged_in_customer_pricing": false,
     "display_logged_in_customer_upcs": false,
@@ -28,7 +29,7 @@
     "rental_rate_disclaimer": "",
     "true_value": false,
     "button_style": "rounded",
-    "color_primary": "#000000",
+    "color_primary": "#b90000",
     "color_secondary": "#000000",
     "color_accent": "#b90000",
     "color_body_bg": "#FFFFFF",
