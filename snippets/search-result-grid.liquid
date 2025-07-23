@@ -94,6 +94,7 @@
                     data-sizes="auto"
                     width="{{ max_width }}"
                     height="{{ max_height }}"
+                    style="object-fit: contain;"
                     alt="{{ image.alt | escape }}">
                 </div>
               </div>
@@ -102,7 +103,7 @@
                   srcset="{{ image | img_url: '580x' }} 1x, {{ image | img_url: '580x', scale: 2 }} 2x"
                   width="580"
                   height="580"
-                  alt="{{ image.alt }}" style="opacity:1;">
+                  alt="{{ image.alt }}" style="opacity:1; object-fit: contain;">
               </noscript>
             {% else %}
               {% capture current %}{% cycle 1, 2, 3, 4 %}{% endcapture %}
