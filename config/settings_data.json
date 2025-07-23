@@ -22,7 +22,7 @@
     "rental_reservation_banner_text": "",
     "rental_button_text": "",
     "rental_button_link": "/pages/contact-us",
-    "rental_badge": false,
+    "rental_badge": true,
     "rental_rates": true,
     "rental_pricing_disclaimer": "Please Call for Pricing",
     "rental_rate_disclaimer": "",
