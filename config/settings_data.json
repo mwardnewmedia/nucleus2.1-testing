@@ -1090,6 +1090,32 @@
           "show_price_range": false,
           "hide_price": false
         }
+      },
+      "collection_list_WdcpFz": {
+        "type": "collection-list",
+        "blocks": {
+          "collection_xUdxyb": {
+            "type": "collection",
+            "settings": {
+              "collection": "cat"
+            }
+          },
+          "collection_gYL3Lx": {
+            "type": "collection",
+            "settings": {
+              "collection": "dog"
+            }
+          }
+        },
+        "block_order": [
+          "collection_xUdxyb",
+          "collection_gYL3Lx"
+        ],
+        "name": "Collection list",
+        "settings": {
+          "title": "",
+          "image_type": "square_card"
+        }
       }
     },
     "content_for_index": [
@@ -1103,7 +1129,8 @@
       "newsletter_8kth3a",
       "hero_background_8fVdkL",
       "featured_blog_FeRq49",
-      "hero_kXFpXm"
+      "hero_kXFpXm",
+      "collection_list_WdcpFz"
     ],
     "blocks": {
       "11724500921838622758": {
