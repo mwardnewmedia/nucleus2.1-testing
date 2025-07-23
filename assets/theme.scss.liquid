@@ -2099,6 +2099,10 @@ label.error {
     }
 }
 
+#mobileNavHeader .mobileNavBar-link .icon-cart {
+  color: #fff;
+}
+
 .icon-x {
   color: #FFF;
 }
@@ -3185,35 +3189,22 @@ $shareBorderColor: #ececec;
 }
 
 .product-grid-item-wrap {
-    position: relative;
-    border: 1px solid #eaeaea;
-    margin-bottom: 30px;
-    padding: 20px;
-    display: flex;
-    min-height: 500px;
+  position: relative;
+  border: 1px solid #eaeaea;
+  margin-bottom: 30px;
+  padding: 20px;
+  display: flex;
+  min-height: 500px;
+  transition: transform 0.5s ease;
+}
+.product-grid-item-wrap:hover {
+    transform: translateY(-1%);
 }
 
 @media screen and (max-width: 768px) {
   .mobile-product-grid-item-wrap {
     width: 100%;
     min-height: 500px;
-  }
-}
-
-/* Fix for centering search result grid items on mobile - specific to search only */
-@media screen and (max-width: 768px) {
-  .search-product-grid .grid-uniform {
-    text-align: center;
-  }
-  
-  .search-product-grid .grid-item.search-result.mobile-product-grid-item-wrap {
-    display: inline-block;
-    float: none;
-    vertical-align: top;
-    text-align: left;
-    width: auto !important;
-    max-width: 400px;
-    margin: 0 auto 30px auto;
   }
 }
 
@@ -6299,7 +6290,8 @@ div#icf-placeholder {
     display: block;
     margin: 0 auto;
     max-width: 150px;
-    max-height: 100%;
+    height: 150px;
+    object-fit: contain;
 }
 
 .logo-flex-item {
@@ -9766,23 +9758,22 @@ span.rental-price-varies {
   margin-bottom: 20px!important;
 }
 
-@media screen and (max-width: 767px) {
-  .rental-grid-item-wrap {
-    margin-bottom: 0px;
-  }
-}
-
 .rental-grid-item-wrap {
   border: 1px solid #eaeaea;
   margin-bottom: 30px;
   padding: 20px;
   display: flex;
   min-height: 500px;
+  transition: transform 0.5s ease;
+}
+.rental-grid-item-wrap:hover {
+    transform: translateY(-1%);
 }
 
 @media screen and (max-width: 767px) {
   .rental-grid-item-wrap {
     min-height: 450px;
+    margin-bottom: 0px;
   }
 }
 
