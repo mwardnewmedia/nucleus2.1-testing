@@ -230,27 +230,10 @@
           "en": "Colors"
         }
       },
-      {
+       {
         "type": "header",
         "content": {
-          "da": "Generelt",
-          "de": "Allgemein",
-          "en": "General",
-          "es": "General",
-          "fi": "Yleistä",
-          "fr": "Menu général",
-          "hi": "सामान्य",
-          "it": "Generale",
-          "ja": "一般設定",
-          "ko": "일반",
-          "nb": "Generelt",
-          "nl": "Algemeen",
-          "pt-BR": "Geral",
-          "pt-PT": "Geral",
-          "sv": "Allmänt",
-          "th": "ทั่วไป",
-          "zh-CN": "通用",
-          "zh-TW": "一般"
+          "en": "General"
         }
       },
       {
