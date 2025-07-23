@@ -3248,11 +3248,13 @@ a.product-grid-item,
   color: $colorTextBody;
   margin-bottom: $gutter*2;
 
+  img {
+    @include transition(opacity 0.35s ease-out, transform 0.35s ease-out);
+  }
+
   &:hover img {
     opacity: 0.9;
     transform: scale(1.1);
-    @include transition(opacity 0.05s ease-out);
-    @include transition(transform 0.35s ease-out);
   }
 
   @include at-query ($min, $large) {
