@@ -30,6 +30,14 @@
       },
       {
         "type": "checkbox",
+        "id": "hide_shopping_links",
+        "label": {
+          "en": "Hide Shopping Links (Cart/Add to Cart)"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
         "id": "hide_contact_form_math",
         "label": {
           "en": "Hide Contact Form Math Problem"
