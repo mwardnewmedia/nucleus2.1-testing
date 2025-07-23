@@ -58,7 +58,7 @@
     "type_navigation_transform": false,
     "type_button_size": "14px",
     "type_button_transform": false,
-    "round_product_borders": true,
+    "round_product_borders": false,
     "shopping_list": false,
     "map_message": "",
     "map_brand_1": "",
