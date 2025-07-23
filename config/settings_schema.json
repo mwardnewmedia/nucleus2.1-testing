@@ -175,16 +175,22 @@
   },
   {
     "name": {
-      "en": "True Value"
+      "en": "Style Settings"
     },
     "settings": [
+       {
+        "type": "header",
+        "content": {
+          "en": "True Value Settings"
+        }
+      },
       {
         "type": "checkbox",
         "id": "true_value",
         "label": {
           "en": "True Value Styles"
         }
-      }
+      },
     ]
   },
   {
