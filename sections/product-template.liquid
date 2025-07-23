@@ -120,7 +120,7 @@ Modify at your own peril, a broken website is the likely result.
   {% else %}
     <h1 class="h2" itemprop="name" style="max-width:650px;">{{ product.title }}</h1>
   {% unless product.vendor == 'Hardware-Catalyst' or product.vendor == "Do It Best" or product.vendor == shop.name or product.vendor == "True Value Rental" %} 
-    <p class="product-meta list-view-item__vendor" itemprop="brand">{{ product.vendor }}</p>
+    <p class="product-meta vendor-detail" itemprop="brand">{{ product.vendor }}</p>
   {% endunless %}
   <div class="item-codes">
     {%- assign current_variant = product.selected_or_first_available_variant -%}
