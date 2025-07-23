@@ -73,7 +73,7 @@
   
             {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
             <div class="lazyload__image-wrapper no-js" style="max-width: {{ max_width }}px">
-              <div style="padding-top: 100%; position: relative; overflow: hidden;">
+              <div style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
                 <img
                   class="lazyload no-js"
                   data-src="{{ img_url }}"
@@ -81,7 +81,7 @@
                   data-aspectratio="{{ image.aspect_ratio }}"
                   data-sizes="auto"
                   alt="{{ image.alt | escape }}"
-                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                  {% comment %}style="max-height: {{ height }}px;">{% endcomment %}>
               </div>
             </div>
             <noscript>
