@@ -83,7 +83,7 @@
           </div>
         {% endif %}
    
-        <ul class="product-photo-thumbs grid-uniform" {% if settings.round_product_borders %}style="border-radius: 5px;"{% endif %} id="productThumbs-{{ section.id }}">
+        <ul class="product-photo-thumbs grid-uniform" id="productThumbs-{{ section.id }}">
           {% for media in product.media %}
             {% case media.media_type %}
               {% when 'image' %}
@@ -92,7 +92,9 @@
                     id="{{ media.id }}"
                     @click="selectedId = {{ media.id }}"
                     type="button"
-                    class="inline-flex px-4 py-2 border-t border-l border-r">               
+                    class="inline-flex px-4 py-2 border-t border-l border-r"
+                    {% if settings.round_product_borders %}style="border-radius: 5px;"{% endif %}
+                  >               
                       <img src="{{ media | img_url: '100x100'}}" alt="{{ media.alt | replace: '"', '' }}" width="100" height="100">
                   </button>
                 </li>
