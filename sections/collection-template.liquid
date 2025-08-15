@@ -57,7 +57,7 @@ Test Comment
       {% endcomment %}
       {% if collection.description != blank %}
         <header class="section-header">
-          <h1 class="section-header--title h1">{{ collection.title }}{% if current_tags %} - {% assign current_tags_joined_h1 = current_tags | join: ' - ' %}{{ current_tags_joined_h1 }}{% endif %}</h1>
+          <h1 class="section-header--title section-header--left h1">{{ collection.title }}{% if current_tags %} - {% assign current_tags_joined_h1 = current_tags | join: ' - ' %}{{ current_tags_joined_h1 }}{% endif %}</h1>
           <div class="rte rte--header">
             {{ collection.description }}
           </div>
@@ -72,7 +72,7 @@ Test Comment
         </div>
       {% else %}
       <header class="section-header">
-        <h1 class="section-header--title h1">
+        <h1 class="section-header--title section-header--left h1">
           {{ collection.title }}
             {%- for filter in collection.filters -%}
             {% if filter.label == "Subcategories" or filter.label == "Subcategory" or filter.label == "Categories" or filter.label == "Category" %}
