@@ -35,65 +35,50 @@ Modify at your own peril, a broken website is the likely result.
   {% endcase %}
 {% endif %}
 
-{% if section.settings.display_type == 'all' %}
-  {% case section.settings.sort %}
-    {% when 'products_high' or 'products_low' %}
-      {%- assign list_collections = collections | sort: 'all_products_count' -%}
-    {% when 'date' or 'date_reversed' %}
-      {%- assign list_collections = collections | sort: 'published_at' -%}
-    {% else %}
-      {%- assign list_collections = collections -%}
-  {% endcase %}
-  {% if section.settings.sort == 'products_low' or section.settings.sort == 'date' or section.settings.sort == 'alphabetical' %}
-    <div class="{% if section.settings.layout == 'grid' %}grid text-center {% endif %}list-collections-template" data-section-id="{{ section.id }}" data-section-type="list-collections-template">
-      {% for collection in list_collections %}
-        {% unless collection.products_count == 0 %} 
-        {% unless collection.handle == 'frontpage' %}
-          {% if section.settings.layout == 'list' %}
-            {% include 'collection-list-item' %}
-            {% unless forloop.last %}<hr>{% endunless %}
-          {% else %}
-            {% assign featured = collection.handle %}
-            {% if section.settings.only_catalyst_categories %}
-              {% include 'catalyst-category-logic' %}
-            {% else %}
-              {% include 'featured-collection' %}
-            {% endif %}
-          {% endif %}
-        {% endunless %}
-        {% endunless %}
-      {% endfor %}
-    </div>
+{% case section.settings.sort %}
+  {% when 'products_high' or 'products_low' %}
+    {%- assign list_collections = collections | sort: 'all_products_count' -%}
+  {% when 'date' or 'date_reversed' %}
+    {%- assign list_collections = collections | sort: 'published_at' -%}
   {% else %}
-    <div class="{% if section.settings.layout == 'grid' %}grid text-center {% endif %}collection-grid" data-section-id="{{ section.id }}" data-section-type="list-collections-template">
-      {% for collection in list_collections reversed %}
-        {% unless collection.handle == 'frontpage' %}
-          {% if section.settings.layout == 'list' %}
-            {% include 'collection-list-item' %}
-            {% unless forloop.last %}<hr>{% endunless %}
-          {% else %}
-            {% assign featured = collection.handle %}
-            {% if section.settings.only_catalyst_categories %}
-              {% include 'catalyst-category-logic' %}
-            {% else %}
-              {% include 'featured-collection' %}
-            {% endif %}
-          {% endif %}
-        {% endunless %}
-      {% endfor %}
-    </div>
-  {% endif %}
-{% else %}
+    {%- assign list_collections = collections -%}
+{% endcase %}
+{% if section.settings.sort == 'products_low' or section.settings.sort == 'date' or section.settings.sort == 'alphabetical' %}
   <div class="{% if section.settings.layout == 'grid' %}grid text-center {% endif %}list-collections-template" data-section-id="{{ section.id }}" data-section-type="list-collections-template">
-    {% for block in section.blocks %}
-      {% if section.settings.layout == 'list' %}
-        {% assign collection = collections[block.settings.collection] %}
-        {% include 'collection-list-item' %}
-        {% unless forloop.last %}<hr>{% endunless %}
-      {% else %}
-        {% assign featured = block.settings.collection %}
-        {% include 'featured-collection' %}
-      {% endif %}
+    {% for collection in list_collections %}
+      {% unless collection.products_count == 0 %} 
+      {% unless collection.handle == 'frontpage' %}
+        {% if section.settings.layout == 'list' %}
+          {% include 'collection-list-item' %}
+          {% unless forloop.last %}<hr>{% endunless %}
+        {% else %}
+          {% assign featured = collection.handle %}
+          {% if section.settings.only_catalyst_categories %}
+            {% include 'catalyst-category-logic' %}
+          {% else %}
+            {% include 'featured-collection' %}
+          {% endif %}
+        {% endif %}
+      {% endunless %}
+      {% endunless %}
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="{% if section.settings.layout == 'grid' %}grid text-center {% endif %}collection-grid" data-section-id="{{ section.id }}" data-section-type="list-collections-template">
+    {% for collection in list_collections reversed %}
+      {% unless collection.handle == 'frontpage' %}
+        {% if section.settings.layout == 'list' %}
+          {% include 'collection-list-item' %}
+          {% unless forloop.last %}<hr>{% endunless %}
+        {% else %}
+          {% assign featured = collection.handle %}
+          {% if section.settings.only_catalyst_categories %}
+            {% include 'catalyst-category-logic' %}
+          {% else %}
+            {% include 'featured-collection' %}
+          {% endif %}
+        {% endif %}
+      {% endunless %}
     {% endfor %}
   </div>
 {% endif %}
@@ -126,24 +111,24 @@ Modify at your own peril, a broken website is the likely result.
     {
       "type": "paragraph",
       "content": {
-        "da": "Alle dine kollektioner vises som standard. Hvis du vil tilpasse din liste, skal du vælge \"Valgte\" og tilføje kollektioner.",
-        "de": "Alle Kategorien sind automatisch gelistet. Zum Ändern der Liste wählen Sie 'Ausgewählt' und fügen Sie Kategorien hinzu.",
-        "en": "All of your collections are listed by default. To customize your list, choose 'Selected' and add collections.",
-        "es": "Todas tus colecciones están enlistadas por defecto. Para personalizar tu lista, elige 'Seleccionadas' y agrega colecciones.",
-        "fi": "Kaikki kokoelmasi näkyvät oletuksena. Voit mukauttaa luetteloa napauttamalla \"Valittu\" ja lisäämällä kokoelmia.",
-        "fr": "Toutes vos collections sont listées par défaut. Pour personnaliser votre liste, cliquez sur « Sélection » et ajoutez des collections.",
-        "hi": "आपके सभी कलेक्शन्स डिफ़ॉल्ट रूप से सूचीबद्ध हैं. अपनी सूची कस्टमाइज़ करने के लिए, 'चयनित' चुनें और कलेक्शन्स जोड़ें.",
-        "it": "Tutte le collezioni vengono elencate per impostazione predefinita. Per personalizzare il tuo elenco, scegli \"Selezionato\" e aggiungi delle collezioni.",
-        "ja": "すべてのコレクションがデフォルトで一覧表示されます。一覧をカスタマイズするには、「選択済み」を選択してコレクションを追加します。",
-        "ko": "모든 콜렉션이 기본으로 나열됩니다. 목록을 사용자 지정하려면 '선택'을 선택하고 컬렉션을 추가하십시오.",
-        "nb": "Alle samlingene dine vises som standard. For å tilpasse listen, velg «Valgte» og legg til samlinger.",
-        "nl": "Standaard worden al uw collecties weergegeven. Kies Geselecteerd en voeg collecties toe om de lijst aan te passen.",
-        "pt-BR": "Todas as suas coleções são listadas por padrão. Para personalizar sua lista, escolha \"Selecionado\" e adicione coleções.",
-        "pt-PT": "Todas as suas coleções são listadas por predefinição. Para personalizar a sua lista, escolha \"Selecionado\" e adicione coleções.",
-        "sv": "Alla dina kollektioner är listade som standard. För att anpassa din lista väljer du \"Vald\" och lägger till kollektioner.",
-        "th": "มีการระบุคอลเลกชันทั้งหมดของคุณไว้เป็นค่าเริ่มต้น หากต้องการปรับแต่งรายการของคุณ ให้เลือก 'ที่เลือก' แล้วเพิ่มคอลเลกชัน",
-        "zh-CN": "默认情况下列出您的所有产品系列。若要自定义列表，请选择“已选择”并添加产品系列。",
-        "zh-TW": "系統預設會將您所有的商品系列都列入清單。如果想自訂清單，請點選「已選取」並新增商品系列。"
+        "da": "Alle dine kollektioner vises på denne side.",
+        "de": "Alle Kategorien werden auf dieser Seite angezeigt.",
+        "en": "All of your collections are displayed on this page.",
+        "es": "Todas tus colecciones se muestran en esta página.",
+        "fi": "Kaikki kokoelmasi näkyvät tällä sivulla.",
+        "fr": "Toutes vos collections sont affichées sur cette page.",
+        "hi": "आपके सभी कलेक्शन्स इस पेज पर प्रदर्शित हैं।",
+        "it": "Tutte le tue collezioni sono visualizzate su questa pagina.",
+        "ja": "すべてのコレクションがこのページに表示されます。",
+        "ko": "모든 컬렉션이 이 페이지에 표시됩니다.",
+        "nb": "Alle samlingene dine vises på denne siden.",
+        "nl": "Al uw collecties worden op deze pagina weergegeven.",
+        "pt-BR": "Todas as suas coleções são exibidas nesta página.",
+        "pt-PT": "Todas as suas coleções são apresentadas nesta página.",
+        "sv": "Alla dina kollektioner visas på denna sida.",
+        "th": "คอลเลกชันทั้งหมดของคุณแสดงในหน้านี้",
+        "zh-CN": "您的所有产品系列都显示在此页面上。",
+        "zh-TW": "您所有的商品系列都會顯示在此頁面上。"
       }
     },
     {
@@ -160,62 +145,7 @@ Modify at your own peril, a broken website is the likely result.
         "en": "Only Catalyst categories"
       }
     },
-    {
-      "type": "radio",
-      "id": "display_type",
-      "label": {
-        "en": "Select collections to show"
-      },
-      "default": "all",
-      "options": [
-        {
-          "value": "all",
-          "label": {
-            "da": "Alle",
-            "de": "Alle",
-            "en": "All",
-            "es": "Todos",
-            "fi": "Kaikki",
-            "fr": "Toutes",
-            "hi": "सभी",
-            "it": "Tutti",
-            "ja": "すべて",
-            "ko": "모두",
-            "nb": "Alle",
-            "nl": "Alle",
-            "pt-BR": "Tudo",
-            "pt-PT": "Tudo",
-            "sv": "Alla",
-            "th": "ทั้งหมด",
-            "zh-CN": "所有",
-            "zh-TW": "全部"
-          }
-        },
-        {
-          "value": "selected",
-          "label": {
-            "da": "Valgt",
-            "de": "Ausgewählt",
-            "en": "Selected",
-            "es": "Seleccionadas",
-            "fi": "Valittu",
-            "fr": "Sélection",
-            "hi": "चयनित",
-            "it": "Selezionato",
-            "ja": "選択済み",
-            "ko": "선택됨",
-            "nb": "Valgt",
-            "nl": "Geselecteerd",
-            "pt-BR": "Selecionado",
-            "pt-PT": "Selecionado",
-            "sv": "Valt",
-            "th": "เลือกแล้ว",
-            "zh-CN": "已选",
-            "zh-TW": "已選取"
-          }
-        }
-      ]
-    },
+
     {
       "type": "select",
       "id": "layout",
@@ -289,26 +219,7 @@ Modify at your own peril, a broken website is the likely result.
         "zh-CN": "产品系列排序依据：",
         "zh-TW": "以下列方式排序商品系列："
       },
-      "info": {
-        "da": "Sortering gælder kun, når \"Alle\" er valgt",
-        "de": "Sortieren funktioniert nur, wenn 'Alle' ausgewählt ist",
-        "en": "Sorting only applies when 'All' is selected",
-        "es": "La función ordenar solo se aplica cuando se selecciona \"Todas\"",
-        "fi": "Lajittelua sovelletaan vain, kun valintana on \"Kaikki\"",
-        "fr": "Le tri ne s'applique que lorsque « Toutes » est sélectionné",
-        "hi": "क्रमबद्ध करना केवल तब लागू होती है जब 'सभी' का चयन किया जाता है",
-        "it": "L'ordinamento viene applicato solo quanto è selezionato \"Tutto\"",
-        "ja": "「すべて」が選択されている場合にのみ並べ替えを適用する",
-        "ko": "정렬은 '모두'를 선택한 경우에만 적용됩니다.",
-        "nb": "Sortering gjelder bare når «Alle» er valgt",
-        "nl": "Sorteren is alleen van toepassing als Alles is geselecteerd",
-        "pt-BR": "A organização só se aplica quando \"Tudo\" está selecionado",
-        "pt-PT": "A ordenação só se aplica quando \"Tudo\" está selecionado",
-        "sv": "Sortering gäller endast när \"Alla\" är markerat",
-        "th": "การจัดเรียงจะใช้ได้เมื่อเลือก 'ทั้งหมด' เท่านั้น",
-        "zh-CN": "仅在选择“全部”时应用排序",
-        "zh-TW": "只有在選擇「全部」的時候才能排序"
-      },
+
       "default": "alphabetical",
       "options": [
         {
@@ -567,57 +478,6 @@ Modify at your own peril, a broken website is the likely result.
             "zh-CN": "5",
             "zh-TW": "5"
           }
-        }
-      ]
-    }
-  ],
-  "blocks": [
-    {
-      "type": "collection",
-      "name": {
-        "da": "Kollektion",
-        "de": "Kategorie",
-        "en": "Collection",
-        "es": "Colección",
-        "fi": "Kokoelma",
-        "fr": "Collection",
-        "hi": "कलेक्शन",
-        "it": "Collezione",
-        "ja": "コレクション",
-        "ko": "컬렉션",
-        "nb": "Samling",
-        "nl": "Collectie",
-        "pt-BR": "Coleção",
-        "pt-PT": "Coleção",
-        "sv": "Produktserie",
-        "th": "คอลเลกชัน",
-        "zh-CN": "收藏",
-        "zh-TW": "商品系列"
-      },
-      "settings": [
-        {
-          "label": {
-            "da": "Kollektion",
-            "de": "Kategorie",
-            "en": "Collection",
-            "es": "Colección",
-            "fi": "Kokoelma",
-            "fr": "Collection",
-            "hi": "कलेक्शन",
-            "it": "Collezione",
-            "ja": "コレクション",
-            "ko": "컬렉션",
-            "nb": "Samling",
-            "nl": "Collectie",
-            "pt-BR": "Coleção",
-            "pt-PT": "Coleção",
-            "sv": "Produktserie",
-            "th": "คอลเลกชัน",
-            "zh-CN": "收藏",
-            "zh-TW": "商品系列"
-          },
-          "id": "collection",
-          "type": "collection"
         }
       ]
     }
