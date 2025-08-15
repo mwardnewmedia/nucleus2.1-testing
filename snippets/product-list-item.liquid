@@ -63,38 +63,18 @@
         <div class="text-center">
           
           
-          {% if product.tags contains "Rental" %}
-            {% if settings.rental_rates and settings.rental_pricing_disclaimer != blank %}
-              <div class="rental-pricing-disclaimer">
-                <p>{{ settings.rental_pricing_disclaimer }}</p>
-              </div>
-            {% endif %}
-            {% unless settings.hide_price or settings.rental_rates %} 
-              {% if product.type == 'MAP' %} 
-                <br/><p class="MAP-Disclaimer"><strong><em>Add to cart to see price</em></strong></p>
-              {% else %}
-                <div class="product-item--price">
-          {% else %}
-            {% unless settings.hide_price or section.settings.hide_price %} 
-              {% if product.type == 'MAP' %} 
-                <br/><p class="MAP-Disclaimer"><strong><em>Add to cart to see price</em></strong></p>
-              {% else %}
-                <div class="product-item--price">
-          {% endif %}
+          {% unless settings.hide_price or section.settings.hide_price %} 
+    		{% if product.type == 'MAP' %} 
+    		<br/><p class="MAP-Disclaimer"><strong><em>Add to cart to see price</em></strong></p>
+      		{% else %}
+          <div class="product-item--price">
             <p class="h1 medium-down--left">
-              {% if product.price_varies %}
-                <span class="price-varies">{% if section.settings.capitalize_pricing_text %}<span style="text-transform: uppercase;">from</span>{% else %}<small>from</small>{% endif %}</span>
-              {% endif %}
               {% if on_sale %}   
                 <span class="visually-hidden">{{ "products.general.sale_price" | t }}</span>
               {% else %}
                 <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
               {% endif %}
-              {% if product.price_varies %}
-                {% include 'price' with product.price_min %}
-              {% else %}
-                {% include 'price' with product.price %}
-              {% endif %}
+              {% include 'price' with product.price %}
               {% if on_sale and section.settings.product_show_compare_at_price %}
                 <small>
                   <s>
@@ -115,12 +95,8 @@
               {% include 'price-sale' %}
             </div>
           {% endif %}
-              {% endif %}
-            {% endunless %}
-          {% else %}
-            {% endif %}
-            {% endunless %}
-          {% endif %}    
+          {% endif %}
+          {% endunless %}    
 
           {% if section.settings.product_reviews_enable %}
             <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
