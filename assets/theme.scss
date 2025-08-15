@@ -8503,6 +8503,15 @@ ul.loyalty-astro-offers-list img {
   text-align:left!important;
 }
 
+/* Left align pricing and disclaimers in collection list view */
+#shopify-section-collection-list-template .product-item--price,
+#shopify-section-collection-list-template .rental-pricing-disclaimer,
+#shopify-section-collection-list-template .MAP-Disclaimer,
+#shopify-section-collection-list-template .price-varies,
+#shopify-section-collection-list-template .rental-price-varies {
+  text-align: left !important;
+}
+
 span.featured-box--title {
     letter-spacing: initial;
 }
