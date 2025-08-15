@@ -54,7 +54,7 @@
         {% unless product.vendor == 'Hardware-Catalyst' or product.vendor == "Do It Best" %} 
         <div class="list-view-item__vendor medium-up--hide">{{ product.vendor }}</div>
         {% endunless %}
-        <p class="h6">{{ product.title }}</p>
+        <p class="h4">{{ product.title }}</p>
         <div class="rte">
           <p>{{ product.content | strip_html | truncatewords: 30 }}</p>
         </div>
@@ -88,7 +88,7 @@
               {% include 'product-unit-price', variant: product.selected_or_first_available_variant %}
             {%- endif -%}
           </div>
-          {% if on_sale and section.settings.product_show_saved_amount %}
+          {% if on_sale and section.settings.product_savings %}
             <div class="sale-tag medium-down--right{% if section.settings.product_reviews_enable %} has-reviews{% endif %}">
               {% assign compare_price = product.compare_at_price %}
               {% assign product_price = product.price %}
