@@ -298,16 +298,26 @@
           {% endif %}
         {% endif %}
       {% else %}
-        {% if product.tags contains "Rental" %}
-          {% if settings.rental_rates and settings.rental_pricing_disclaimer != blank %}
-            <div class="rental-pricing-disclaimer">
-              <p>{{ settings.rental_pricing_disclaimer }}</p>
-            </div>
-          {% endif %}
-          {% unless settings.hide_price or settings.rental_rates %}
-        {% else %}
-          {% unless settings.hide_price or section.settings.hide_price %}
+        {% comment %} Handle rental disclaimer when rates are hidden {% endcomment %}
+        {% if product.tags contains "Rental" and settings.rental_rates and settings.rental_pricing_disclaimer != blank %}
+          <div class="rental-pricing-disclaimer">
+            <p>{{ settings.rental_pricing_disclaimer }}</p>
+          </div>
         {% endif %}
+        
+        {% comment %} Show pricing unless hidden by settings {% endcomment %}
+        {% assign hide_pricing = false %}
+        {% if product.tags contains "Rental" %}
+          {% if settings.hide_price or settings.rental_rates %}
+            {% assign hide_pricing = true %}
+          {% endif %}
+        {% else %}
+          {% if settings.hide_price or section.settings.hide_price %}
+            {% assign hide_pricing = true %}
+          {% endif %}
+        {% endif %}
+        
+        {% unless hide_pricing %}
           {% if product.type == 'MAP' or 
                 settings.map_brand_1 == product.vendor or 
                 settings.map_brand_2 == product.vendor or 
@@ -384,10 +394,7 @@
               </div>
             {% endif %}
           {% endif %}
-          {% endunless %}
-        {% else %}
-          {% endunless %}
-        {% endif %}
+        {% endunless %}
       {% endif %}
       
       {% if section.settings.product_reviews_enable %}
