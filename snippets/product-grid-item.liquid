@@ -298,6 +298,7 @@
           {% endif %}
         {% endif %}
       {% else %}
+<<<<<<< HEAD
         {% comment %} Handle rental disclaimer when rates are hidden {% endcomment %}
         {% if product.tags contains "Rental" and settings.rental_rates and settings.rental_pricing_disclaimer != blank %}
           <div class="rental-pricing-disclaimer">
@@ -318,6 +319,9 @@
         {% endif %}
         
         {% unless hide_pricing %}
+=======
+        {% unless settings.hide_price or section.settings.hide_price %}
+>>>>>>> 11d27c6385367e8afc22ea0e201a918118572379
           {% if product.type == 'MAP' or 
                 settings.map_brand_1 == product.vendor or 
                 settings.map_brand_2 == product.vendor or 
