@@ -308,7 +308,7 @@
         {% comment %} Show pricing unless hidden by settings {% endcomment %}
         {% assign hide_pricing = false %}
         {% if product.tags contains "Rental" %}
-          {% if settings.hide_price or settings.rental_rates %}
+          {% if settings.hide_price or settings.rental_rates or section.settings.hide_price %}
             {% assign hide_pricing = true %}
           {% endif %}
         {% else %}

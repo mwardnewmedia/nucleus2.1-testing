@@ -162,7 +162,7 @@
               {% endif %}
             {% endif %}
           {% else %}
-            {% unless settings.hide_price or settings.rental_rates %}
+            {% unless settings.hide_price or settings.rental_rates or section.settings.hide_price %}
               {% if product.type == 'MAP' 
                 or settings.map_brand_1 == product.vendor
                 or settings.map_brand_2 == product.vendor

@@ -66,7 +66,7 @@
 <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
   {% if settings.display_logged_in_customer_pricing %}
     {% if customer %}
-      {% unless settings.hide_price or settings.rental_rates %}
+      {% unless settings.hide_price or settings.rental_rates or section.settings.hide_price %}
         <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}">
         <meta itemprop="price" content="{{ variant.price | divided_by: 100.00 }}">
         {% if variant.price > 0 %}
@@ -96,7 +96,7 @@
       {% endunless %}
     {% endif %}
   {% else %}
-    {% unless settings.hide_price or settings.rental_rates %}
+    {% unless settings.hide_price or settings.rental_rates or section.settings.hide_price %}
       <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}">
       <meta itemprop="price" content="{{ variant.price | divided_by: 100.00 }}">
       {% if variant.price > 0 %}
