@@ -10,8 +10,7 @@ Modify at your own peril, a broken website is the likely result.
 
 {% include 'breadcrumb' %}
 
-{% if section.settings.layout == 'grid' %}
-  {% case section.settings.grid %}
+{% case section.settings.grid %}
     {% when '2' %}
       {%- assign featured_collection_width = 'one-half' -%}
       {%- assign featured_collection_size = '485x' -%}
@@ -33,7 +32,6 @@ Modify at your own peril, a broken website is the likely result.
       {%- assign width = '175' -%}
       {%- assign height = '175' -%}
   {% endcase %}
-{% endif %}
 
 {% case section.settings.sort %}
   {% when 'products_high' or 'products_low' %}
@@ -44,39 +42,29 @@ Modify at your own peril, a broken website is the likely result.
     {%- assign list_collections = collections -%}
 {% endcase %}
 {% if section.settings.sort == 'products_low' or section.settings.sort == 'date' or section.settings.sort == 'alphabetical' %}
-  <div class="{% if section.settings.layout == 'grid' %}grid text-center {% endif %}list-collections-template" data-section-id="{{ section.id }}" data-section-type="list-collections-template">
+  <div class="grid text-center list-collections-template" data-section-id="{{ section.id }}" data-section-type="list-collections-template">
     {% for collection in list_collections %}
       {% unless collection.products_count == 0 %} 
       {% unless collection.handle == 'frontpage' %}
-        {% if section.settings.layout == 'list' %}
-          {% include 'collection-list-item' %}
-          {% unless forloop.last %}<hr>{% endunless %}
+        {% assign featured = collection.handle %}
+        {% if section.settings.only_catalyst_categories %}
+          {% include 'catalyst-category-logic' %}
         {% else %}
-          {% assign featured = collection.handle %}
-          {% if section.settings.only_catalyst_categories %}
-            {% include 'catalyst-category-logic' %}
-          {% else %}
-            {% include 'featured-collection' %}
-          {% endif %}
+          {% include 'featured-collection' %}
         {% endif %}
       {% endunless %}
       {% endunless %}
     {% endfor %}
   </div>
 {% else %}
-  <div class="{% if section.settings.layout == 'grid' %}grid text-center {% endif %}collection-grid" data-section-id="{{ section.id }}" data-section-type="list-collections-template">
+  <div class="grid text-center collection-grid" data-section-id="{{ section.id }}" data-section-type="list-collections-template">
     {% for collection in list_collections reversed %}
       {% unless collection.handle == 'frontpage' %}
-        {% if section.settings.layout == 'list' %}
-          {% include 'collection-list-item' %}
-          {% unless forloop.last %}<hr>{% endunless %}
+        {% assign featured = collection.handle %}
+        {% if section.settings.only_catalyst_categories %}
+          {% include 'catalyst-category-logic' %}
         {% else %}
-          {% assign featured = collection.handle %}
-          {% if section.settings.only_catalyst_categories %}
-            {% include 'catalyst-category-logic' %}
-          {% else %}
-            {% include 'featured-collection' %}
-          {% endif %}
+          {% include 'featured-collection' %}
         {% endif %}
       {% endunless %}
     {% endfor %}
@@ -144,29 +132,6 @@ Modify at your own peril, a broken website is the likely result.
       "label": {
         "en": "Only Catalyst categories"
       }
-    },
-
-    {
-      "type": "select",
-      "id": "layout",
-      "label": {
-        "en": "Select layout"
-      },
-      "default": "grid",
-      "options": [
-        {
-          "value": "grid",
-          "label": {
-            "en": "Grid"
-          }
-        },
-        {
-          "value": "list",
-          "label": {
-            "en": "List"
-          }
-        }
-      ]
     },
     {
       "type": "select",
