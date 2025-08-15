@@ -3197,12 +3197,27 @@ $shareBorderColor: #ececec;
   max-width: 100%;
   min-width: 100%;
   margin: 0 auto $gutter/2;
+  height: 200px;
+  padding: 15px;
 
   img {
     display: block;
     margin: 0 auto;
     @include transition(opacity 0.3s ease-out);
     @include backface();
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+  }
+
+  .lazyload__image-wrapper {
+    height: 200px;
+    max-width: 100%;
+    
+    > div {
+      height: 200px !important;
+      padding-top: 0 !important;
+    }
   }
 }
 
@@ -3214,6 +3229,7 @@ $shareBorderColor: #ececec;
 .product-grid-image--centered {
   display: table-cell;
   vertical-align: middle;
+  height: 200px;
 }
 
 a.product-grid-item,
@@ -3221,7 +3237,7 @@ a.product-grid-item,
   display: block;
   color: $colorTextBody;
   background-color: #fff;
-  padding: 16px;
+  padding: 0;
   margin-bottom: $gutter*2;
 
   &:hover img {
@@ -3277,10 +3293,9 @@ a.product-grid-item,
   font-size: 13px;
   font-weight: $baseFontBoldWeight;
   padding: 0 8px;
-  border-radius: 3px;
-  vertical-align: text-bottom;
-  color: $colorPrimary;
-  border: 2px solid $colorPrimary;
+}
+
+
 
   sup {
     display: none;
@@ -4746,6 +4761,8 @@ img.mfp-img {
   }
 }
 
+
+
 /*============================================================================
   #Password Page
 ==============================================================================*/
@@ -6150,8 +6167,14 @@ div#icf-placeholder {
 }
   
 /*** Empty Product Image Disclaimer ***/
-.no-product-image-available p {
+.no-product-image-available {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+}
+.no-product-image-available p {
+  text-align: center !important;
   margin: 0 auto;
   padding: 5px;
   font-size: 13px;
@@ -6165,7 +6188,7 @@ div#icf-placeholder {
 
 /*** Empty Product Image Disclaimer on Searcch Page ***/  
 .no-product-image-available-search p {
-  text-align: center;
+  text-align: center !important;
   width: 100%;
   margin: 0 auto;
   padding: 5px;
@@ -9712,6 +9735,7 @@ span.rental-price-varies {
 
 .rental--grid-image {
   margin-bottom: 20px!important;
+  padding: 15px;
 }
 
 @media screen and (max-width: 767px) {
@@ -9724,7 +9748,7 @@ span.rental-price-varies {
   border: 1px solid #eaeaea;
   background-color: #fff;
   margin-bottom: 30px;
-  padding: 16px;
+  padding: 0;
   display: flex;
   min-height: 400px;
 }
@@ -9754,14 +9778,18 @@ span.rental-price-varies {
   width: 100%;
 }
 
+
 .rental-image-wrapper img {
   max-height: 200px;
   width: 100%;
+  object-fit: contain;
 }
 
 .rental-grid-item-wrap {
   position:relative;
 }
+
+
 
 .rental-badge {
     position: absolute;
@@ -9790,6 +9818,7 @@ span.rental-price-varies {
 .rental-pricing-disclaimer p {
   margin: 0px;
   font-size: 0.87em;
+  text-align: center !important;
 }
 
 .product-rental-pricing-disclaimer {

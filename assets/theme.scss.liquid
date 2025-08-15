@@ -3938,12 +3938,27 @@ $shareBorderColor: #ececec;
   max-width: 100%;
   min-width: 100%;
   margin: 0 auto $gutter/2;
+  height: 200px;
+  padding: 15px;
 
   img {
     display: block;
     margin: 0 auto;
     @include transition(opacity 0.3s ease-out);
     @include backface();
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+  }
+
+  .lazyload__image-wrapper {
+    height: 200px;
+    max-width: 100%;
+    
+    > div {
+      height: 200px !important;
+      padding-top: 0 !important;
+    }
   }
 }
 
@@ -3955,6 +3970,7 @@ $shareBorderColor: #ececec;
 .product-grid-image--centered {
   display: table-cell;
   vertical-align: middle;
+  height: 200px;
 }
 
 a.product-grid-item,
@@ -3962,7 +3978,7 @@ a.product-grid-item,
   display: block;
   color: $colorTextBody;
   background-color: #fff;
-  padding: 16px;
+  padding: 0;
   margin-bottom: $gutter*2;
 
   &:hover img {
@@ -6891,8 +6907,14 @@ div#icf-placeholder {
 }
   
 /*** Empty Product Image Disclaimer ***/
-.no-product-image-available p {
+.no-product-image-available {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+}
+.no-product-image-available p {
+  text-align: center !important;
   margin: 0 auto;
   padding: 5px;
   font-size: 13px;
@@ -6906,7 +6928,7 @@ div#icf-placeholder {
 
 /*** Empty Product Image Disclaimer on Searcch Page ***/  
 .no-product-image-available-search p {
-  text-align: center;
+  text-align: center !important;
   width: 100%;
   margin: 0 auto;
   padding: 5px;
@@ -10482,6 +10504,7 @@ span.rental-price-varies {
 
 .rental--grid-image {
   margin-bottom: 20px!important;
+  padding: 15px;
 }
 
 @media screen and (max-width: 767px) {
@@ -10494,19 +10517,19 @@ span.rental-price-varies {
   border: 1px solid #eaeaea;
   background-color: #fff;
   margin-bottom: 30px;
-  padding: 16px;
+  padding: 0;
   display: flex;
-  min-height: 400px;
+  min-height: 475px;
 }
 
 @media screen and (max-width: 767px) {
   .rental-grid-item-wrap {
-    min-height: 450px;
+    min-height: 475px;
   }
 }
 
 .rental-grid-item-wrap p {
-  text-align:center;
+  text-align:left;
 }
 
 .rental-image-wrapper {
@@ -10527,10 +10550,59 @@ span.rental-price-varies {
 .rental-image-wrapper img {
   max-height: 200px;
   width: 100%;
+  object-fit: contain;
 }
 
 .rental-grid-item-wrap {
   position:relative;
+}
+
+/* Product Grid Item Wrap - Matching Rental Styling */
+@media screen and (max-width: 767px) {
+  .product-grid-item-wrap {
+    margin-bottom: 0px;
+  }
+}
+
+.product-grid-item-wrap {
+  border: 1px solid #eaeaea;
+  background-color: #fff;
+  margin-bottom: 30px;
+  padding: 0;
+  display: flex;
+  min-height: 550px;
+}
+
+@media screen and (max-width: 767px) {
+  .product-grid-item-wrap {
+    min-height: 550px;
+  }
+}
+
+.product-grid-item-wrap p {
+  text-align:left;
+}
+
+.product-grid-item-wrap a {
+  color: $colorTextBody!important;
+}
+
+.product-grid-item-wrap a {
+  width: 100%;
+}
+
+.product-grid-item-wrap {
+  position:relative;
+}
+
+/* Content container for non-image content in product grid */
+.product-grid-content {
+  padding: 10px;
+}
+
+/* Content container for non-image content in rental grid */
+.rental-grid-content {
+  padding: 10px;
 }
 
 .rental-badge {
@@ -10560,6 +10632,7 @@ span.rental-price-varies {
 .rental-pricing-disclaimer p {
   margin: 0px;
   font-size: 0.87em;
+  text-align: center !important;
 }
 
 .product-rental-pricing-disclaimer {
@@ -10672,6 +10745,39 @@ span.rental-price-varies {
 
 .metastock-flyout-header-container, .metastock-selected-location-container {
   background:$metastockHeaderBackgroundColor!important;
+}
+
+/*================ Product Grid Footer Positioning ================*/
+.product-grid-item-wrap {
+  position: relative; /* Enable absolute positioning for footer */
+  min-height: 550px; /* Ensure minimum height for proper footer positioning */
+}
+
+.product-grid-footer {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  padding: 10px 0;
+  background-color: transparent;
+}
+
+.rental-grid-footer {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  padding: 10px 0;
+  background-color: transparent;
+}
+
+/* Ensure content doesn't overlap with footer */
+.product-grid-content {
+  padding-bottom: 80px; /* Provide space for the absolutely positioned footer */
+}
+
+.rental-grid-content {
+  padding-bottom: 80px; /* Provide space for the absolutely positioned footer */
 }
 
 .metastock-flyout-title, .metastock-selected-location-link, .metastock-icon-location, span.metastock-my-store-icon {
