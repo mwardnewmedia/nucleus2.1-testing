@@ -1,0 +1,236 @@
+{% unless grid_item_width %}
+  {% assign grid_item_width = 'large--one-quarter medium-down--one-half' %}
+{% endunless %}
+
+{% unless image_size %}
+  {%- assign image_size = '600x600' -%}
+{% endunless %}
+
+{% unless current_collection %}
+  {% assign current_collection = collection %}
+{% endunless %}
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available  %}
+  {% assign sold_out = false %}
+{% endif %}
+
+<div class="grid-item {{ grid_item_width }}{% unless section.settings.hide_sold_out_overlay %}{% if sold_out %} sold-out{% endif %}{% endunless %}{% if on_sale %} on-sale{% endif %}">
+    <div class="rental-grid-item-wrap">
+      {% if settings.rental_badge %}
+      <div class="rental-badge">
+        Rental
+      </div>
+      {% endif %}
+      <a href="{{ product.url | within: current_collection }}">
+        <div class="rental--grid-image">
+            {% if product.featured_image %}
+              {%- assign image = product.featured_image -%}
+              {%- assign max_width = width | plus: 0 -%}
+              {%- assign max_height = height | plus: 0 -%}
+
+              {%- include 'image-logic' with width: max_width, height: max_height -%}
+
+              {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+              <div class="rental-image-wrapper">
+                  <img
+                    class="lazyload no-js"
+                    data-src="{{ img_url }}"
+                    data-widths="[125, 180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                    data-aspectratio="{{ image.aspect_ratio }}"
+                    data-sizes="auto"
+                    alt="{{ image.alt | escape }}"
+                    {% comment %}style="max-height: {{ height }}px;">{% endcomment %}>
+              </div>
+              <noscript>
+              <img src="{{ image | img_url: '580x' }}"
+                srcset="{{ image | img_url: '580x' }} 1x, {{ image | img_url: '580x', scale: 2 }} 2x"
+                alt="{{ image.alt }}" style="opacity:1;">
+            </noscript>
+
+            {% else %}
+              {% capture current %}{% cycle 1, 2, 3, 4 %}{% endcapture %}
+              {% comment %}<div>
+              {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>{% endcomment %}
+              {% unless sold_out %}
+                <div class="no-product-image-available-rental-box">
+                  <div class="no-product-image-available-search">
+                    <p>No Image Available</p>
+                  </div>
+                </div>
+             {% endunless %}
+          {% endif %}
+        </div>
+        
+        {% assign shopName = shop.name | remove: 'amp;' | remove: '&' | remove: '#39;' | remove:"'" %}
+        {% assign productVendor = product.vendor | remove:'&' | remove:"'" %}
+        
+        {% unless product.vendor == 'Hardware-Catalyst' or product.vendor == "Do It Best" or productVendor == shopName or product.vendor == "True Value Rental" %} 
+          {% unless settings.hide_brands %}
+            {% if product.vendor %}
+              <div class="list-view-item__vendor medium-up--hide text-center">{{ product.vendor }}</div>             
+            {% endif %}  
+          {% endunless %}
+        {% endunless %}
+
+        <p>{{ product.title }}</p>
+
+      {% if settings.display_logged_in_customer_pricing %}
+        {% if customer %}
+          {% if product.type == 'MAP' 
+            or settings.map_brand_1 == product.vendor
+            or settings.map_brand_2 == product.vendor
+            or settings.map_brand_3 == product.vendor
+            or settings.map_brand_4 == product.vendor
+            or settings.map_brand_5 == product.vendor
+            or settings.map_brand_6 == product.vendor
+            or settings.map_brand_7 == product.vendor
+            or settings.map_brand_8 == product.vendor
+            or settings.map_brand_9 == product.vendor
+            or settings.map_brand_10 == product.vendor
+            or settings.map_brand_11 == product.vendor
+            or settings.map_brand_12 == product.vendor
+            or settings.map_brand_13 == product.vendor
+            or settings.map_brand_14 == product.vendor
+            or settings.map_brand_15 == product.vendor
+            or settings.map_brand_16 == product.vendor
+            or settings.map_brand_17 == product.vendor
+            or settings.map_brand_18 == product.vendor
+            or settings.map_brand_19 == product.vendor
+            or settings.map_brand_20 == product.vendor %}
+            {% if settings.map_message != blank %}
+              <p class="MAP-Disclaimer" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}><strong><em>{{ settings.map_message }}</em></strong></p>
+            {% else %}
+              <p class="MAP-Disclaimer" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}><strong><em>Add to cart to see price</em></strong></p>
+            {% endif %}
+          {% else %}
+            {% if product.price > 0 %}
+              <div class="product-item--price text-center">     
+                <span class="h1 medium--left">
+                  {% if product.price_varies %}
+                    <span class="price-varies rental-price-varies" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}>rent from </span>
+                  {% endif %}
+                  {% if on_sale %}
+                    <span class="visually-hidden">{{ "products.general.sale_price" | t }}</span>
+                  {% else %}
+                    <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
+                  {% endif %}
+                  {% include 'price' with product.price %}
+                  {% if on_sale and section.settings.product_show_compare_at_price %}
+                    {% assign current_variant = product.selected_or_first_available_variant %}
+                    {% if current_variant.compare_at_price %}
+                      <small>
+                        <s>
+                          <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
+                          {% include 'price' with product.compare_at_price %}
+                        </s>
+                      </small>
+                    {% endif %}
+                  {% endif %}
+                </span>
+                {%- if product.selected_or_first_available_variant.available and product.selected_or_first_available_variant.unit_price_measurement -%}
+                  {% include 'product-unit-price', variant: product.selected_or_first_available_variant %}
+                {%- endif -%}
+              </div>
+            {% endif %}
+            {% if on_sale and section.settings.product_show_saved_amount %}
+              {% if current_variant.compare_at_price %}
+                <div class="sale-tag{% unless section.settings.show_compare_at_price %} medium--right{% endunless %}{% if section.settings.product_reviews_enable %} has-reviews{% endif %}">
+                  {% assign compare_price = product.compare_at_price %}
+                  {% assign product_price = product.price %}
+                  {% include 'price-sale' %}
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% else %}
+        {% unless settings.hide_price or settings.rental_rates %}
+          {% if product.type == 'MAP' 
+            or settings.map_brand_1 == product.vendor
+            or settings.map_brand_2 == product.vendor
+            or settings.map_brand_3 == product.vendor
+            or settings.map_brand_4 == product.vendor
+            or settings.map_brand_5 == product.vendor
+            or settings.map_brand_6 == product.vendor
+            or settings.map_brand_7 == product.vendor
+            or settings.map_brand_8 == product.vendor
+            or settings.map_brand_9 == product.vendor
+            or settings.map_brand_10 == product.vendor
+            or settings.map_brand_11 == product.vendor
+            or settings.map_brand_12 == product.vendor
+            or settings.map_brand_13 == product.vendor
+            or settings.map_brand_14 == product.vendor
+            or settings.map_brand_15 == product.vendor
+            or settings.map_brand_16 == product.vendor
+            or settings.map_brand_17 == product.vendor
+            or settings.map_brand_18 == product.vendor
+            or settings.map_brand_19 == product.vendor
+            or settings.map_brand_20 == product.vendor %}
+            {% if settings.map_message != blank %}
+              <p class="MAP-Disclaimer" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}><strong><em>{{ settings.map_message }}</em></strong></p>
+            {% else %}
+              <p class="MAP-Disclaimer" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}><strong><em>Add to cart to see price</em></strong></p>
+            {% endif %}
+          {% else %}
+            {% if product.price > 0 %}
+              <div class="product-item--price text-center">     
+                <span class="h1 medium--left">
+                  {% if product.price_varies %}
+                    <span class="price-varies rental-price-varies" {% if section.settings.capitalize_pricing_text %}style="text-transform: uppercase;"{% endif %}>rent from </span>
+                  {% endif %}
+                  {% if on_sale %}
+                    <span class="visually-hidden">{{ "products.general.sale_price" | t }}</span>
+                  {% else %}
+                    <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
+                  {% endif %}
+                  {% include 'price' with product.price %}
+                  {% if on_sale and section.settings.product_show_compare_at_price %}
+                    {% assign current_variant = product.selected_or_first_available_variant %}
+                    {% if current_variant.compare_at_price %}
+                      <small>
+                        <s>
+                          <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
+                          {% include 'price' with product.compare_at_price %}
+                        </s>
+                      </small>
+                    {% endif %}
+                  {% endif %}
+                </span>
+                {%- if product.selected_or_first_available_variant.available and product.selected_or_first_available_variant.unit_price_measurement -%}
+                  {% include 'product-unit-price', variant: product.selected_or_first_available_variant %}
+                {%- endif -%}
+              </div>
+            {% endif %}
+            {% if on_sale and section.settings.product_show_saved_amount %}
+              {% if current_variant.compare_at_price %}
+                <div class="sale-tag{% unless section.settings.show_compare_at_price %} medium--right{% endunless %}{% if section.settings.product_reviews_enable %} has-reviews{% endif %}">
+                  {% assign compare_price = product.compare_at_price %}
+                  {% assign product_price = product.price %}
+                  {% include 'price-sale' %}
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endunless %}
+      {% endif %}
+
+        {% if settings.rental_rates and settings.rental_pricing_disclaimer != blank %}
+          <div class="rental-pricing-disclaimer">
+            <p>{{ settings.rental_pricing_disclaimer }}</p>
+          </div>
+        {% endif %}
+        
+        {% if section.settings.product_reviews_enable %}
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+        {% endif %}
+      </a>
+
+    </div>
+</div>

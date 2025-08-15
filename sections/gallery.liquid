@@ -1,0 +1,199 @@
+{% assign block_1 = section.blocks[0] %}
+{% assign block_2 = section.blocks[1] %}
+{% assign block_3 = section.blocks[2] %}
+{% assign block_4 = section.blocks[3] %}
+{% assign block_5 = section.blocks[4] %}
+{% assign block_6 = section.blocks[5] %}
+{% assign block_7 = section.blocks[6] %}
+{% assign block_8 = section.blocks[7] %}
+{% assign block_9 = section.blocks[8] %}
+{% assign block_10 = section.blocks[9] %}
+{% assign block_11 = section.blocks[10] %}
+{% assign block_12 = section.blocks[11] %}
+{% assign block_13 = section.blocks[12] %}
+{% assign blockCount =  section.blocks | size %}
+
+{% if section.settings.enable_gallery_zoom %}
+<div id="imageModal" class="gallery-zoom-container">
+    <span class="gallery-zoom-close">&times;</span>
+    <img class="gallery-zoom-content" id="modalImg">
+</div>
+{% endif %}
+
+<div class="gallery-container page-width" data-count="{{blockCount}}" data-section-id="{{ section.id }}" data-section-type="featured-images-section">
+  <div class="section-{{section.id}}">
+    {% if section.settings.spacer %}<hr>{% endif %}
+
+    {% if section.settings.gallery_title != blank %}
+        <h2 class="h2  {% if section.settings.align_text == 'left' %}section-header--left{% elsif section.settings.align_text == 'center' %}text-center{% elsif section.settings.align_text == 'right' %}text-right{% endif %}">
+          {{ section.settings.gallery_title | escape }}
+        </h2>
+      <div class="gallery-description {% if section.settings.align_text == 'left' %}text-left{% elsif section.settings.align_text == 'center' %}text-center{% elsif section.settings.align_text == 'right' %}text-right{% endif %}" style="margin-bottom: 30px;">
+        {% if section.settings.text != blank %}
+          {{ section.settings.text }}
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.center_align_items == true %}
+      <div class="gallery-grid-container">
+    {% endif %}
+    
+    {% for block in section.blocks %}
+      <div class="grid-item small--one-whole medium--one-half large--one-quarter gallery-grid-item">
+        
+        <div class="card-wrapper gallery-wrap {% if section.settings.enable_gallery_zoom %}gallery-wrap-zoom{% endif %}">
+          <img alt="{{ block.settings.promo_banner_heading | strip_html }}{{ block.settings.promo.alt }}" src="{{ block.settings.promo | img_url:'800x' }}" {% if section.settings.enable_gallery_zoom %}onclick="openModal(this.src)"{% endif %}>
+        </div>
+        
+        <span class="text-center">
+        {% if block.settings.gallery_image_label != blank %}
+          <p class="gallery-image-label text-center" {% if block.settings.gallery_image_description != blank %}style="margin-bottom: 10px;"{% endif %}>{{ block.settings.gallery_image_label }}</p>
+        {% endif %}
+
+        {% if block.settings.gallery_image_description != blank %}
+          <span class="gallery-image-description text-center">
+            {{ block.settings.gallery_image_description }}
+          </span>
+        {% endif %}
+       </span>
+
+      </div>
+    {% endfor %}
+
+    {% if section.settings.center_align_items == true %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if section.settings.enable_gallery_zoom %}
+  <script>
+    function openModal(src) {
+      document.getElementById("imageModal").style.display = "block";
+      document.getElementById("modalImg").src = src;
+    }
+  
+    document.querySelector(".gallery-zoom-close").addEventListener("click", function () {
+      document.getElementById("imageModal").style.display = "none";
+    });
+  
+    document.getElementById("imageModal").addEventListener("click", function (e) {
+      if (e.target === this) {
+        this.style.display = "none";
+      }
+    });
+  </script>
+{% endif %}
+
+
+{% schema %}
+  {
+    "name": "Gallery",
+	"max_blocks": 12,
+    "settings": [
+    {
+      "type": "text",
+      "id": "gallery_title",
+      "label": "Gallery Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": {
+        "en": "Text"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "center_align_items",
+      "label": "Center Align Images",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gallery_zoom",
+      "label": "Enable Gallery Zoom",
+      "default": true
+    },
+        {
+      "type": "select",
+      "id": "align_text",
+      "label": {
+        "da": "Størrelse",
+        "de": "Größe",
+        "en": "Align Text"
+      },
+      "default": "left",
+      "options": [
+        {
+          "label": {
+            "en": "Left"
+          },
+          "value": "left"
+        },
+        {
+          "label": {
+            "en": "Center"
+          },
+          "value": "center"
+        },
+        {
+          "label": {
+            "en": "Right"
+          },
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "spacer",
+      "label": "Include Spacer",
+      "default": true
+    }
+  ],
+     "blocks" : [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "promo",
+            "label": "Image",
+			"info": "800 x 600px jpg recommended"
+          },
+ 		  {
+            "type": "text",
+            "id": "gallery_image_label",
+            "label": "Image Label"
+          },
+          {
+            "type": "richtext",
+            "id": "gallery_image_description",
+            "label": "Image Description"
+          }
+	     ]
+	}
+  ],
+	"presets": [
+    {
+      "name": "Gallery",
+      "category": "Image",
+	  "blocks": [
+	  {
+        "type": "image"
+      },
+      {
+        "type": "image"
+      }
+	]
+    }
+  ]
+  }
+{% endschema %}

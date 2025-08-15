@@ -1,0 +1,411 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+<!---- If The Page Template == "DALP" --->
+
+<!---- Site Toggle ---->
+{% comment %}
+{% if section.settings.show_site_toggle %}
+<div class="header-tabs">
+	<div class="{% if section.settings.header_type == 'ecommerce_3'%}tab-wrapper{% else %}wrapper{% endif %}">
+      <div class="tab-wrap">
+        <a class="tab-link{% if section.settings.show_site_toggle_underline_1 %} underline{% endif %}" href="{{ section.settings.site_toggle_link_1 }}" aria-label="{{ section.settings.site_toggle_title_1 }}" title="{{ section.settings.site_toggle_title_1 }}"><span>{{ section.settings.site_toggle_title_1 }}</span></a>
+        <a class="tab-link{% if section.settings.show_site_toggle_underline_2 %} underline{% endif %}" href="{{ section.settings.site_toggle_link_2 }}" aria-label="{{ section.settings.site_toggle_title_2 }}" title="{{ section.settings.site_toggle_title_2 }}"><span>{{ section.settings.site_toggle_title_2 }}</span></a>
+      </div>
+  	</div>
+</div>
+{% endif %}
+{% endcomment %}
+
+<!---- Site Header Styling ---->
+{% if section.settings.header_type == 'ecommerce_1' %}
+{% include 'ecom-header' %}
+{% elsif section.settings.header_type == 'ecommerce_2' %}
+{% include 'ecom-header-2' %}
+{% elsif section.settings.header_type == 'ecommerce_3' %}
+{% include 'ecom-header-3' %}
+{% else %}
+
+<!---- Announcement Bar ---->
+  {% comment %}
+{% assign now = "now" | date: "%s" %}<!---- Announcement Bar Scheduling ---->
+{% assign show_at = section.settings.show_at | date: "%s" %}<!---- Announcement Bar Scheduling ---->
+{% assign remove_at = section.settings.remove_at | date: "%s" %}<!---- Announcement Bar Scheduling ---->
+
+{% if show_at == blank or now > show_at %}<!---- Announcement Bar Scheduling ---->
+  {% if remove_at == blank or now < remove_at %}<!---- Announcement Bar Scheduling ----> 
+    <div class="notification-bar" style="background-color:{{ section.settings.announcement_background_color }};">
+      {% if section.settings.show_announcement %}
+              <div class="site-header--text-links{% if section.settings.announcement_text == blank %} medium-down--hide{% endif %}">
+                {% if section.settings.show_announcement %}
+                  {% if section.settings.announcement_link != blank %}
+                    <a style="color:{{ section.settings.announcement_text_color }};" href="{{ section.settings.announcement_link }}">
+                  {% endif %}
+    
+                    <p style="color:{{ section.settings.announcement_text_color }};">{{ section.settings.announcement_text | escape }}</p>
+    
+                  {% if section.settings.announcement_link != blank %}
+                    </a>
+                  {% endif %}
+                {% endif %}
+               
+              </div>
+      {% endif %}
+    </div>
+  {% endif %}<!---- Announcement bar scheduling ---->
+{% endif %}<!---- Announcement bar scheduling ----> 
+{% endcomment %}
+  
+<!--- Contact Bar ---->
+{% comment %}
+{% if section.settings.show_contact_bar %}
+  <div class="contact-bar">
+    <div class="wrapper">
+      <div class="contact_info medium-down--hide">
+        {% if section.settings.multi_locations %}
+        <ul>
+          <li><a href="{{ section.settings.multi_location_link | escape }}"><i class="fa-regular fa-location-dot"></i>&nbsp;Contact Us</a></li>
+        </ul>
+        {% else %}
+        <ul>
+          {% if section.settings.show_phone %}
+          <li><a href="tel:{{ section.settings.header_phone | escape }}"><span class="fa-solid fa-phone"></span>&nbsp;{{ section.settings.header_phone }}</a></li>
+          {% else %}{% endif %}
+          {% if section.settings.show_email %}
+          <li><a href="mailto:{{ section.settings.header_email | escape }}"><span class="fa-solid fa-envelope"></span>&nbsp;{{ section.settings.header_email }}</a></li>
+          {% else %}{% endif %}
+          {% if section.settings.show_locations %}
+          <li><a href="{{ section.settings.header_locations | escape }}"><span class="fa-solid fa-location-dot"></span>&nbsp;{{ section.settings.header_locations_title }}</a></li>
+          {% else %}{% endif %}
+        </ul>
+        {% endif %}
+{% endcomment %}
+  
+<!---- Social Media Icons ---->
+{% comment %}
+  {% if section.settings.show_social_icons %}
+      <ul class="inline-list social-icons">
+         {% if settings.social_twitter_link != blank %}
+           <li>
+             <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Twitter' | escape }}">
+               <i class="fa-brands fa-x-twitter"></i>
+               <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Twitter</span>
+             </a>
+           </li>
+         {% endif %}
+         {% if settings.social_facebook_link != blank %}
+           <li>
+             <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Facebook' | escape }}">
+               <i class="fa-brands fa-square-facebook"></i>
+               <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Facebook</span>
+             </a>
+           </li>
+         {% endif %}
+         {% if settings.social_pinterest_link != blank %}
+           <li>
+             <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_pinterest_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Pinterest' | escape }}">
+               <i class="fa-brands fa-pinterest-p"></i>
+               <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Pinterest</span>
+             </a>
+           </li>
+         {% endif %}
+         {% if settings.social_google_plus_link != blank %}
+           <li>
+             <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_google_plus_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Google' | escape }}" rel="publisher">
+               <i class="fa-brands fa-google-plus-g"></i>
+               <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Google</span>
+             </a>
+           </li>
+         {% endif %}
+         {% if settings.social_instagram_link != blank %}
+           <li>
+             <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Instagram' | escape }}">
+               <i class="fa-brands fa-instagram"></i>
+               <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Instagram</span>
+             </a>
+           </li>
+         {% endif %}
+         {% if settings.social_snapchat_link != blank %}
+           <li>
+             <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_snapchat_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Snapchat' | escape }}">
+               <i class="fa-brands fa-snapchat"></i>
+               <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Snapchat</span>
+             </a>
+           </li>
+         {% endif %}
+         {% if settings.social_tumblr_link != blank %}
+           <li>
+             <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_tumblr_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Tumblr' | escape }}">
+               <i class="fa-brands fa-tumblr"></i>
+               <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Tumblr</span>
+             </a>
+           </li>
+         {% endif %}
+         {% if settings.social_youtube_link != blank %}
+           <li>
+             <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_youtube_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'YouTube' | escape }}">
+               <i class="fa-brands fa-youtube"></i>
+               <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">YouTube</span>
+             </a>
+           </li>
+         {% endif %}
+         {% if settings.social_vimeo_link != blank %}
+           <li>
+             <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_vimeo_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Vimeo' | escape }}">
+               <i class="fa-brands fa-vimeo-v"></i>
+               <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Vimeo</span>
+             </a>
+           </li>
+         {% endif %}
+        {% if settings.social_tiktok_link != blank %}
+           <li>
+             <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_tiktok_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Tiktok' | escape }}">
+               <i class="fa-brands fa-tiktok"></i>
+               <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Tiktok</span>
+             </a>
+           </li>
+         {% endif %}
+        {% if settings.social_threads_link != blank %}
+           <li>
+             <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_threads_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Threads' | escape }}">
+               <i class="fa-brands fa-threads"></i>
+               <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Threads</span>
+             </a>
+           </li>
+         {% endif %}
+       </ul>
+  {% endif %}
+    </div>
+  </div>
+</div>      
+{% endif %}
+{% endcomment %}
+
+<!---- Site Header Logos / Content ---->
+<header class="site-header" role="banner" data-section-id="{{ section.id }}" data-section-type="header-section">
+  <div class="wrapper">
+    {% if section.settings.logo_alignment == "logo_left"  %}
+      
+    <div class="grid--full">
+      <div class="grid-item large--one-half">
+        {% if request.page_type == 'index' %}
+          <h1 class="header-logo" itemscope itemtype="http://schema.org/Organization">
+        {% else %}
+          <div class="h1 header-logo" itemscope itemtype="http://schema.org/Organization">
+        {% endif %}
+          {% if section.settings.logo %}
+          {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture logo_alt %}{{ section.settings.logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ routes.root_url }}" itemprop="url">
+            <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ logo_alt | escape }}"
+                  style="height:{{ section.settings.logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.logo | img_url: image_size }}"
+                srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settings.logo_max_height }}px;">
+            </noscript>
+          </a>
+          <!--- Sponsor Logo --->
+          {% if section.settings.sponsor_logo %}
+          {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.sponsor_logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture sponsor_logo_alt %}{{ section.settings.sponsor_logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ section.settings.sponsor_link }}" itemprop="url" style="margin-left:10px;" class="medium-down--hide">
+            <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.sponsor_logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.sponsor_logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ sponsor_logo_alt | escape }}"
+                  style="height:{{ section.settings.sponsor_logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.sponsor_logo | img_url: image_size }}"
+                srcset="{{ section.settings.sponsor_logo | img_url: image_size }} 1x, {{ section.settings.sponsor_logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ sponsor_logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settingssponsor_logo_max_height }}px;">
+            </noscript>
+          </a>
+          {% endif %}  
+          {% else %}
+            <a href="{{ routes.root_url }}" itemprop="url">{{ shop.name }}</a>
+          {% endif %}
+        {% if request.page_type == 'index' %}
+          </h1>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+  </div>
+    
+  {% elsif section.settings.logo_alignment == "logo_center" %}
+    
+    <div class="logo-center">
+      <div class="logo-center-wrap">
+        {% if request.page_type == 'index' %}
+          <h1 class="header-logo text-center" itemscope itemtype="http://schema.org/Organization">
+        {% else %}
+          <div class="h1 header-logo text-center" itemscope itemtype="http://schema.org/Organization">
+        {% endif %}
+          {% if section.settings.logo %}
+          {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture logo_alt %}{{ section.settings.logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ routes.root_url }}" itemprop="url">
+            <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ logo_alt | escape }}"
+                  style="height:{{ section.settings.logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.logo | img_url: image_size }}"
+                srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settings.logo_max_height }}px;">
+            </noscript>
+          </a>
+          <!--- Sponsor Logo --->
+          {% if section.settings.sponsor_logo %}
+          {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.sponsor_logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture sponsor_logo_alt %}{{ section.settings.sponsor_logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ section.settings.sponsor_link }}" itemprop="url" style="margin-left:10px;" class="medium-down--hide">
+            <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.sponsor_logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.sponsor_logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ sponsor_logo_alt | escape }}"
+                  style="height:{{ section.settings.sponsor_logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.sponsor_logo | img_url: image_size }}"
+                srcset="{{ section.settings.sponsor_logo | img_url: image_size }} 1x, {{ section.settings.sponsor_logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ sponsor_logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settingssponsor_logo_max_height }}px;">
+            </noscript>
+          </a>
+          {% endif %}  
+          {% else %}
+            <a href="{{ routes.root_url }}" itemprop="url">{{ shop.name }}</a>
+          {% endif %}
+        {% if request.page_type == 'index' %}
+          </h1>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</header>
+
+<!---- Sticky Header Settings ---->
+{% if section.settings.sticky_header %}
+<script>
+  document.getElementById('shopify-section-header').style.display = "block";
+  document.getElementById('shopify-section-header').classList.add("sticky-header");
+  let headerHeight = document.getElementById('shopify-section-header').offsetHeight;
+  document.body.style.marginTop = headerHeight+"px";
+</script>
+{% endif %}            
+
+<!---- Site Full Width Settings ---->
+{% if section.settings.site_full_width %}
+    <style>
+      .wrapper,.container,.max-w-xl {
+       max-width:100%!important; 
+      }
+      .mortar-detail-content {
+      max-width:1200px!important;
+      }
+      .site-footer .form-vertical {
+      margin:0!important;
+      }
+      @media (min-width:769px) {
+      .mortar-item-link-service, .mortar-item-link-location, .mortar-item-link-department, .flex-wrap.mt-10 .max-w-sm {
+      width: auto;
+      max-width: 100% !important;
+      display: block !important;
+      margin: 0 auto;
+      }
+      }
+    </style>
+	{% if request.path contains "/a/pages/" %}
+    <style>
+      /* Make Mortar heros full width with no white space against the header */
+      .main-content {
+          padding: 0;
+          margin-top: -20px;
+      }
+	</style>
+	{% endif %}
+	{% if template == 'page' %}
+		<style>
+          /* Class to make an image on the internal Shopify pages full width */
+          .rte .page-fw {
+            width: 100vw!important;    
+            max-width: 100vw!important;
+            margin-left: calc(50% - 50vw)!important;
+            padding-bottom:25px;
+          }
+          .breadcrumb {
+          margin-bottom:30px!important;
+          }
+        </style>
+	{% endif %}
+	{% if request.path contains "/a/pages/locations"%}
+    <style>
+      .mortar-item .flex {
+      padding-top:15px;
+      max-width:1200px!important;
+      margin:0 auto;
+      }
+    </style>
+	{% endif %}
+    {% if request.path == '/a/pages/offers' or request.path == '/a/pages/events' or request.path == '/a/pages/departments' or request.path == '/a/pages/services' or request.path == '/a/pages/locations' or request.path == '/a/pages/staff' or request.path == '/a/pages/careers' %}
+    <style>
+     @media (min-width: 1200px){
+		.container {
+    		max-width: 1400px!important;
+        }
+     }
+    .main-content {
+     	margin-top:0!important; 
+    }
+    </style>
+	{% endif %}
+{% endif %}
+
+
+{% endif %}

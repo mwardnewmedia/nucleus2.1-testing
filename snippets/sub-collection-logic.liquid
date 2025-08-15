@@ -1,0 +1,49 @@
+{% if collection.title == "Pet" %}
+  
+  {% assign categories = "Bird, Cat, Dog, Fish, Reptile, Small Animal" %}
+  {% assign categories_array = categories | split: ", " %}
+
+  <header class="section-header">
+    <h1 class="section-header--title h1">Shop {{ collection.title }} by Category</h1>
+  </header>
+
+   <div class="grid"> 
+      {% for collection in collections %}
+          {% if categories_array contains collection.title %}
+             {% include 'sub-collection-grid-item' %}
+          {% endif %}
+      {% endfor %}
+  </div>
+{% elsif collection.title == "Hardware" %}
+  
+  {% assign categories = "Cabinet Hardware, Casters & Floor Protection, Chain & Wire, Door Knobs & Hardware, Drawer Hardware, Fasteners, Garage Door Openers & Hardware, Gate Hardware, Hinges, Home Safety & Security, Keys & Key Holders, Mailboxes & Signs, Metal Stock, Rope & Twine, Tape, Weatherproofing, Window Hardware, Mobile Home Hardware & Accessories, Tie Downs & Earth Anchors, RV Hardware & Accessories, Angle Bar & Rod Stock, Builder's Hardware, Furniture Parts & Accessories, Springs, Hoists & Pulleys" %}
+  {% assign categories_array = categories | split: ", " %}
+
+  <header class="section-header">
+    <h1 class="section-header--title h1">Shop {{ collection.title }} by Category</h1>
+  </header>
+
+  <div class="grid"> 
+      {% for collection in collections %}
+          {% if categories_array contains collection.title %}
+            {% include 'sub-collection-grid-item' %}
+          {% endif %}
+      {% endfor %}
+  </div>  
+{% elsif collection.title == "Dog" %}
+  
+  {% assign subcategories = "Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food" %}
+  {% assign subcategories_array = subcategories | split: ", " %}
+  
+  <header class="section-header">
+    <h1 class="section-header--title h1">Shop {{ collection.title }} by Subcategory</h1>
+  </header>
+
+  <div class="grid"> 
+      {% for collection in collections %}
+          {% if subcategories_array contains collection.title %}
+            {% include 'sub-collection-grid-item' %}
+          {% endif %}
+      {% endfor %}
+  </div>
+{% endif %}

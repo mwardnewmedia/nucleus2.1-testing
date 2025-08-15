@@ -1,0 +1,72 @@
+{% unless featured_collection_width %}
+  {% assign featured_collection_width = 'small--one-half medium--one-third large--one-sixth' %}
+{% endunless %}
+
+{% unless featured_collection_size %}
+  {% assign featured_collection_size = '540x' %}
+{% endunless %}
+
+ {% capture collection_title %}{{ collections[featured].title | escape }}{% endcapture %}
+
+{% if collections[featured].image %}
+  {% assign collection_image = collections[featured].image %}
+{% elsif section.settings.use_templated_thumbnails %}  
+  {% include 'templated-thumbnails' %} 
+{% else %}
+  {% assign collection_image = collections[featured].products.first.featured_image %}
+{% endif %}
+
+
+<div class="grid-item {{ featured_collection_width }}">
+  <a href="{{ collections[featured].url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}" class="featured-box {% if section.settings.image_type == "circular_with_title" %}circular_with_title{% elsif section.settings.image_type == "square_with_title" %}square_with_title{% endif %}">
+    <div class="featured-box--inner">
+      <div class="featured-box--image">
+        {% if featured != blank %}
+          {% if collections[featured].image or collections[featured].products.first.featured_image or section.settings.use_templated_thumbnails %}          
+            {%- assign image = collection_image -%}
+            {% if image contains 'cdn' %}
+            {%- assign img_url = image -%}
+            {% else %}
+            {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            {% endif %}
+	
+            <div id="{{ wrapper_id }}" class="lazyload__image-wrapper no-js" style="max-width: {{ max_width }}px;">
+              <div>
+                {% if collections[featured].image or section.settings.use_templated_thumbnails %}
+                <img class="no-js lazyload collection-thumbnail-image"
+                  data-src="{{ img_url }}"
+                  data-widths="[125, 180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ collection_image.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{% if collection_image.alt != blank %}{{ collection_image.alt | escape }}{% else %}{{ collection_alt }}{% endif %}">
+                {% else %}
+                  <img class="no-js lazyload"
+                  data-src="{{ img_url }}"
+                  data-widths="[125, 180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ collection_image.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ collection_image.alt | escape }}">
+                {% endif %}
+              </div>
+            </div>
+            {% else %}
+            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+            {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        {% else %}
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+      {% unless collection_image == blank %}
+      <noscript>
+        <img src="{{ collection_image | img_url: '580x' }}"
+          srcset="{{ collection_image | img_url: '580x' }} 1x, {{ collection_image | img_url: '580x', scale: 2 }} 2x"
+          alt="{{ collection_image.alt }}" style="opacity:1;">
+      </noscript>
+      {% endunless %}
+    </div>
+    <span class="featured-box--title">{% if collection_title != blank %}{{ collection_title }}{% else %}{{ 'homepage.featured_collection_rows.heading' | t }}{% endif %}</span>
+  </a>
+</div>
+

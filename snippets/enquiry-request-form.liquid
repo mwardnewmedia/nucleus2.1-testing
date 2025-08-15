@@ -1,0 +1,203 @@
+<div id="enquiry-form-wrap" class="enquiry-flex">
+  <div id="enquiry-form-column" class="enquiry-flex-one-half" style="width: 100%;">
+    <form
+      id="js-enquiry-request-form"
+      method="post"
+    >
+      <input
+        id="js-enquiry-form-products"
+        type="hidden"
+        name="products"
+        value=""
+      >
+
+      {% comment %}
+      <label id="enquiry-name-label" hidden="hidden">Request Availability Form
+        <input id="enquiry-name" name="name" tabindex="-1" autocomplete="off">
+      </label>
+      {% endcomment %}
+
+      <div class="form-margin-mobile">
+        <div>
+          <label for="enquiry-requester-name" class="request-availability-form-label request-availability-form-label-required">Requester Name</label>
+          <input
+            required="required"
+            id="enquiry-requester-name"
+            name="requester_name"
+            type="text"
+            required
+            value=""
+            placeholder="John Doe"
+          >
+        </div>
+
+        {% if settings.enquiry_company_field %}
+        <div>
+          <label for="enquiry-company" class="request-availability-form-label">Requester Company (Optional)</label>
+          <input id="enquiry-company" name="company" type="text">
+        </div>
+        {% endif %}
+
+        <div class="enquiry-flex">
+          <div class="enquiry-flex-one-half" style="width: 100%;">
+            <label for="enquiry-email" class="request-availability-form-label request-availability-form-label-required">Email</label>
+            <input
+              required="required"
+              id="enquiry-email"
+              name="email"
+              type="email"
+              required
+              value=""
+              placeholder="jdoe@example.com"
+            >
+          </div>
+
+{% unless settings.hide_request_form_phone_number %}          
+          <div class="enquiry-flex-one-half" style="width: 100%;">
+            <label for="enquiry-phone" class="request-availability-form-label request-availability-form-label-required">Phone</label>
+            <input
+              required="required"
+              id="enquiry-phone"
+              name="phone"
+              type="tel"
+              required
+              value=""
+              placeholder="123.456.7890"
+            >
+          </div>
+  {% endunless %}
+        </div>
+      </div>
+
+
+      <div class="enquiry-flex">
+        <div class="enquiry-flex-item">
+          <label for="enquiry-date-requested" class="request-availability-form-label request-availability-form-label-required">Date Item(s) Needed</label>
+          <input 
+            required="required"
+            id="enquiry-date-requested" 
+            name="date_requested"
+            type="date"
+            pattern="\d{4}-\d{2}-\d{2}"
+            required
+            style="width: 100%;"
+          >
+        </div>
+
+        {% assign total_locations = shop.metafields.enquiry.locations.value | size %}
+        {% if total_locations > 1 %}
+        <div class="enquiry-flex-item">
+                <label for="enquiry-location" class="request-availability-form-label request-availability-form-label-required">Store Location</label>
+                <select id="enquiry-location" name="location" class="enquiry-select" required="required">
+                    <option value="0">Choose a Store...</option>
+                    {% for location in shop.metafields.enquiry.locations.value %}
+                        <option value="{{ location.id }}">
+                            {{ location.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+        </div>
+        {% endif %}  
+
+      {% assign enquiry_delivery = settings.enquiry_delivery %}
+
+      <div class="enquiry-flex-item"{% unless settings.enquiry_delivery %} style="display:none;"{% endunless %}>
+        <label for="enquiry-delivery" class="request-availability-form-label request-availability-form-label-required">Delivery</label>
+        <select 
+          required="required" 
+          id="enquiry-delivery" 
+          name="delivery" 
+          class="enquiry-select"
+          >
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+    </div>
+
+      {% if enquiry_delivery %}
+        <div class="js-enquiry-delivery-fields">
+          <div class="js-delivery-field">
+            <label for="enquiry-address" class="request-availability-form-label">Address</label>
+            <input
+              id="enquiry-address"
+              name="address"
+              type="text"
+              value=""
+              placeholder="100 Main St"
+            >
+          </div>
+
+          <div class="enquiry-flex">
+            <div class="enquiry-flex-two-thirds enquiry-flex">
+              <div class="js-delivery-field enquiry-flex-two-thirds">
+                <label for="enquiry-city" class="request-availability-form-label">City</label>
+                <input
+                  id="enquiry-city"
+                  name="city"
+                  type="text"
+                  value=""
+                  placeholder="Anywhere"
+                >
+              </div>
+
+              <div class="js-delivery-field enquiry-flex-one-third">
+                <label for="enquiry-state" class="request-availability-form-label">State</label>
+                <select id="enquiry-state" name="state" class="enquiry-select">
+                    <option value="0" disabled>Choose a state...</option>
+                    {% render 'states-list-options' %}
+                </select>
+              </div>
+            </div>
+
+            <div class="enquiry-flex-one-third">
+              <div class="js-delivery-field">
+                <label for="enquiry-zip" class="request-availability-form-label">Zip</label>
+                <input
+                  id="enquiry-zip"
+                  name="zip"
+                  type="text"
+                  value=""
+                  placeholder="12345"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      <div>
+        <label for="enquiry-comments" class="request-availability-form-label">Comments (Optional)</label>
+        <textarea id="enquiry-comments" name="comments"></textarea>
+      </div>
+
+      <!-- Checkbox Section -->
+      <div class="enquiry-disclaimer-container">
+        <label class="request-availability-form-label enquiry-disclaimer-form-label-required">
+          <input type="checkbox" id="terms-checkbox" required style="margin-right: 5px;">
+          <span>
+            By checking this box, I acknowledge that I’m submitting a request to check availability of rental items only. This does not reserve or guarantee any items. A reservation will be confirmed separately after availability is verified by our team.
+          </span>
+        </label>
+      </div>
+
+      <button id="js-enquiry-submit" type="submit" class="btn button enquiry-button">Send Request</button>
+    </form>
+  </div>
+
+   <div id="enquiry-form-list-column" class="enquiry-flex-one-half" style="width: 100%;">
+    <div id="js-enquiry-form-list"></div>
+  </div>
+</div>
+
+<script>
+  
+let enquiryProducts = localStorage.getItem('enquiry_products');
+enquiryProducts = JSON.parse(enquiryProducts);  
+
+if (enquiryProducts.length === 0) {
+  document.querySelector('#enquiry-form-column').style.display = "none";
+} 
+  
+</script>  

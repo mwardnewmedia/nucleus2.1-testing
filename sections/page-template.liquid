@@ -1,0 +1,33 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+{% include 'breadcrumb' %}
+
+<div class="grid">
+
+  <div class="grid-item large--two-thirds push--large--one-sixth">
+
+    <h1 class="h2">{{ page.title }}</h1>     
+      {% if page.title == "Brands" %}
+      <div class="rte" style="columns: 100px 4;">
+      	{% for product_vendor in shop.vendors %}
+          <div class="panel-body">                                                          
+            <h4>{{ product_vendor | link_to_vendor  }}</h4>
+          </div>
+          {% endfor %}
+      {% else %}
+      <div class="rte">
+      {{ page.content }}
+      </div>  
+      {% endif %}   
+
+  </div>
+
+</div>

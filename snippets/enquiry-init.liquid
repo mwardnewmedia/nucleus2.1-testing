@@ -1,0 +1,13 @@
+<script src="{{ 'enquiry.js' | asset_url }}" defer></script>
+
+<script>
+let enquiry_options = {
+    prefix: '{{ (settings.enquiry_environment && 'testing' == settings.enquiry_environment) ? '/storefront/test' : '' }}',
+    enquiry_form_url: '{{ settings.enquiry_form_url ? settings.enquiry_form_url : '/pages/request-availability' }}',
+    enquiry_api_url: '{{ (settings.enquiry_environment && 'testing' == settings.enquiry_environment) ? 'http://enquiry.test/api/request' : 'https://enquiry.newmediaretailer.com/api/request' }}',
+};
+
+window.addEventListener('load', () => {
+    Enquiry.init(enquiry_options);
+});
+</script>

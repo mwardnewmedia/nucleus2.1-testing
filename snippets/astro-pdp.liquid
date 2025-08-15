@@ -1,0 +1,108 @@
+<input
+    type="hidden"
+    id="selected-variant-barcode"
+    value="{{ product.selected_or_first_available_variant.barcode }}"
+>
+
+{% for variant in product.variants %}
+    <input
+        id="variant-id-{{ variant.id }}"
+        type="hidden"
+        value="{{ variant.barcode }}"
+    >
+{% endfor %}
+
+<div id="astro-block-app"></div>
+
+<style>
+    .d-none {
+        display: none;
+    }
+
+    .loyalty-frequent-buyer {
+        margin-bottom: 20px;
+    }
+
+    .loyalty-offer-brand {
+        font-weight: bold;
+        color: #3b82f5;
+        margin-bottom:10px;
+    }
+
+    .loyalty-exclusive-offer {
+        border: 3px solid #3b82f5;
+        border-style: dashed;
+        padding: 10px;
+        border-radius: 4px;
+        background: whitesmoke;
+    }
+
+    .loyalty-exclusive-offer b {
+        line-height: 23px;
+        color: #4b8cf6;
+    }
+
+    .loyalty-link-is-button {
+        display: block;
+        text-align: center;
+        padding: 10px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .loyalty-exclusive-offer p {
+        margin: 0px 0px 10px 0px;
+    }
+
+    .loyalty-btn {
+        border: none;
+        width: 100%;
+        padding: 1em 2em;
+        font-size: 1em;
+    }
+
+    .loyalty-btn-redeem {
+        border: 1px solid #3cc55e;
+        background: #fff;
+        color: #2e9b49;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    .loyalty-btn-build {
+        border: 1px solid #3b82f5;
+        background: #3b82f5;
+        color: #fff;
+        cursor: pointer
+    }
+
+    .loyalty-astro-progress-bar {
+        width: 100%;
+        height: 10px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    div.loyalty-astro-progress:empty {
+        display: block;
+    }
+
+    .loyalty-astro-progress {
+        height: 100%;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .loyalty-astro-progress-loading {
+        background-color: #3b82f5;
+    }
+
+    .loyalty-text-progress-loading {
+        color: #72bdd9;
+        font-weight: bold;
+    }
+
+    .loyalty-astro-progress-completed {
+        background-color: #3cc55e;
+    }
+</style>

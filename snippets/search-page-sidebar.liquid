@@ -1,0 +1,152 @@
+{% comment %}
+If at least one product in collection is true, don't display availability and price filter group
+{% endcomment %}
+{% assign rental_collection = false %}
+{% for item in search.results %}
+  {% assign product = item %}
+  {% if product.object_type == 'product' %}
+    {% for tag in product.tags %}
+      {% if product.tags contains "Rental" %}  
+        {% assign rental_collection = true %}
+      {% endif %}
+    {% endfor %}  
+  {% endif %}   
+{% endfor %} 
+
+{% comment %}
+To do: figure out how to test for inventory management on "item" object on Shopify. 
+Reminder: Need to reference Dawn to turn the item into a product object. 
+Until then, don't display In Stock Out of Stock
+{% endcomment %}
+{% assign catalyst_inventory = false %}
+  
+
+{% assign searchQuery = search.terms | replace: '&#39;', "'" | url_encode %}
+
+<script src="//unpkg.com/alpinejs" defer></script>
+
+<div class="nucleus-filters" 
+  x-data="{
+    loading:false,
+  }"
+  @filter-updated.window="$nextTick(() => {
+    const queryString = new URLSearchParams(new FormData($refs.filter_form)).toString()
+    
+    this.loading = true;
+    fetch('/search?type=product&q={{ searchQuery }}&' + queryString)
+      .then(response => response.text())
+      .then(data => {
+        let html_div = document.createElement('div');
+        html_div.innerHTML = data;
+        let html_dom = html_div.querySelector('#SearchGridContainer').innerHTML;
+        document.querySelector('#SearchGridContainer').innerHTML = html_dom;
+        //update URL without refreshing the page
+        history.replaceState(null, null, '/search?type=product&q={{ searchQuery }}&' + queryString);
+    })
+    .catch(error => console.error('Error:', error))
+    .finally(() => loading = false);
+  })"
+  >
+  <form class="filter-form" x-ref="filter_form">
+    {% comment %}{% include 'loader' %}{% endcomment %}
+    {%- for filter in search.filters -%}
+      {% if rental_collection and filter.label == 'Price' %}
+        {% comment %} Render Nothing {% endcomment %}
+      {% elsif rental_collection and filter.label == 'Brand' %}
+        {% comment %} don't render brands filter when rental collection (rental brands not reliable) {% endcomment %}    
+      {% elsif section.settings.hide_price and filter.label == 'Price' %}  
+        {% comment %} Render Nothing {% endcomment %}
+      {% elsif rental_collection and filter.label == 'Availability'  %}
+        {% comment %} Render Nothing {% endcomment %}
+      {% elsif catalyst_inventory == false and filter.label == 'Availability'  %}
+        {% comment %} Render Nothing {% endcomment %}  
+      {% else %}
+      <details class="filter-group" open>
+        <summary class="filter-group-summary">
+          <div>
+            <span>{{ filter.label }}</span>
+  
+            {%- if filter.active_values.size > 0 -%}
+              <span>({{ filter.active_values.size }})</span>
+            {%- endif -%}
+          </div>
+          <span class="filter-dropdown-icon">
+            {% include 'icon-caret' %}
+          </span>
+        </summary>
+  
+        <div class="filter-group-display">
+          <div class="filter-group-display__header">
+  
+            {%- if filter.active_values.size > 0 -%}
+              <a href="{{ filter.url_to_remove }}" class="filter-group-display__header-reset">Reset</a>
+            {%- endif -%}
+          </div>
+  
+          {%- case filter.type -%}
+            {%- when 'boolean' or 'list' -%}
+              <ul class="filter-group-display__list">
+                {%- for filter_value in filter.values -%}
+                  {% unless filter_value.count == 0 %}
+                    <li class="filter-group-display__list-item">
+                      <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                      <input type="checkbox"
+                        name="{{ filter_value.param_name }}"
+                        value="{{ filter_value.value }}"
+                        @change="$dispatch('filter-updated')"
+                        id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                        {% if filter_value.active -%}checked{%- endif %}
+                        {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                      >{{ filter_value.label }} ({{ filter_value.count }})</label>
+                    </li>
+                  {% endunless %}
+                {%- endfor -%}
+              </ul>
+
+            
+              {%- when 'price_range' -%}
+                  <div class="filter-group-display__price-range">
+                     <label for="Filter-{{ filter.min_value.param_name }}">From</label>
+                    <div class="filter-group-display__price-range-from">
+      
+                      <input name="{{ filter.min_value.param_name }}"
+                        id="Filter-{{ filter.min_value.param_name }}"
+                        {% if filter.min_value.value -%}
+                          value="{{ filter.min_value.value | money_without_currency | replace: ',', ' ' }}"
+                        {%- endif %}
+                        type="number"
+                        placeholder="$0.00"
+                        min="0"
+                        max="{{ filter.range_max | money_without_currency | replace: ',', ' ' }}"
+                      >
+            
+                    </div>
+                    <label for="Filter-{{ filter.max_value.param_name }}">To</label>
+                    <div class="filter-group-display__price-range-to">
+      
+                      <input name="{{ filter.max_value.param_name }}"
+                        id="Filter-{{ filter.max_value.param_name }}"
+                        {% if filter.max_value.value -%}
+                          value="{{ filter.max_value.value | money_without_currency | replace: ',', ' ' }}"
+                        {%- endif %}
+                        type="number"
+                        placeholder="${{ filter.range_max | money_without_currency | replace: ',', ' ' }}"
+                        min="0"
+                        max="{{ filter.range_max | money_without_currency | replace: ',', ' ' }}"
+                      >
+      
+                    </div>
+                  </div>
+      
+                  <div class="filter-group-display__submit">
+                    <input type="submit" value="Apply">
+                  </div>
+          {%- endcase -%}
+    
+        </div>
+      </details>
+      {% endif %}
+    {%- endfor -%}
+  
+  </form>
+</div>

@@ -1,0 +1,349 @@
+{% assign variant = product.selected_or_first_available_variant %}
+
+<h1 class="h2" itemprop="name" style="max-width:650px;">
+    {{ product.title }}
+</h1>
+
+{% assign rental_note = product.metafields.rentalhub.note | strip %}
+  {% if rental_note != blank and rental_note != 'empty' %}
+    <div class="rental-note" itemprop="note">
+      {{ rental_note }}
+    </div>
+  {% endif %}
+
+{% if settings.rental_rates or settings.hide_price and settings.rental_pricing_disclaimer != blank %}
+  <div class="product-rental-pricing-disclaimer">
+    <p>{{ settings.rental_pricing_disclaimer }}</p>
+  </div>
+{% endif %}
+
+{% assign shopName = shop.name | remove: 'amp;' | remove: '&' | remove: '#39;' | remove:"'" %}
+{% assign productVendor = product.vendor | remove:'&' | remove:"'" %}
+
+{% unless product.vendor == 'Hardware-Catalyst' or product.vendor == "Do It Best" or productVendor == shopName or product.vendor == "True Value Rental" %} 
+    <p class="product-meta" itemprop="brand">
+        {{ product.vendor }}
+    </p>
+{% endunless %}
+
+      <!-- <p class="enquiry-selected-duration-preview">
+        Selected Duration: 
+        <span id="js-enquiry-preview-duration-title">{{ variant.title }}</span>
+      </p> -->
+
+<div class="item-codes">
+
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+    {%- comment -%} SKU Logic {%- endcomment -%}
+   {% if current_variant.sku != blank %}
+      {% if settings.display_logged_in_customer_skus %}
+        {% if customer %}
+          <span>SKU: </span><span class="variant-sku">{{ current_variant.sku }}</span>
+        {% endif %}
+      {% else %}
+        {% if section.settings.rental_sku_enable %}
+          <span>SKU: </span><span class="variant-sku">{{ current_variant.sku }}</span>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+    {%- comment -%} UPC Logic {%- endcomment -%}
+    {% if settings.display_logged_in_customer_upcs %}
+      {% if customer %}
+        {% if current_variant.barcode != blank %}
+          <span>UPC: </span><span class="variant-barcode">{{ current_variant.barcode }}</span>
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% if section.settings.rental_upc_enable %}
+        {% if current_variant.barcode != blank %}
+          <span>UPC: </span><span class="variant-barcode">{{ current_variant.barcode }}</span>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
+</div>
+
+<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+  {% if settings.display_logged_in_customer_pricing %}
+    {% if customer %}
+      {% unless settings.hide_price or settings.rental_rates %}
+        <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}">
+        <meta itemprop="price" content="{{ variant.price | divided_by: 100.00 }}">
+        {% if variant.price > 0 %}
+          <ul class="inline-list product-meta" data-price>
+            <li>
+              <span id="productPrice-{{ section.id }}" class="h1 js-enquiry-price-wrap">
+                {% assign price = variant.price %}
+                {% render 'price' %}
+              </span>
+            </li>
+            {% if product.compare_at_price_max > product.price and section.settings.product_show_saved_amount %}
+              <li>
+                <span id="comparePrice-{{ section.id }}" class="sale-tag large">
+                  {% assign compare_price = variant.compare_at_price %}
+                  {% assign product_price = variant.price %}
+                  {% render 'price-sale' %}
+                </span>
+              </li>
+            {% endif %}
+            {% if section.settings.product_reviews_enable %}
+              <li class="product-meta--review">
+                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+              </li>
+            {% endif %}
+          </ul>
+        {% endif %}
+      {% endunless %}
+    {% endif %}
+  {% else %}
+    {% unless settings.hide_price or settings.rental_rates %}
+      <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}">
+      <meta itemprop="price" content="{{ variant.price | divided_by: 100.00 }}">
+      {% if variant.price > 0 %}
+        <ul class="inline-list product-meta" data-price>
+          <li>
+            <span id="productPrice-{{ section.id }}" class="h1 js-enquiry-price-wrap">
+              {% assign price = variant.price %}
+              {% render 'price' %}
+            </span>
+          </li>
+          {% if product.compare_at_price_max > product.price and section.settings.product_show_saved_amount %}
+            <li>
+              <span id="comparePrice-{{ section.id }}" class="sale-tag large">
+                {% assign compare_price = variant.compare_at_price %}
+                {% assign product_price = variant.price %}
+                {% render 'price-sale' %}
+              </span>
+            </li>
+          {% endif %}
+          {% if section.settings.product_reviews_enable %}
+            <li class="product-meta--review">
+              <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+            </li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    {% endunless %}
+  {% endif %}
+
+
+  
+  {% if product.tags contains 'Rental' and settings.enable_enquiry %} 
+    <hr id="variantBreak" class="hr--clear hr--small">
+
+    {% assign no_durations = false %}
+    {% for variant in product.variants %}
+      {% assign totalVariants = product.variants.size %}
+      {% if variant.title == "Default Title" and totalVariants <= 1 %}
+        {% assign no_durations = true %}
+      {% endif %}  
+    {% endfor %}
+
+    {% if no_durations == true %}
+      <style>
+        p.enquiry-selected-duration-preview {
+          display:none!important;
+        }
+      </style>
+    {% endif %}
+
+    
+    <form id="js-enquiry-product" class="enquiry-form">
+        <div id="js-enquiry-duration-fieldgroup">
+        
+            <label for="js-enquiry-durations">
+               Select Rental Duration
+            </label>
+         
+           <div 
+                  name="id"
+                  id="js-enquiry-durations"
+                  class="enquiry-select flex"
+                  data-productid="{{ product.id }}"
+                  data-title="{{ product.title | replace: '"', ' in.' }}"
+                  data-handle="{{ product.handle }}"
+                  data-variant="{{ product.selected_or_first_available_variant.id }}"
+                  data-image="{{ featured_image | img_url: '300x300' }}"
+                  data-option="option1"
+              >
+                  {% for variant in product.variants %}
+                      <div {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %}
+                          value="{{ variant.id }}"
+                          data-price="{{ variant.price | money_with_currency }}"
+                          data-variant-id="{{ variant.id }}"
+                          data-title="{{ variant.title | replace: '"', ' in.' }}"
+                          data-unformatted_price="{{ variant.price | money_without_currency }}"
+                          data-formatted_price="{{ variant.price | money }}"
+                          data-sku="{{ variant.sku }}"
+                          class="option"
+                      >
+                        {% if settings.display_logged_in_customer_pricing %}
+                          {% if customer %}
+                            {% unless settings.rental_rates or settings.hide_price %}
+                              {{ variant.price | money_with_currency }} - 
+                            {% endunless %}
+                          {% endif %}
+                        {% else %}
+                          {% unless settings.rental_rates or settings.hide_price %}
+                            {{ variant.price | money_with_currency }} - 
+                          {% endunless %}
+                        {% endif %}
+                          {{ variant.title }}
+                        {% if settings.rental_rate_disclaimer %}
+                          <span class="product-rental-rate-disclaimer-wrapper">
+                            <span class="product-rental-rate-disclaimer"> {{ settings.rental_rate_disclaimer }} </span> 
+                          </span>
+                        {% endif %}
+                      </div>
+                  {% endfor %}
+
+              <style>
+                .selector-wrapper {
+                  display: none;
+                }
+              </style>
+        </div>
+        </div>
+
+      <div class="grid">
+      <div class="grid-item small--one-whole medium--one-half large--one-whole">
+        <div id="js-enquiry-quantity-fieldgroup">
+            <label for="js-enquiry-quantity">
+                Number Requesting
+            </label>
+            <input type="number"
+               id="js-enquiry-quantity"
+               name="quantity"
+               value="1"
+               min="1"
+               class="quantity-selector"
+              style="width:100%"
+            >
+        </div>
+      </div>
+    </div>
+      
+    <div class="grid">
+    <div class="grid-item small--one-whole medium--one-half large--one-whole">
+        <button id="js-enquiry-request" type="button"
+            class="btn button request-availability-button"
+            style="width:100%"
+            
+        >
+          {% if settings.rental_reservation_banner_text != blank %}
+            {{ settings.rental_reservation_banner_text }}
+          {% else %}
+            Request Availability
+          {% endif %}
+        </button>
+    </div>
+  </div>
+ </form>
+
+    {% elsif product.tags contains 'Rental' and settings.enable_durations_pricing and settings.enable_enquiry == false %}
+  <hr id="variantBreak" class="hr--clear hr--small">
+  <div class="enquiry-durations-disabled">
+    <label>Available Rental Durations</label>
+    <div class="enquiry-select flex">
+      {% for variant in product.variants %}
+        <div class="option">
+          {% unless settings.rental_rates or settings.hide_price %}
+            {{ variant.price | money_with_currency }} - 
+          {% endunless %}
+          {{ variant.title }}
+          {% if settings.rental_rate_disclaimer %}
+            <span class="product-rental-rate-disclaimer-wrapper">
+              <span class="product-rental-rate-disclaimer"> {{ settings.rental_rate_disclaimer }} </span> 
+            </span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    {% unless settings.rental_button_text == blank %}
+      <div class="grid">
+        <div class="grid-item small--one-whole medium--one-half large--one-whole">
+          <a href="{{ settings.rental_button_link }}" style="display:block;">
+            <button id="rental-contact" type="button" class="btn" style="width:100%">
+              {{ settings.rental_button_text }}
+            </button>
+          </a>
+        </div>
+      </div>
+    {% endunless %}
+  </div>
+{% else %}
+
+    <hr id="variantBreak" class="hr--clear hr--small">
+    
+    {% unless settings.rental_button_text == blank %}
+      <div class="grid">
+        <div class="grid-item small--one-whole medium--one-half large--one-whole">
+          <a href="{{ settings.rental_button_link }}" style="display:block;">
+            <button id="rental-contact" type="button" class="btn" style="width:100%">
+              {{ settings.rental_button_text }}
+            </button>
+          </a>
+        </div>
+      </div>
+    {% endunless %}
+    
+  {% endif %}
+  <hr>
+   <div class="product-description rte" itemprop="description">
+      {{ product.description }}
+    </div>
+
+    {% if section.settings.social_sharing_products %}
+      {% include 'social-sharing' %}
+    {% endif %}
+</div>
+</div>
+
+
+
+<!------------------- Duplicate code from product-template.liquid ------------------->
+{% comment %}
+
+<div class="product-description rte" itemprop="description">
+  {{ product.description }}
+</div>
+
+{% if section.settings.social_sharing_products %}
+  {% include 'social-sharing' %}
+{% endif %}
+
+{% if section.settings.product_reviews_enable %}
+  <hr>
+  <div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
+{% endif %}
+
+{% unless product == empty %}
+  <script type="application/json" id="ProductJson-{{ section.id }}">
+    {{ product | json }}
+  </script>
+{% endunless %}
+
+{% endcomment %}
+
+<style>
+.option {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: 1px solid #E9E9E9;
+  cursor: default;
+  border-radius: 3px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.option.selected {
+  background-color: {{ settings.color_accent | hex_to_rgba: 0.1 }};
+  border: 2px solid {{ settings.color_accent }};
+}
+.enquiry-select.disabled .option.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  background: #f8f8f8;
+  cursor: not-allowed;
+}
+</style> 

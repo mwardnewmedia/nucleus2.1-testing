@@ -1,0 +1,250 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+<!doctype html>
+<html class="no-touch no-js" lang="en">  
+<head>
+{% include 'easylockdown_head' %}
+  <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+  <!-- Basic page needs ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  {% if settings.favicon %}
+  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
+  {% endif %}
+
+    <!-- Title and description ================================================== --> 
+    {%- assign nmr_page_title = page.title -%}
+    {%- assign seo_page_title = page_title  | remove: "amp;" -%}
+  <title>
+    {% if request.path contains '/a/pages/' %}
+        {% comment %}Mortar pages{% endcomment %}
+            {{ mortar_page_title }} - {% include 'store-locations' %} - {{ shop.name }}
+    {% else %}
+        {% if template == 'list-collections' %}
+            {{ page_title }} - {% include 'store-locations' %} - {{ shop.name }}
+        {% elsif template == 'collection'%} 
+            {{ page_title }}{% if current_tags %} - {% assign current_tags_joined = current_tags | join: ' - ' %}{{ current_tags_joined }}{% endif %} - {% include 'store-locations' %} - {{ shop.name }}
+        {% elsif template == 'product'%}
+            {{ product.title }} - {% include 'store-locations' %} - {{ shop.name }}
+        {% elsif template == 'blog'%}
+          {{ blog.title }} - {% include 'store-locations' %} - {{ shop.name }}
+        {% else %}
+            {% comment %}If no customizations have been made to the SEO Title Tag{% endcomment %}
+            {% if nmr_page_title == seo_page_title %}
+            {{ nmr_page_title }} {% if current_tags %}{% assign current_tags_joined = current_tags | join: ', ' %} - {{ 'general.meta.tags' | t: tags: current_tags_joined }}{% endif %}{% if current_page != 1 %} - {{ 'general.meta.page' | t: page: current_page }}{% endif %} - {% include 'store-locations' %} - {{ shop.name }}
+            {% else %}
+            {% comment %}A support specialist customized the title tag, so they should use Page Title - Locations - Shop Name{% endcomment %}
+            {{ seo_page_title }} {% if current_tags %}{% assign current_tags_joined = current_tags | join: ', ' %} - {{ 'general.meta.tags' | t: tags: current_tags_joined }}{% endif %}{% if current_page != 1 %} - {{ 'general.meta.page' | t: page: current_page }}{% endif %}
+            {% endif %}  
+        {% endif %}
+    {% endif %}
+    </title> 
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <!-- Product meta ================================================== -->
+  {% include 'social-meta-tags' %}
+
+  <!-- Helpers ================================================== -->
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- CSS ================================================== -->
+  {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+
+  <!-- Shopify 2.0 Filters ================================================== -->
+  {{ 'nucleus-filters.css' | asset_url | stylesheet_tag }}
+  
+  {% if settings.true_value %}
+  <!-- True Value CSS ================================================== -->
+  {{ 'true-value.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+  
+  <!-- Font Awesome Pack ================================================== --> 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/ed3a46a42c.js" crossorigin="anonymous"></script>
+  
+  {% if settings.slick %}
+  <!-- Slick CSS ================================================== -->
+  {{ 'slick.css' | asset_url | stylesheet_tag }}
+  {{ 'slick-theme.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+  
+  <!-- Header hook for plugins ================================================== -->
+  {{ content_for_header }}
+
+  {% comment %}
+    If you store has customers disabled, you can remove the following JS file
+  {% endcomment %}
+  {% if request.page_type contains 'customers/' %}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+    {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+  {% endif %}
+
+  {{ 'jquery-2.2.3.min.js' | asset_url | script_tag }}
+  {% if settings.slick %}
+  <!-- Slick JS ================================================== -->
+  {{ 'slick.min.js' | asset_url | script_tag }}
+  {% endif %}
+
+  <script src="{{ 'lazysizes.min.js' | asset_url }}" async="async"></script>
+  <script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+  {% if request.path contains "/a/pages/locations" %}
+  <style>
+    .mortar-item {
+      box-shadow:none; 
+    }
+  </style>
+  {% endif %}
+
+  
+   <!-- Updated Script tag to enable the custom popup (the Jquery version of this plugin is deprecated, I had to source this from cloudflare to avoid needing to rewrite the Jquery to ES6 JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <!--  End -->
+ 
+
+  {% render 'rcsx-theme-assets', section: 'head' %}
+  {% include 'rcsx-googlesearchconsole' %}
+  {% if settings.bold_v2 %}
+  <!-- Bold V2 -->
+  {{ 'bsub.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'bsub.js' | asset_url | script_tag }} 
+  {% endif %}
+  {% if settings.bold_v1 %}
+  <!-- Bold V1 -->
+  {%- render 'bold-common' -%}
+  {%- render 'bold-ro-init' -%} 
+  {% endif %}
+   <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js"></script>
+  {% if settings.general_head_tags != blank %}
+  	{{ settings.general_head_tags }}
+  {% endif %}
+  {% if settings.gtm_head != blank %}
+  	{{ settings.gtm_head }}
+  {% endif %}
+  {% if settings.general_cart_tags != blank and request.path == '/cart' %}
+  	{{ settings.general_cart_tags }}
+  {% endif %}
+
+  {% if settings.enable_enquiry %}
+    <link rel="stylesheet" href="{{ 'enquiry.css' | asset_url }}">
+  {% endif %}
+  
+</head>
+
+<body id="{% unless page_title == "Collections" %}{{ page_title | handle }}{% endunless %}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }}">
+  {% if settings.gtm_body != blank %}
+  	{{ settings.gtm_body }}
+  {% endif %}
+
+    {% section 'header' %}
+
+    {% unless page.template_suffix contains 'dalp' %}
+      {% include 'metastock-location-chooser' %}
+    {% endunless %}
+  
+  <main class="wrapper main-content{% if request.page_type == blank %} main-content--no-template{% endif %}" role="main">
+
+    {{ content_for_layout }}
+
+    {% if settings.location_contact %}
+      {% if request.path contains "/a/pages/locations" %}
+        {% include 'mortar-contact-form' %}
+      {% endif %}
+    {% endif %}
+
+
+  </main>
+  
+  {% comment %}
+  Mortar Customizations
+  1.) Hide the Career Posted Date if Checked
+  {% endcomment %}
+  {% unless settings.career_posted_date %}
+  	<style>
+     .career-posted-date,.mortar-item-career-posted  {
+       	display:none!important; 
+      }
+    </style>
+  {% endunless %}
+
+  <!-- Don't Footer header if page contains "landing-page" -->
+  {% unless page.template_suffix contains 'landing-page' %}
+    {% section 'footer' %}
+  {% endunless %}
+  
+
+  <script>
+
+  var moneyFormat = '{{ shop.money_format }}';
+
+  var theme = {
+    strings:{
+      product:{
+        unavailable: {{ 'products.product.unavailable' | t | json }},
+        will_be_in_stock_after:{{ 'products.product.will_be_in_stock_after' | t: date: '[date]' | json }},
+        only_left:{{ 'products.product.only_left' | t: count: '1' | json }},
+        unitPrice: {{ 'products.product.unit_price_label' | t | json }},
+        unitPriceSeparator: {{ 'general.accessibility.unit_price_separator' | t | json }}
+      },
+      navigation:{
+        more_link: {{ 'layout.navigation.more' | t | json }}
+      },
+      map:{
+        addressError: {{ 'map.errors.address_error' | t | json }},
+        addressNoResults: {{ 'map.errors.address_no_results' | t | json }},
+        addressQueryLimit: {{ 'map.errors.address_query_limit_html' | t | json }},
+        authError: {{ 'map.errors.auth_error_html' | t | json }}
+      }
+    },
+    settings:{
+      cartType: {{ settings.ajax_cart_method | json }}
+    }
+  }
+  </script>
+
+  {% if settings.ajax_cart_method != 'page' %}
+
+    {% include 'ajax-cart-template' %}
+
+  {% endif %}
+  
+
+  <ul hidden>
+    <li id="a11y-refresh-page-message">{{ 'general.accessibility.refresh_page' | t }}</li>
+  </ul>
+
+
+  {% if settings.enable_enquiry %}
+    {% include 'enquiry-flyout' %}
+
+    {% include 'enquiry-init' %}
+  {% endif %}
+
+ {% if settings.shopping_list %}
+   {% include 'swymSnippet' %}
+{% endif %}
+
+  {% if settings.general_body_tags != blank %}
+  	{{ settings.general_body_tags }}
+  {% endif %}
+
+ {% if settings.astro %}    
+   <script src="{{ 'astro-app-block.js' | asset_url }}"></script>
+  {% endif %}
+
+
+</body>
+</html>

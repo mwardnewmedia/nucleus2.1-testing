@@ -1,0 +1,518 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+{% assign block_1 = section.blocks[0] %}
+{% assign block_2 = section.blocks[1] %}
+{% assign block_3 = section.blocks[2] %}
+{% assign block_4 = section.blocks[3] %}
+{% assign blockCount =  section.blocks | size %}
+
+<div class="cards-container" data-count="{{blockCount}}" data-section-id="{{ section.id }}" data-section-type="featured-images-section">
+<div class="section-{{section.id}}">
+  <hr>
+  
+  {% if section.settings.video_highlights_title != blank %}
+  	<div class="section-header">
+      <h2 class="h1 section-header--left">
+        {{ section.settings.video_highlights_title | escape }}
+      </h2>
+  	</div>
+  {% endif %}
+  
+  <div class="grid-uniform text-center">
+    {% if blockCount == 1 %}
+    	<div class="grid-item small--one-whole medium--one-whole large--one-whole">
+            <div class="video-highlights">
+              {% if block_1.settings.video_header != blank %}
+              	<h2 class="text-center">{{ block_1.settings.video_header }}</h2>
+              {% endif %}  
+              {% if block_1.settings.video_description != blank %}
+              	<p class="text-center">{{ block_1.settings.video_description }}</p>
+              {% endif %}  
+              <div class="video-wrapper">
+                {% if block_1.settings.video_url == blank %}
+                  <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                {% else %}
+                  {% if block_1.settings.video_url.type == "youtube" %}
+                    <iframe src="//www.youtube.com/embed/{{ block_1.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if block_1.settings.video_url.type == "vimeo" %}
+                    <iframe src="//player.vimeo.com/video/{{ block_1.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% if block_1.settings.video_button_text_1 != blank %}
+              <div class="video-buttons">
+                <a href="{{ block_1.settings.video_button_1 }}" class="video-highlight-btn" {% if block_1.settings.new_window == true %}target="_blank"{% endif %} style="{% if block_1.settings.video_button_1_type == 'solid' %}background:{{ block_1.settings.button_1_color }};color:#FFF;border:3px solid {{ block_1.settings.button_1_color }};{% else %}color:{{ block_1.settings.button_1_color }};border:3px solid {{ block_1.settings.button_1_color }}{% endif %}" >
+                  {{ block_1.settings.video_button_text_1 }}
+                </a>
+                {% if block_1.settings.video_button_text_2 != blank %}
+                <a href="{{ block_1.settings.video_button_2 }}" class="video-highlight-btn" {% if block_1.settings.new_window_2 == true %}target="_blank"{% endif %} style="{% if block_1.settings.video_button_2_type == 'solid' %}background:{{ block_1.settings.button_2_color }};color:#FFF;border:3px solid {{ block_1.settings.button_2_color }};{% else %}color:{{ block_1.settings.button_2_color }};border:3px solid {{ block_1.settings.button_2_color }}{% endif %}" >
+                  {{ block_1.settings.video_button_text_2 }}
+                </a>
+                {% endif %}
+              </div>
+              {% endif %}
+      		</div>
+        </div>
+       
+    {% elsif blockCount == 2 %}
+    	<div class="grid-item small--one-whole medium--one-half large--one-half">
+            <div class="video-highlights">
+              {% if block_1.settings.video_header != blank %}
+              	<h2 class="text-center video-highlights-header">{{ block_1.settings.video_header }}</h2>
+              {% endif %}  
+              {% if block_1.settings.video_description != blank %}
+              	<p class="text-center">{{ block_1.settings.video_description }}</p>
+              {% endif %}  
+              <div class="video-wrapper">
+                {% if block_1.settings.video_url == blank %}
+                  <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                {% else %}
+                  {% if block_1.settings.video_url.type == "youtube" %}
+                    <iframe src="//www.youtube.com/embed/{{ block_1.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if block_1.settings.video_url.type == "vimeo" %}
+                    <iframe src="//player.vimeo.com/video/{{ block_1.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% if block_1.settings.video_button_text_1 != blank %}
+              <div class="video-buttons">
+                <a href="{{ block_1.settings.video_button_1 }}" class="video-highlight-btn" {% if block_1.settings.new_window == true %}target="_blank"{% endif %} style="{% if block_1.settings.video_button_1_type == 'solid' %}background:{{ block_1.settings.button_1_color }};color:#FFF;border:3px solid {{ block_1.settings.button_1_color }};{% else %}color:{{ block_1.settings.button_1_color }};border:3px solid {{ block_1.settings.button_1_color }}{% endif %}">
+                  {{ block_1.settings.video_button_text_1 }}
+                </a>
+                {% if block_1.settings.video_button_text_2 != blank %}
+                <a href="{{ block_1.settings.video_button_2 }}" class="video-highlight-btn" {% if block_1.settings.new_window_2 == true %}target="_blank"{% endif %} style="{% if block_1.settings.video_button_2_type == 'solid' %}background:{{ block_1.settings.button_2_color }};color:#FFF;border:3px solid {{ block_1.settings.button_2_color }};{% else %}color:{{ block_1.settings.button_2_color }};border:3px solid {{ block_1.settings.button_2_color }}{% endif %}">
+                  {{ block_1.settings.video_button_text_2 }}
+                </a>
+                {% endif %}
+              </div>
+              {% endif %}
+      		</div>
+        </div>
+        <div class="grid-item small--one-whole medium--one-half large--one-half">
+            <div class="video-highlights">
+              {% if block_2.settings.video_header != blank %}
+              	<h2 class="text-center video-highlights-header">{{ block_2.settings.video_header }}</h2>
+              {% endif %}  
+              {% if block_2.settings.video_description != blank %}
+              	<p class="text-center">{{ block_2.settings.video_description }}</p>
+              {% endif %}  
+              <div class="video-wrapper">
+                {% if block_2.settings.video_url == blank %}
+                  <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                {% else %}
+                  {% if block_2.settings.video_url.type == "youtube" %}
+                    <iframe src="//www.youtube.com/embed/{{ block_2.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if block_2.settings.video_url.type == "vimeo" %}
+                    <iframe src="//player.vimeo.com/video/{{ block_2.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% if block_2.settings.video_button_text_1 != blank %}
+              <div class="video-buttons">
+                <a href="{{ block_2.settings.video_button_1 }}" class="video-highlight-btn" {% if block_2.settings.new_window == true %}target="_blank"{% endif %} style="{% if block_2.settings.video_button_1_type == 'solid' %}background:{{ block_2.settings.button_1_color }};color:#FFF;border:3px solid {{ block_2.settings.button_1_color }};{% else %}color:{{ block_2.settings.button_1_color }};border:3px solid {{ block_2.settings.button_1_color }}{% endif %}">
+                  {{ block_2.settings.video_button_text_1 }}
+                </a>
+                {% if block_2.settings.video_button_text_2 != blank %}
+                <a href="{{ block_2.settings.video_button_2 }}" class="video-highlight-btn" {% if block_2.settings.new_window_2 == true %}target="_blank"{% endif %} style="{% if block_2.settings.video_button_2_type == 'solid' %}background:{{ block_2.settings.button_2_color }};color:#FFF;border:3px solid {{ block_2.settings.button_2_color }};{% else %}color:{{ block_2.settings.button_2_color }};border:3px solid {{ block_2.settings.button_2_color }}{% endif %}">
+                  {{ block_2.settings.video_button_text_2 }}
+                </a>
+                {% endif %}
+              </div>
+              {% endif %}
+      		</div>
+        </div>
+
+     {% elsif blockCount == 3 %}
+    	<div class="grid-item small--one-whole medium--one-half large--one-half">
+            <div class="video-highlights">
+              {% if block_1.settings.video_header != blank %}
+              	<h2 class="text-center video-highlights-header">{{ block_1.settings.video_header }}</h2>
+              {% endif %}  
+              {% if block_1.settings.video_description != blank %}
+              	<p class="text-center">{{ block_1.settings.video_description }}</p>
+              {% endif %}  
+              <div class="video-wrapper">
+                {% if block_1.settings.video_url == blank %}
+                  <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                {% else %}
+                  {% if block_1.settings.video_url.type == "youtube" %}
+                    <iframe src="//www.youtube.com/embed/{{ block_1.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if block_1.settings.video_url.type == "vimeo" %}
+                    <iframe src="//player.vimeo.com/video/{{ block_1.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% if block_1.settings.video_button_text_1 != blank %}
+              <div class="video-buttons">
+                <a href="{{ block_1.settings.video_button_1 }}" class="video-highlight-btn" {% if block_1.settings.new_window == true %}target="_blank"{% endif %} style="{% if block_1.settings.video_button_1_type == 'solid' %}background:{{ block_1.settings.button_1_color }};color:#FFF;border:3px solid {{ block_1.settings.button_1_color }};{% else %}color:{{ block_1.settings.button_1_color }};border:3px solid {{ block_1.settings.button_1_color }}{% endif %}">
+                  {{ block_1.settings.video_button_text_1 }}
+                </a>
+                {% if block_1.settings.video_button_text_2 != blank %}
+                <a href="{{ block_1.settings.video_button_2 }}" class="video-highlight-btn" {% if block_1.settings.new_window_2 == true %}target="_blank"{% endif %} style="{% if block_1.settings.video_button_2_type == 'solid' %}background:{{ block_1.settings.button_2_color }};color:#FFF;border:3px solid {{ block_1.settings.button_2_color }};{% else %}color:{{ block_1.settings.button_2_color }};border:3px solid {{ block_1.settings.button_2_color }}{% endif %}">
+                  {{ block_1.settings.video_button_text_2 }}
+                </a>
+                {% endif %}
+              </div>
+              {% endif %}
+      		</div>
+        </div>
+        <div class="grid-item small--one-whole medium--one-half large--one-half">
+            <div class="video-highlights">
+              {% if block_2.settings.video_header != blank %}
+              	<h2 class="text-center video-highlights-header">{{ block_2.settings.video_header }}</h2>
+              {% endif %}  
+              {% if block_2.settings.video_description != blank %}
+              	<p class="text-center">{{ block_2.settings.video_description }}</p>
+              {% endif %}  
+              <div class="video-wrapper">
+                {% if block_2.settings.video_url == blank %}
+                  <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                {% else %}
+                  {% if block_2.settings.video_url.type == "youtube" %}
+                    <iframe src="//www.youtube.com/embed/{{ block_2.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if block_2.settings.video_url.type == "vimeo" %}
+                    <iframe src="//player.vimeo.com/video/{{ block_2.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% if block_2.settings.video_button_text_1 != blank %}
+              <div class="video-buttons">
+                <a href="{{ block_2.settings.video_button_1 }}" class="video-highlight-btn" {% if block_2.settings.new_window == true %}target="_blank"{% endif %} style="{% if block_2.settings.video_button_1_type == 'solid' %}background:{{ block_2.settings.button_1_color }};color:#FFF;border:3px solid {{ block_2.settings.button_1_color }};{% else %}color:{{ block_2.settings.button_1_color }};border:3px solid {{ block_2.settings.button_1_color }}{% endif %}">
+                  {{ block_2.settings.video_button_text_1 }}
+                </a>
+                {% if block_2.settings.video_button_text_2 != blank %}
+                <a href="{{ block_2.settings.video_button_2 }}" class="video-highlight-btn" {% if block_2.settings.new_window_2 == true %}target="_blank"{% endif %} style="{% if block_2.settings.video_button_2_type == 'solid' %}background:{{ block_2.settings.button_2_color }};color:#FFF;border:3px solid {{ block_2.settings.button_2_color }};{% else %}color:{{ block_2.settings.button_2_color }};border:3px solid {{ block_2.settings.button_2_color }}{% endif %}">
+                  {{ block_2.settings.video_button_text_2 }}
+                </a>
+                {% endif %}
+              </div>
+              {% endif %}
+      		</div>
+        </div>
+          <div class="grid-item small--one-whole medium--one-whole large--one-whole" style="padding-top: 20px;">
+            <div class="video-highlights">
+              {% if block_3.settings.video_header != blank %}
+              	<h2 class="text-center video-highlights-header">{{ block_3.settings.video_header }}</h2>
+              {% endif %}  
+              {% if block_3.settings.video_description != blank %}
+              	<p class="text-center">{{ block_3.settings.video_description }}</p>
+              {% endif %}  
+              <div class="video-wrapper">
+                {% if block_3.settings.video_url == blank %}
+                  <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                {% else %}
+                  {% if block_3.settings.video_url.type == "youtube" %}
+                    <iframe src="//www.youtube.com/embed/{{ block_3.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if block_3.settings.video_url.type == "vimeo" %}
+                    <iframe src="//player.vimeo.com/video/{{ block_3.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% if block_3.settings.video_button_text_1 != blank %}
+              <div class="video-buttons">
+                <a href="{{ block_3.settings.video_button_1 }}" class="video-highlight-btn" {% if block_3.settings.new_window == true %}target="_blank"{% endif %} style="{% if block_3.settings.video_button_1_type == 'solid' %}background:{{ block_3.settings.button_1_color }};color:#FFF;border:3px solid {{ block_3.settings.button_1_color }};{% else %}color:{{ block_3.settings.button_1_color }};border:3px solid {{ block_3.settings.button_1_color }}{% endif %}">
+                  {{ block_3.settings.video_button_text_1 }}
+                </a>
+                {% if block_3.settings.video_button_text_2 != blank %}
+                <a href="{{ block_3.settings.video_button_2 }}" class="video-highlight-btn" {% if block_3.settings.new_window == true %}target="_blank"{% endif %} style="{% if block_3.settings.video_button_2_type == 'solid' %}background:{{ block_3.settings.button_2_color }};color:#FFF;border:3px solid {{ block_3.settings.button_2_color }};{% else %}color:{{ block_3.settings.button_2_color }};border:3px solid {{ block_3.settings.button_2_color }}{% endif %}">
+                  {{ block_3.settings.video_button_text_2 }}
+                </a>
+                {% endif %}
+              </div>
+              {% endif %}
+            </div>
+      </div>
+
+      {% else blockCount == 4 %}
+    	<div class="grid-item small--one-whole medium--one-half large--one-half">
+            <div class="video-highlights">
+              {% if block_1.settings.video_header != blank %}
+              	<h2 class="text-center video-highlights-header">{{ block_1.settings.video_header }}</h2>
+              {% endif %}  
+              {% if block_1.settings.video_description != blank %}
+              	<p class="text-center">{{ block_1.settings.video_description }}</p>
+              {% endif %}  
+              <div class="video-wrapper">
+                {% if block_1.settings.video_url == blank %}
+                  <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                {% else %}
+                  {% if block_1.settings.video_url.type == "youtube" %}
+                    <iframe src="//www.youtube.com/embed/{{ block_1.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if block_1.settings.video_url.type == "vimeo" %}
+                    <iframe src="//player.vimeo.com/video/{{ block_1.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% if block_1.settings.video_button_text_1 != blank %}
+              <div class="video-buttons">
+                <a href="{{ block_1.settings.video_button_1 }}" class="video-highlight-btn" {% if block_1.settings.new_window == true %}target="_blank"{% endif %} style="{% if block_1.settings.video_button_1_type == 'solid' %}background:{{ block_1.settings.button_1_color }};color:#FFF;border:3px solid {{ block_1.settings.button_1_color }};{% else %}color:{{ block_1.settings.button_1_color }};border:3px solid {{ block_1.settings.button_1_color }}{% endif %}">
+                  {{ block_1.settings.video_button_text_1 }}
+                </a>
+                {% if block_1.settings.video_button_text_2 != blank %}
+                <a href="{{ block_1.settings.video_button_2 }}" class="video-highlight-btn" {% if block_1.settings.new_window_2 == true %}target="_blank"{% endif %} style="{% if block_1.settings.video_button_2_type == 'solid' %}background:{{ block_1.settings.button_2_color }};color:#FFF;border:3px solid {{ block_1.settings.button_2_color }};{% else %}color:{{ block_1.settings.button_2_color }};border:3px solid {{ block_1.settings.button_2_color }}{% endif %}">
+                  {{ block_1.settings.video_button_text_2 }}
+                </a>
+                {% endif %}
+              </div>
+              {% endif %}
+      		</div>
+        </div>
+        <div class="grid-item small--one-whole medium--one-half large--one-half">
+            <div class="video-highlights">
+              {% if block_2.settings.video_header != blank %}
+              	<h2 class="text-center video-highlights-header">{{ block_2.settings.video_header }}</h2>
+              {% endif %}  
+              {% if block_2.settings.video_description != blank %}
+              	<p class="text-center">{{ block_2.settings.video_description }}</p>
+              {% endif %}  
+              <div class="video-wrapper">
+                {% if block_2.settings.video_url == blank %}
+                  <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                {% else %}
+                  {% if block_2.settings.video_url.type == "youtube" %}
+                    <iframe src="//www.youtube.com/embed/{{ block_2.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if block_2.settings.video_url.type == "vimeo" %}
+                    <iframe src="//player.vimeo.com/video/{{ block_2.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% if block_2.settings.video_button_text_1 != blank %}
+              <div class="video-buttons">
+                <a href="{{ block_2.settings.video_button_1 }}" class="video-highlight-btn" {% if block_2.settings.new_window == true %}target="_blank"{% endif %} style="{% if block_2.settings.video_button_1_type == 'solid' %}background:{{ block_2.settings.button_1_color }};color:#FFF;border:3px solid {{ block_2.settings.button_1_color }};{% else %}color:{{ block_2.settings.button_1_color }};border:3px solid {{ block_2.settings.button_1_color }}{% endif %}">
+                  {{ block_2.settings.video_button_text_1 }}
+                </a>
+                {% if block_2.settings.video_button_text_2 != blank %}
+                <a href="{{ block_2.settings.video_button_2 }}" class="video-highlight-btn" {% if block_2.settings.new_window_2 == true %}target="_blank"{% endif %} style="{% if block_2.settings.video_button_2_type == 'solid' %}background:{{ block_2.settings.button_2_color }};color:#FFF;border:3px solid {{ block_2.settings.button_2_color }};{% else %}color:{{ block_2.settings.button_2_color }};border:3px solid {{ block_2.settings.button_2_color }}{% endif %}">
+                  {{ block_2.settings.video_button_text_2 }}
+                </a>
+                {% endif %}
+              </div>
+              {% endif %}
+      		</div>
+        </div>
+    <div class="grid-item small--one-whole medium--one-half large--one-half">
+            <div class="video-highlights">
+              {% if block_3.settings.video_header != blank %}
+              	<h2 class="text-center video-highlights-header">{{ block_3.settings.video_header }}</h2>
+              {% endif %}  
+              {% if block_3.settings.video_description != blank %}
+              	<p class="text-center">{{ block_3.settings.video_description }}</p>
+              {% endif %}  
+              <div class="video-wrapper">
+                {% if block_3.settings.video_url == blank %}
+                  <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                {% else %}
+                  {% if block_3.settings.video_url.type == "youtube" %}
+                    <iframe src="//www.youtube.com/embed/{{ block_3.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if block_3.settings.video_url.type == "vimeo" %}
+                    <iframe src="//player.vimeo.com/video/{{ block_3.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% if block_3.settings.video_button_text_1 != blank %}
+              <div class="video-buttons">
+                <a href="{{ block_3.settings.video_button_1 }}" class="video-highlight-btn" {% if block_3.settings.new_window == true %}target="_blank"{% endif %} style="{% if block_3.settings.video_button_1_type == 'solid' %}background:{{ block_3.settings.button_1_color }};color:#FFF;border:3px solid {{ block_3.settings.button_1_color }};{% else %}color:{{ block_3.settings.button_1_color }};border:3px solid {{ block_3.settings.button_1_color }}{% endif %}">
+                  {{ block_3.settings.video_button_text_1 }}
+                </a>
+                {% if block_3.settings.video_button_text_2 != blank %}
+                <a href="{{ block_3.settings.video_button_2 }}" class="video-highlight-btn" {% if block_3.settings.new_window_2 == true %}target="_blank"{% endif %} style="{% if block_3.settings.video_button_2_type == 'solid' %}background:{{ block_3.settings.button_2_color }};color:#FFF;border:3px solid {{ block_3.settings.button_2_color }};{% else %}color:{{ block_3.settings.button_2_color }};border:3px solid {{ block_3.settings.button_2_color }}{% endif %}">
+                  {{ block_3.settings.video_button_text_2 }}
+                </a>
+                {% endif %}
+              </div>
+              {% endif %}
+      		</div>
+        </div>
+    <div class="grid-item small--one-whole medium--one-half large--one-half">
+            <div class="video-highlights">
+              {% if block_4.settings.video_header != blank %}
+              	<h2 class="text-center video-highlights-header">{{ block_4.settings.video_header }}</h2>
+              {% endif %}  
+              {% if block_4.settings.video_description != blank %}
+              	<p class="text-center">{{ block_4.settings.video_description }}</p>
+              {% endif %}  
+              <div class="video-wrapper">
+                {% if block_4.settings.video_url == blank %}
+                  <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                {% else %}
+                  {% if block_4.settings.video_url.type == "youtube" %}
+                    <iframe src="//www.youtube.com/embed/{{ block_4.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if block_4.settings.video_url.type == "vimeo" %}
+                    <iframe src="//player.vimeo.com/video/{{ block_4.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="100%" height="480" frameborder="0" allowfullscreen></iframe>
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% if block_4.settings.video_button_text_1 != blank %}
+              <div class="video-buttons">
+                <a href="{{ block_4.settings.video_button_1 }}" class="video-highlight-btn" {% if block_4.settings.new_window == true %}target="_blank"{% endif %} style="{% if block_4.settings.video_button_1_type == 'solid' %}background:{{ block_4.settings.button_1_color }};color:#FFF;border:3px solid {{ block_4.settings.button_1_color }};{% else %}color:{{ block_4.settings.button_1_color }};border:3px solid {{ block_4.settings.button_1_color }}{% endif %}">
+                  {{ block_4.settings.video_button_text_1 }}
+                </a>
+                {% if block_4.settings.video_button_text_2 != blank %}
+                <a href="{{ block_4.settings.video_button_2 }}" class="video-highlight-btn" {% if block_4.settings.new_window_2 == true %}target="_blank"{% endif %} style="{% if block_4.settings.video_button_2_type == 'solid' %}background:{{ block_4.settings.button_2_color }};color:#FFF;border:3px solid {{ block_4.settings.button_2_color }};{% else %}color:{{ block_4.settings.button_2_color }};border:3px solid {{ block_4.settings.button_2_color }}{% endif %}">
+                  {{ block_4.settings.video_button_text_2 }}
+                </a>
+              {% endif %}
+              </div>
+              {% endif %}
+      		</div>
+        </div>
+    {% endif %}
+  </div>
+</div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Video Highlights",
+	"max_blocks": 4,
+    "settings": [
+    {
+      "type": "text",
+      "id": "video_highlights_title",
+      "label": "Heading"
+    }
+  ],
+     "blocks" : [
+          {
+            "type": "video_url",
+            "name": "Video URL",
+            "settings": [
+               {
+              "type": "text",
+              "id": "video_header",
+              "label": "Video Header"
+               },
+ 			   {
+              "type": "text",
+              "id": "video_description",
+              "label": "Video Description"
+               },
+               {
+              "type": "video_url",
+              "id": "video_url",
+              "label": {
+                "en": "Video link"
+                },
+                "accept": [
+                  "youtube",
+                  "vimeo"
+                ]
+              },
+			  {
+              "type": "text",
+              "id": "video_button_text_1",
+              "label": "First Button text"
+              },
+              {
+              "type": "url",
+              "id": "video_button_1",
+              "label": "First Button link"
+              },
+              {
+              "type": "checkbox",
+              "id": "new_window",
+              "label": {
+                "en": "Open link in a new window"
+                },
+                "default": false
+              },
+              {
+                  "type": "select",
+                  "id": "video_button_1_type",
+                  "label": "Button Style",
+                  "options": [
+                    {
+                      "value": "solid",
+                      "label": "Solid"
+                    },
+                    {
+                      "value": "hollow",
+                      "label": "Hollow"
+                    }
+                  ]
+              },
+              {
+                "type": "color",
+                "id": "button_1_color",
+                "label": {
+                  "en": "Button 1 Color"
+                }
+              },
+              {
+              "type": "text",
+              "id": "video_button_text_2",
+              "label": "Second button text"
+              },
+              {
+              "type": "url",
+              "id": "video_button_2",
+              "label": "Second button link"
+              },
+              {
+              "type": "checkbox",
+              "id": "new_window_2",
+              "label": {
+                "en": "Open link in a new window"
+                },
+                "default": false
+              },
+			  {
+                  "type": "select",
+                  "id": "video_button_2_type",
+                  "label": "Button Style",
+                  "options": [
+                    {
+                      "value": "solid",
+                      "label": "Solid"
+                    },
+                    {
+                      "value": "hollow",
+                      "label": "Hollow"
+                    }
+                  ]
+              },
+              {
+                "type": "color",
+                "id": "button_2_color",
+                "label": {
+                  "en": "Button 2 Color"
+                }
+              }
+            ]
+          }
+  ],
+	"presets": [
+    {
+      "name": "Video Highlights",
+      "category": "Video",
+	  "blocks": [
+	  {
+        "type": "video_url"
+      },
+      {
+        "type": "video_url"
+      }
+	]
+    }
+  ]
+  }
+{% endschema %}

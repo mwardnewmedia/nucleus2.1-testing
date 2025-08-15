@@ -1,0 +1,292 @@
+
+{% if section.settings.show_site_toggle %}
+<div class="header-tabs">
+	<div class="wrapper">
+      <div class="tab-wrap">
+        <a class="tab-link{% if section.settings.show_site_toggle_underline_1 %} underline{% endif %}" href="{{ section.settings.site_toggle_link_1 }}" aria-label="{{ section.settings.site_toggle_title_1 }}" title="{{ section.settings.site_toggle_title_1 }}"><span>{{ section.settings.site_toggle_title_1 }}</span></a>
+        <a class="tab-link{% if section.settings.show_site_toggle_underline_2 %} underline{% endif %}" href="{{ section.settings.site_toggle_link_2 }}" aria-label="{{ section.settings.site_toggle_title_2 }}" title="{{ section.settings.site_toggle_title_2 }}"><span>{{ section.settings.site_toggle_title_2 }}</span></a>
+      </div>
+  	</div>
+</div>
+{% endif %}
+
+<div class="notification-bar">
+  {% if section.settings.show_announcement %}
+          <div class="site-header--text-links{% if section.settings.announcement_text == blank %} medium-down--hide{% endif %}">
+            {% if section.settings.show_announcement %}
+              {% if section.settings.announcement_link != blank %}
+                <a href="{{ section.settings.announcement_link }}">
+              {% endif %}
+
+                <p>{{ section.settings.announcement_text | escape }}</p>
+
+              {% if section.settings.announcement_link != blank %}
+                </a>
+              {% endif %}
+            {% endif %}
+           
+          </div>
+  {% endif %}
+</div>
+
+{% if section.settings.show_contact_bar %}
+<div class="contact-bar">
+    <div class="wrapper">
+    <div class="contact_info">
+      {% if section.settings.multi_locations %}
+      <ul>
+        <li><a href="{{ section.settings.multi_location_link | escape }}"><span class="fa fa-map-marker"></span>&nbsp;Contact Us</a></li>
+      </ul>
+      {% else %}
+      <ul>
+      
+        {% if section.settings.show_phone %}
+        <li><a href="tel:{{ section.settings.header_phone | escape }}"><span class="fa fa-phone"></span>&nbsp;{{ section.settings.header_phone }}</a></li>
+        {% else %}{% endif %}
+        {% if section.settings.show_email %}
+        <li><a href="mailto:{{ section.settings.header_email | escape }}"><span class="fa fa-envelope"></span>&nbsp;{{ section.settings.header_email }}</a></li>
+        {% else %}{% endif %}
+        {% if section.settings.show_locations %}
+        <li><a href="{{ section.settings.header_locations | escape }}"><span class="fa fa-map-marker"></span>&nbsp;{{ section.settings.header_locations_title }}</a></li>
+        {% else %}{% endif %}
+      
+      </ul>
+      {% endif %}
+      {% comment %}
+      SOCIAL MEDIA ICONS
+      {% endcomment %}
+      {% if section.settings.show_social_icons %}
+          <ul class="inline-list social-icons">
+             {% if settings.social_twitter_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Twitter' | escape }}">
+                   <span class="icon icon-twitter" aria-hidden="true"></span>
+                   <span class="fallback-text">Twitter</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_facebook_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Facebook' | escape }}">
+                   <span class="icon icon-facebook" aria-hidden="true"></span>
+                   <span class="fallback-text">Facebook</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_pinterest_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_pinterest_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Pinterest' | escape }}">
+                   <span class="icon icon-pinterest" aria-hidden="true"></span>
+                   <span class="fallback-text">Pinterest</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_google_plus_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_google_plus_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Google' | escape }}" rel="publisher">
+                   <span class="icon icon-google_plus" aria-hidden="true"></span>
+                   <span class="fallback-text">Google</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_instagram_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Instagram' | escape }}">
+                   <span class="icon icon-instagram" aria-hidden="true"></span>
+                   <span class="fallback-text">Instagram</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_snapchat_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_snapchat_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Snapchat' | escape }}">
+                   <span class="icon icon-snapchat" aria-hidden="true"></span>
+                   <span class="fallback-text">Snapchat</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_tumblr_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_tumblr_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Tumblr' | escape }}">
+                   <span class="icon icon-tumblr" aria-hidden="true"></span>
+                   <span class="fallback-text">Tumblr</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_youtube_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_youtube_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'YouTube' | escape }}">
+                   <span class="icon icon-youtube" aria-hidden="true"></span>
+                   <span class="fallback-text">YouTube</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_vimeo_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_vimeo_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Vimeo' | escape }}">
+                   <span class="icon icon-vimeo" aria-hidden="true"></span>
+                   <span class="fallback-text">Vimeo</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_fancy_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_fancy_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Fancy' | escape }}">
+                   <span class="icon icon-fancy" aria-hidden="true"></span>
+                   <span class="fallback-text">Fancy</span>
+                 </a>
+               </li>
+             {% endif %}
+           </ul>
+          {% endif %}
+        </div>
+  
+    </div>
+</div>
+{% endif %}
+
+<header class="site-header" role="banner" data-section-id="{{ section.id }}" data-section-type="header-section">
+  <div class="wrapper">
+
+    <div class="grid--full">
+      <div class="grid-item large--one-half">
+        {% if request.page_type == 'index' %}
+          <h1 class="header-logo" itemscope itemtype="http://schema.org/Organization">
+        {% else %}
+          <div class="h1 header-logo" itemscope itemtype="http://schema.org/Organization">
+        {% endif %}
+          {% if section.settings.logo %}
+          {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture logo_alt %}{{ section.settings.logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ routes.root_url }}" itemprop="url">
+            <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ logo_alt | escape }}"
+                  style="height:{{ section.settings.logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.logo | img_url: image_size }}"
+                srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settings.logo_max_height }}px;">
+            </noscript>
+          </a>
+          <!--- Sponsor Logo --->
+          {% if section.settings.sponsor_logo %}
+          {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.sponsor_logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture sponsor_logo_alt %}{{ section.settings.sponsor_logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ section.settings.sponsor_link }}" itemprop="url" style="margin-left:10px;">
+            <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.sponsor_logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.sponsor_logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ sponsor_logo_alt | escape }}"
+                  style="height:{{ section.settings.sponsor_logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.sponsor_logo | img_url: image_size }}"
+                srcset="{{ section.settings.sponsor_logo | img_url: image_size }} 1x, {{ section.settings.sponsor_logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ sponsor_logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settingssponsor_logo_max_height }}px;">
+            </noscript>
+          </a>
+          {% endif %}  
+          {% else %}
+            <a href="{{ routes.root_url }}" itemprop="url">{{ shop.name }}</a>
+          {% endif %}
+        {% if request.page_type == 'index' %}
+          </h1>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="grid-item medium-down--hide large--one-half text-center large--text-right">
+        {% unless section.settings.hide_shopping_links %}
+        {% if shop.customer_accounts_enabled %}
+          <div class="site-header--text-links{% if section.settings.announcement_text == blank %} medium-down--hide{% endif %}">
+
+            {% if shop.customer_accounts_enabled %}
+              <span class="site-header--meta-links medium-down--hide">
+                {% if customer %}
+                  {% capture first_name %}<a href="{{ routes.account_url }}">{{ customer.first_name }}</a>{% endcapture %}
+                  {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }} &middot; {{ 'layout.customer.log_out' | t | customer_logout_link }}
+                {% else %}
+                  {{ 'layout.customer.sign_in' | t | customer_login_link }}
+                  <span class="site-header--spacer">{{ 'layout.customer.or' | t }}</span>
+                  {{ 'layout.customer.create_account' | t | customer_register_link }}
+                {% endif %}
+              </span>
+            {% endif %}
+          </div>
+
+          <br class="medium-down--hide">
+        {% endif %}
+        {% endunless %}
+
+        {% unless section.settings.hide_search_bar %}
+        {% include 'search-bar' %}
+        {% endunless %}
+        
+        
+		{% unless section.settings.hide_shopping_links %}
+        <a href="{{ routes.cart_url }}" class="header-cart-btn cart-toggle">
+          <span class="icon icon-cart"></span>
+          {{ 'layout.cart.cart' | t }} <span class="cart-count cart-badge--desktop {% if cart.item_count == 0 %}hidden-count{% endif %}">{{ cart.item_count }}</span>
+        </a>
+        {% endunless %}
+      </div>
+    </div>
+
+  </div>
+</header>
+
+ {% unless section.settings.hide_shopping_links %}  
+  {% if shop.customer_accounts_enabled %}
+  <div class="signinmobile">
+              <span class="site-header--meta-links">
+                {% if customer %}
+                  {% capture first_name %}<a href="{{ routes.account_url }}">{{ customer.first_name }}</a>{% endcapture %}
+                  {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }} &middot; {{ 'layout.customer.log_out' | t | customer_logout_link }}
+                {% else %}
+                  {{ 'layout.customer.sign_in' | t | customer_login_link }}
+                {% endif %}
+              </span>
+     </div>
+    {% endif %}
+  {% endunless %}
+
+<div id="mobileNavBar">
+  <div class="display-table-cell">
+    <button class="menu-toggle mobileNavBar-link" aria-controls="navBar" aria-expanded="false"><span class="icon icon-hamburger" aria-hidden="true"></span>{{ 'layout.navigation.mobile_menu' | t }}</button>
+  </div>
+  <div class="display-table-cell">
+    {% unless section.settings.hide_shopping_links %}
+    <a href="{{ routes.cart_url }}" class="cart-toggle mobileNavBar-link">
+      <span class="icon icon-cart"></span>
+      {{ 'layout.cart.cart' | t }} <span class="cart-count {% if cart.item_count == 0 %}hidden-count{% endif %}">{{ cart.item_count }}</span>
+    </a>
+    {% endunless %}
+  </div>
+</div>
+
+<nav class="nav-bar" id="navBar" role="navigation">
+  <div class="wrapper">
+    {% include 'search-bar' %}
+    {% include 'mobile-nav' %}
+    {% include 'site-nav' %}
+  </div>
+</nav>
+

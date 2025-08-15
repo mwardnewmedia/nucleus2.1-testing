@@ -1,0 +1,152 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+<header class="site-header" role="banner" data-section-id="{{ section.id }}" data-section-type="header-section">
+  <div class="wrapper">
+    <div class="grid--full">
+      <div class="grid-item large--one-half">
+        <div class="h1 header-logo" itemscope itemtype="http://schema.org/Organization">
+          {% if section.settings.logo %}
+            {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+            {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            {% capture logo_alt %}{{ section.settings.logo.alt | default: shop.name }}{% endcapture %}
+            <a href="{{ routes.root_url }}" itemprop="url">
+              <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ logo_alt | escape }}"
+                  style="height:{{ section.settings.logo_max_height }}px;">
+              </div>
+              <noscript>
+                <img src="{{ section.settings.logo | img_url: image_size }}"
+                  srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                  alt="{{ logo_alt | escape }}"
+                  itemprop="logo"
+                  style="max-height:{{ section.settings.logo_max_height }}px;">
+              </noscript>
+            </a>
+
+            <!-- Sponsor Logo -->
+            {% if section.settings.sponsor_logo %}
+              {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+              {%- assign img_url = section.settings.sponsor_logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+              {% capture sponsor_logo_alt %}{{ section.settings.sponsor_logo.alt | default: shop.name }}{% endcapture %}
+              <a href="{{ section.settings.sponsor_link }}" itemprop="url" style="margin-left:10px;" class="medium-down--hide">
+                <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.sponsor_logo_max_height }}px;">
+                  <img class="lazyload js"
+                    data-src="{{ img_url }}"
+                    data-widths="[1080, 1296, 1512, 1728, 2048]"
+                    data-aspectratio="{{ section.settings.sponsor_logo.aspect_ratio }}"
+                    data-sizes="auto"
+                    alt="{{ sponsor_logo_alt | escape }}"
+                    style="height:{{ section.settings.sponsor_logo_max_height }}px;">
+                </div>
+                <noscript>
+                  <img src="{{ section.settings.sponsor_logo | img_url: image_size }}"
+                    srcset="{{ section.settings.sponsor_logo | img_url: image_size }} 1x, {{ section.settings.sponsor_logo | img_url: image_size, scale: 2 }} 2x"
+                    alt="{{ sponsor_logo_alt | escape }}"
+                    itemprop="logo"
+                    style="max-height:{{ section.settings.sponsor_logo_max_height }}px;">
+                </noscript>
+              </a>
+            {% endif %}
+          {% else %}
+            <a href="{{ routes.root_url }}" itemprop="url">{{ shop.name }}</a>
+          {% endif %}
+
+          {% if request.page_type == 'index' %}
+            </h1>
+          {% else %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": {
+    "en": "Header"
+  },
+  "class": "section",
+  "settings": [    
+    {
+      "type": "header",
+      "content": {
+        "en": "Logo"
+      }
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "en": "Custom logo"
+      },
+      "info": {
+        "en": "400px wide .png recommended"
+      }
+    },
+    {
+      "type": "text",
+      "id": "logo_max_height",
+      "label": {
+        "en": "Custom logo height"
+      },
+      "default": "305"
+    },
+    {
+      "type": "header",
+      "content": {
+        "en": "Sponsor Logo"
+      }
+    },
+    {
+      "type": "image_picker",
+      "id": "sponsor_logo",
+      "label": {
+        "en": "Sponsor logo"
+      },
+      "info": {
+        "en": "400px wide .png recommended"
+      }
+    },
+    {
+      "type": "text",
+      "id": "sponsor_logo_max_height",
+      "label": {
+        "en": "Sponsor logo height"
+      },
+      "default": "305"
+    },
+    {
+      "type": "url",
+      "id": "sponsor_link",
+      "label": {
+        "en": "Link"
+      },
+      "info": {
+        "da": "Valgfri",
+        "de": "Optional",
+        "en": "Optional"
+      }
+    }
+  ],
+    "presets": [
+    {
+      "name": "Landing Page Header"
+    }
+  ]
+}
+{% endschema %}

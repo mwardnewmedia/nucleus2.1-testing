@@ -1,0 +1,783 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+Test Comment
+***************************************************************
+{%- endcomment -%}
+
+{% if collection.products_count > 4999 and request.path != '/collections/all' %}<!-- Does the collection product count exceed search and discovery app max -->
+  {% include 'sub-collection-logic' %}
+{% else %}<!-- If not load the standard collection page -->
+
+
+{% assign limit = section.settings.grid | times: section.settings.rows %}
+
+{% paginate collection.products by limit %}
+
+{% include 'breadcrumb' %}
+
+{% assign has_sidebar = false %}
+{% if collection.all_tags.size > 0 and section.settings.enable_sidebar %}
+  {% assign has_sidebar = true %}
+{% endif %}
+
+<div id="CollectionSection" data-section-id="{{ section.id }}" data-section-type="collection-template">
+
+    {% if section.settings.show_catalog_disclaimer %}
+      <div class="catalog-disclaimer">{{ section.settings.catalog_disclaimer }}</div>
+    {% endif %}
+  
+  <div class="grid grid-border" id="ProductGridContainer">
+      {% assign active_filters = false %}
+        {% for filter in collection.filters %}
+          {% for filter_value in filter.active_values %}
+              {% if filter.active_values.size > 0 %}
+                {% assign active_filters = true %}
+              {% endif %}
+          {% endfor %}      
+        {% endfor %}
+            
+    {% if active_filters %}
+      {% include 'active-filters' %}
+    {% else %}
+    {% endif %} 
+    {% if has_sidebar %}
+    <aside class="sidebar grid-item large--one-fifth collection-filters" id="collectionFilters">
+      {% include 'collection-sidebar' %}
+    </aside>
+    {% endif %}
+
+    <div class="grid-item{% if has_sidebar %} large--four-fifths{% endif %}">
+      {% comment %}
+        Different markup if description is set
+      {% endcomment %}
+      {% if collection.description != blank %}
+        <header class="section-header">
+          <h1 class="section-header--title h1">{{ collection.title }}{% if current_tags %} - {% assign current_tags_joined_h1 = current_tags | join: ' - ' %}{{ current_tags_joined_h1 }}{% endif %}</h1>
+          <div class="rte rte--header">
+            {{ collection.description }}
+          </div>
+        </header>
+        <hr{% if has_sidebar %} class="hr--offset-left"{% endif %}>
+        <div class="section-header">
+          <div class="section-header--right">
+            {% include 'collection-sorting' %}
+            {% include 'collection-views' %}
+            {% include 'toggle-filters' %}
+          </div>
+        </div>
+      {% else %}
+      <header class="section-header">
+        <h1 class="section-header--title h1">
+          {{ collection.title }}
+            {%- for filter in collection.filters -%}
+            {% if filter.label == "Subcategories" or filter.label == "Subcategory" or filter.label == "Categories" or filter.label == "Category" %}
+                {%- for filter_value in filter.active_values -%} 
+                  {% unless collection.title == filter_value.label %} - {{ filter_value.label }}{% endunless %}
+                {%- endfor -%}
+            {% endif %}
+            {%- endfor -%} 
+          {% if current_tags %} - {% assign current_tags_joined_h1 = current_tags | join: ' - ' %}{{ current_tags_joined_h1 }}{% endif %}
+        </h1>
+        <div class="section-header--right">
+          {% include 'collection-sorting' %}
+          {% include 'collection-views' %}
+          {% include 'toggle-filters' %}
+        </div>
+      </header>
+      {% endif %}
+
+      <div class="grid-uniform grid-uniform-mobile ">
+        {%- case section.settings.grid -%}
+          {%- when '2' -%}
+            {%- assign grid_item_width = 'medium--one-half large--one-half' -%}
+            {%- assign image_size = '540x600' -%}
+            {%- assign width = '540' -%}
+            {%- assign height = '600' -%}
+          {%- when '3' -%}
+            {%- assign grid_item_width = 'small--one-half medium--one-third large--one-third' -%}
+            {%- assign image_size = '345x550' -%}
+            {%- assign width = '345' -%}
+            {%- assign height = '550' -%}
+          {%- when '4' -%}
+            {%- assign grid_item_width = 'small--one-half medium--one-quarter large--one-quarter' -%}
+            {%- assign image_size = '250x' -%}
+            {%- assign width = '250' -%}
+            {%- assign height = '225' -%}
+          {%- when '5' -%}
+            {%- assign grid_item_width = 'small--one-half medium--one-fifth large--one-fifth' -%}
+            {%- assign image_size = '195x' -%}
+            {%- assign width = '195' -%}
+            {%- assign height = '125' -%}
+        {%- endcase -%}
+
+        {% for product in collection.products %}{% include 'easylockdown_filter_collection' with product %}
+
+          {% if product.tags contains "Rental" %}
+            {% include 'rental-grid-item' with grid_item_width %}
+          {% else %}         
+            {% include 'product-grid-item' with grid_item_width %}
+          {% endif %}
+        {% else %}
+
+          <div class="grid-item">
+            <p>{{ 'collections.general.no_matches' | t }}</p>
+          </div>
+
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+    {% if paginate.pages > 1 %}
+    <div class="grid-item pagination-border-top">
+      <div class="grid">
+        <div class="grid-item{% if has_sidebar %} large--four-fifths push--large--one-fifth{% endif %}">
+            <div class="text-center">
+              {% include 'pagination-custom' %}
+            </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endpaginate %}
+
+{% endif %}<!-- Close product count -->
+
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Collection"
+  },
+  "class": "collection-template-section",
+  "settings": [
+    {
+        "type": "checkbox",
+        "id": "show_catalog_disclaimer",
+        "label": "Show catalog disclaimer",
+        "default": false
+    },
+    {
+        "type": "html",
+        "id": "catalog_disclaimer",
+        "label": "Catalog disclaimer HTML",
+        "default": "Catalog disclaimer HTML goes here"
+    },
+    {
+        "type": "checkbox",
+        "id": "hide_sold_out_overlay",
+        "label": "Disable sold out overlay",
+        "default": false
+    },
+    {
+        "type": "checkbox",
+        "id": "show_pickup_message",
+        "label": "Show pickup message",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "pickup_message",
+        "label": "Pickup message",
+        "default": "Pickup Today"
+    },
+    {
+        "type": "checkbox",
+        "id": "show_delivery_message",
+        "label": "Show delivery message",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "delivery_message",
+        "label": "Delivery message",
+        "default": "Next Day Local Delivery"
+    },
+    {
+        "type": "checkbox",
+        "id": "show_shipping_message",
+        "label": "Show shipping message",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "shipping_message",
+        "label": "Shipping message",
+        "default": "Shipping Available"
+    },
+    {
+      "type": "select",
+      "id": "grid",
+      "label": {
+        "en": "Products per row"
+      },
+      "default": "4",
+      "options": [
+        {
+          "value": "2",
+          "label": {
+            "en": "2"
+          }
+        },
+        {
+          "value": "3",
+          "label": {
+            "en": "3"
+          }
+        },
+        {
+          "value": "4",
+          "label": {
+            "en": "4"
+          }
+        },
+        {
+          "value": "5",
+          "label": {
+            "en": "5"
+          }
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "rows",
+      "label": {
+        "da": "Rækker pr. side",
+        "de": "Zeilen pro Seite",
+        "en": "Rows per page",
+        "es": "Filas por página",
+        "fi": "Rivejä per sivu",
+        "fr": "Rangées par page",
+        "hi": "प्रति पृष्ठ पंक्तियां",
+        "it": "Righe per pagina",
+        "ja": "ページあたりの行数",
+        "ko": "페이지 별 열",
+        "nb": "Rader per side",
+        "nl": "Rijen per pagina",
+        "pt-BR": "Linhas por página",
+        "pt-PT": "Linhas por página",
+        "sv": "Rader per sida",
+        "th": "แถวต่อหน้า",
+        "zh-CN": "每页行数",
+        "zh-TW": "每頁列數"
+      },
+      "default": "6",
+      "options": [
+        {
+          "value": "3",
+          "label": {
+            "da": "3",
+            "de": "3",
+            "en": "3",
+            "es": "3",
+            "fi": "3",
+            "fr": "3",
+            "hi": "3",
+            "it": "3",
+            "ja": "3",
+            "ko": "3",
+            "nb": "3",
+            "nl": "3",
+            "pt-BR": "3",
+            "pt-PT": "3",
+            "sv": "3",
+            "th": "3",
+            "zh-CN": "3",
+            "zh-TW": "3"
+          }
+        },
+        {
+          "value": "4",
+          "label": {
+            "da": "4",
+            "de": "4",
+            "en": "4",
+            "es": "4",
+            "fi": "4",
+            "fr": "4",
+            "hi": "4",
+            "it": "4",
+            "ja": "4",
+            "ko": "4",
+            "nb": "4",
+            "nl": "4",
+            "pt-BR": "4",
+            "pt-PT": "4",
+            "sv": "4",
+            "th": "4",
+            "zh-CN": "4",
+            "zh-TW": "4"
+          }
+        },
+        {
+          "value": "5",
+          "label": {
+            "da": "5",
+            "de": "5",
+            "en": "5",
+            "es": "5",
+            "fi": "5",
+            "fr": "5",
+            "hi": "5",
+            "it": "5",
+            "ja": "5",
+            "ko": "5",
+            "nb": "5",
+            "nl": "5",
+            "pt-BR": "5",
+            "pt-PT": "5",
+            "sv": "5",
+            "th": "5",
+            "zh-CN": "5",
+            "zh-TW": "5"
+          }
+        },
+        {
+          "value": "6",
+          "label": {
+            "da": "6",
+            "de": "6",
+            "en": "6",
+            "es": "6",
+            "fi": "6",
+            "fr": "6",
+            "hi": "6",
+            "it": "6",
+            "ja": "6",
+            "ko": "6",
+            "nb": "6",
+            "nl": "6",
+            "pt-BR": "6",
+            "pt-PT": "6",
+            "sv": "6",
+            "th": "6",
+            "zh-CN": "6",
+            "zh-TW": "6"
+          }
+        },
+        {
+          "value": "7",
+          "label": {
+            "da": "7",
+            "de": "7",
+            "en": "7",
+            "es": "7",
+            "fi": "7",
+            "fr": "7",
+            "hi": "7",
+            "it": "7",
+            "ja": "7",
+            "ko": "7",
+            "nb": "7",
+            "nl": "7",
+            "pt-BR": "7",
+            "pt-PT": "7",
+            "sv": "7",
+            "th": "7",
+            "zh-CN": "7",
+            "zh-TW": "7"
+          }
+        },
+        {
+          "value": "8",
+          "label": {
+            "da": "8",
+            "de": "8",
+            "en": "8",
+            "es": "8",
+            "fi": "8",
+            "fr": "8",
+            "hi": "8",
+            "it": "8",
+            "ja": "8",
+            "ko": "8",
+            "nb": "8",
+            "nl": "8",
+            "pt-BR": "8",
+            "pt-PT": "8",
+            "sv": "8",
+            "th": "8",
+            "zh-CN": "8",
+            "zh-TW": "8"
+          }
+        }
+      ]
+    },
+    {
+      "type": "radio",
+      "id": "collection_sidebar_filters",
+      "label": {
+        "en": "Sidebar product filters"
+      },
+      "options": [
+        {
+          "value": "tags",
+          "label": {
+            "en": "By tag"
+          }
+        },
+        {
+          "value": "search_discovery_app",
+          "label": {
+            "en": "Search & Discovery App"
+          }
+        },  
+        {
+          "value": "pet_sidebar_sda",
+          "label": {
+            "en": "Search & Discovery App (Pet)"
+          }
+        },  
+        {
+          "value": "filterize",
+          "label": {
+            "en": "Use filterize"
+          }
+        },
+        {
+          "value": "filterizev3",
+          "label": {
+            "en": "Use Filterize V3"
+          }
+        },
+        {
+          "value": "groups",
+          "label": {
+            "en": "By group"
+          }
+        }       
+      ],
+      "info": {
+        "en": "[Learn how to set up filter groups](https://help.shopify.com/manual/using-themes/themes-by-shopify/supply#product-tips-tips-specific)."
+      }
+    },
+     {
+      "type": "checkbox",
+      "id": "product_savings",
+      "label": {
+        "en": "Show Savings",
+      },
+      "default": true
+    },
+     {
+      "type": "checkbox",
+      "id": "capitalize_pricing_text",
+      "label": {
+        "en": "Capitalize pricing / message text",
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price_range",
+      "label": {
+        "en": "Show price range",
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "product_reviews_enable",
+      "label": {
+        "da": "Aktivér produktanmeldelser",
+        "de": "Produktbewertungen aktivieren",
+        "en": "Enable product reviews",
+        "es": "Habilitar reseñas de productos",
+        "fi": "Ota tuotearvostelut käyttöön",
+        "fr": "Activer les avis sur les produits",
+        "hi": "उत्पाद समीक्षा सक्षम करें",
+        "it": "Abilita recensioni di prodotto",
+        "ja": "商品レビューを有効にする",
+        "ko": "제품 리뷰 사용",
+        "nb": "Aktiver produktanmeldelser",
+        "nl": "Productbeoordelingen inschakelen",
+        "pt-BR": "Habilite as avaliações de produtos",
+        "pt-PT": "Ativar as análises de produtos",
+        "sv": "Aktivera produktrecensioner",
+        "th": "เปิดรีวิวสินค้า",
+        "zh-CN": "启用产品评论",
+        "zh-TW": "啟用產品評論"
+      },
+      "info": {
+        "da": "Installer den gratis Shopify-app [Produktanmeldelser](https://apps.shopify.com/product-reviews) for at tilføje produktanmeldelser.",
+        "de": "Installieren Sie die kostenlose Shopify-App [Product Reviews](https://apps.shopify.com/product-reviews), um Produktbewertungen hinzuzufügen.",
+        "en": "Install the free Shopify [Product Reviews](https://apps.shopify.com/product-reviews) app to add product reviews.",
+        "es": "Instala la aplicación gratis de Shopify [Product Reviews](https://apps.shopify.com/product-reviews) para agregar reseñas de productos.",
+        "fi": "Asenna ilmainen Shopify [tuotearvostelut](https://apps.shopify.com/product-reviews) -sovellus tuotearvostelujen lisäämiseen.",
+        "fr": "Installer l'application Shopify gratuite [Product Reviews](https://apps.shopify.com/product-reviews) pour ajouter des avis sur les produits.",
+        "hi": "नि: शुल्क Shopify इंस्टाल करें [उत्पाद समीक्षा](https://apps.shopify.com/product-reviews) उत्पाद समीक्षा जोड़ने के लिए ऐप.",
+        "it": "Installa l'app gratuita di Shopify [Recensioni Prodotto](https://apps.shopify.com/product-reviews) per aggiungere delle recensioni di prodotto.",
+        "ja": "無料のShopify[商品レビュー](https://apps.shopify.com/product-reviews)をインストールしてください商品レビューを追加するためのアプリです。",
+        "ko": "무료 Shopify [제품 리뷰] 를 설치하십시오.(https://apps.shopify.com/product-reviews) 제품 리뷰 추가 앱",
+        "nb": "Installer den gratis Shopify [Produktanmeldelser](https://apps.shopify.com/product-reviews) appen for å legge til produktanmeldelser.",
+        "nl": "Installeer de gratis Shopify [Productbeoordelingen](https://apps.shopify.com/product-reviews) app om productbeoordelingen toe te voegen",
+        "pt-BR": "Instale o app gratuito da Shopify [Avaliações de Produtos](https://apps.shopify.com/product-reviews) para adicionar avaliações de produtos.",
+        "pt-PT": "Instale a aplicação gratuita da Shopify [Análises de produtos](https://apps.shopify.com/product-reviews) para adicionar análises de produtos.",
+        "sv": "Installera den fria Shopify [Produktrecensioner](https://apps.shopify.com/product-reviews) app för att lägga till produktrecensioner.",
+        "th": "ติดตั้งแอป Shopify [รีวิวสินค้า](https://apps.shopify.com/product-reviews) เพื่อเพิ่มรีวิวสินค้าฟรี",
+        "zh-CN": "安装免费 Shopify [产品评论](https://apps.shopify.com/product-reviews) 应用以添加产品评论。",
+        "zh-TW": "免費安裝 Shopify [Product Reviews](https://apps.shopify.com/product-reviews) 應用程式以新增產品評論。"
+      }
+    },{
+      "type": "checkbox",
+      "id": "hide_price",
+      "label": {
+        "da": "Aktivér sidebjælke",
+        "de": "Seitenleiste aktivieren",
+        "en": "Hide price",
+        "es": "Habilitar barra lateral",
+        "fi": "Ota sivupalkki käyttöön",
+        "fr": "Activer la barre latérale",
+        "hi": "साइडबार सक्षम करें",
+        "it": "Attiva sidebar",
+        "ja": "サイドバーを有効にする",
+        "ko": "사이드 바 사용",
+        "nb": "Aktiver sidefelt",
+        "nl": "Zijbalk inschakelen",
+        "pt-BR": "Habilitar barra lateral",
+        "pt-PT": "Ativar barra lateral",
+        "sv": "Aktivera sidofältet",
+        "th": "เปิดใช้งานแถบด้านข้าง",
+        "zh-CN": "启用侧边栏",
+        "zh-TW": "啟用側邊欄"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sidebar",
+      "label": {
+        "da": "Aktivér sidebjælke",
+        "de": "Seitenleiste aktivieren",
+        "en": "Enable sidebar",
+        "es": "Habilitar barra lateral",
+        "fi": "Ota sivupalkki käyttöön",
+        "fr": "Activer la barre latérale",
+        "hi": "साइडबार सक्षम करें",
+        "it": "Attiva sidebar",
+        "ja": "サイドバーを有効にする",
+        "ko": "사이드 바 사용",
+        "nb": "Aktiver sidefelt",
+        "nl": "Zijbalk inschakelen",
+        "pt-BR": "Habilitar barra lateral",
+        "pt-PT": "Ativar barra lateral",
+        "sv": "Aktivera sidofältet",
+        "th": "เปิดใช้งานแถบด้านข้าง",
+        "zh-CN": "启用侧边栏",
+        "zh-TW": "啟用側邊欄"
+      },
+      "default": true
+    },
+{
+      "id": "tag_message_color",
+      "type": "color",
+      "label": "Tag Message color",
+      "default": "#000"
+    },
+	{
+        "type": "checkbox",
+        "id": "enable_tag_message_1",
+        "label": "Enable Tag Message 1",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "tag_condition_1",
+        "label": "Tag Condition 1",
+        "default": "Tag Condition"
+    },
+    {
+        "type": "text",
+        "id": "tag_message_1",
+        "label": "Tag Message 1",
+        "default": "Tag Message"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_tag_message_2",
+        "label": "Enable Tag Message 2",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "tag_condition_2",
+        "label": "Tag Condition 2",
+        "default": "Tag Condition"
+    },
+    {
+        "type": "text",
+        "id": "tag_message_2",
+        "label": "Tag Message 2",
+        "default": "Tag Message"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_tag_message_3",
+        "label": "Enable Tag Message 3",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "tag_condition_3",
+        "label": "Tag Condition 3",
+        "default": "Tag Condition"
+    },
+    {
+        "type": "text",
+        "id": "tag_message_3",
+        "label": "Tag Message 3",
+        "default": "Tag Message"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_tag_message_4",
+        "label": "Enable Tag Message 4",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "tag_condition_4",
+        "label": "Tag Condition 4",
+        "default": "Tag Condition"
+    },
+    {
+        "type": "text",
+        "id": "tag_message_4",
+        "label": "Tag Message 4",
+        "default": "Tag Message"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_tag_message_5",
+        "label": "Enable Tag Message 5",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "tag_condition_5",
+        "label": "Tag Condition 5",
+        "default": "Tag Condition"
+    },
+    {
+        "type": "text",
+        "id": "tag_message_5",
+        "label": "Tag Message 5",
+        "default": "Tag Message"
+    },
+{
+      "id": "type_message_color",
+      "type": "color",
+      "label": "Type Message color",
+      "default": "#000"
+    },
+{
+        "type": "checkbox",
+        "id": "enable_type_message_1",
+        "label": "Enable Type Message 1",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "type_condition_1",
+        "label": "Type Condition 1",
+        "default": "Type Condition"
+    },
+    {
+        "type": "text",
+        "id": "type_message_1",
+        "label": "Type Message 1",
+        "default": "Type Message"
+    },
+
+
+
+{
+        "type": "checkbox",
+        "id": "enable_type_message_2",
+        "label": "Enable Type Message 2",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "type_condition_2",
+        "label": "Type Condition 2",
+        "default": "Type Condition"
+    },
+    {
+        "type": "text",
+        "id": "type_message_2",
+        "label": "Type Message 2",
+        "default": "Type Message"
+    },
+
+{
+        "type": "checkbox",
+        "id": "enable_type_message_3",
+        "label": "Enable Type Message 3",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "type_condition_3",
+        "label": "Type Condition 3",
+        "default": "Type Condition"
+    },
+    {
+        "type": "text",
+        "id": "type_message_3",
+        "label": "Type Message 3",
+        "default": "Type Message"
+    },
+
+{
+        "type": "checkbox",
+        "id": "enable_type_message_4",
+        "label": "Enable Type Message 4",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "type_condition_4",
+        "label": "Type Condition 4",
+        "default": "Type Condition"
+    },
+    {
+        "type": "text",
+        "id": "type_message_4",
+        "label": "Type Message 4",
+        "default": "Type Message"
+    },
+
+    {
+        "type": "checkbox",
+        "id": "enable_type_message_5",
+        "label": "Enable Type Message 5",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "type_condition_5",
+        "label": "Type Condition 5",
+        "default": "Type Condition"
+    },
+    {
+        "type": "text",
+        "id": "type_message_5",
+        "label": "Type Message 5",
+        "default": "Type Message"
+    }
+  ]
+}
+{% endschema %}

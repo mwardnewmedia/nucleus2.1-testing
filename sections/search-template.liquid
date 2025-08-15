@@ -1,0 +1,363 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+{% assign grid_results = true %}
+
+
+<div data-section-id="{{ section.id }}" data-section-type="search-template">
+  <div id="SearchGridContainer">
+      {% if search.performed %}
+
+        {% paginate search.results by 20 %}
+
+          {% if search.results_count == 0 %}
+
+            <h1 class="h2 text-center">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
+
+          {% else %}
+
+             <h1 class="h2 text-center">{{ 'general.search.results_for_html' | t: terms: search.terms | replace: '&#39;', "'" }}</h1>
+
+            {% assign active_filters = false %}
+              {% for filter in search.filters %}
+                {% for filter_value in filter.active_values %}
+                    {% if filter.active_values.size > 0 %}
+                      {% assign active_filters = true %}
+                    {% endif %}
+                {% endfor %}      
+              {% endfor %}
+            
+            {% if active_filters %}
+              {% include 'active-filters-search-page' %}
+            {% else %}
+              <div class="filters-spaceholder"></div>
+            {% endif %}  
+                {% assign has_filters = false  %}
+                   {% for filter in search.filters %}
+                      {% if search.filters.size > 0 %}
+                        {% assign has_filters = true %}
+                      {% endif %}
+                   {% endfor %}
+               {% if has_filters %}
+               <div class="search-grid-sidebar grid-item large--one-fifth collection-filters" id="collectionFilters">
+                  {% if section.settings.search_sidebar_filters == 'search_discovery_app' %}
+                    {% include 'search-page-sidebar' %}
+                  {% elsif section.settings.search_sidebar_filters == 'pet_sidebar_sda' %}
+                    {% include 'search-page-pet-sidebar' %}
+                  {% endif %}
+                </div>
+                {% endif %}
+
+               {% if has_filters %} 
+                 <div class="search-page-filter-toggle-spacer">
+                  {% include 'toggle-filters' %}
+                 </div>
+              {% endif %}
+                
+                <div class="grid-item large--four-fifths search-product-grid">
+                  <div class="grid-uniform  grid-uniform-mobile">
+                    {% for item in search.results %}
+                      {% assign grid_item_width = 'large--one-quarter medium--one-third small--one-half' %}
+                      {% include 'search-result-grid' %}
+                    {% endfor %}
+                  </div>
+                </div>
+
+
+          {% endif %}
+
+          {% if paginate.pages > 1 %}
+            <div class="text-center">
+              <div class="grid-item large--one-whole grid-uniform-pagination">
+              {% include 'pagination-custom' %}
+              </div>
+            </div>
+          {% endif %}
+
+        {% endpaginate %}
+
+      {% else %}
+
+        {% comment %}
+          If search.performed is false, someone either accessed the page without the q parameter, or it was blank.
+        {% endcomment %}
+        <h1 class="text-center h2">{{ 'general.search.title' | t }}</h1>
+        {% include 'search-bar' %}
+
+      {% endif %}
+
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": {
+    "en": "Search"
+  },
+  "settings": [
+    {
+      "type": "radio",
+      "id": "search_sidebar_filters",
+      "label": {
+        "en": "Sidebar product filters"
+      },
+      "options": [
+        {
+          "value": "search_discovery_app",
+          "label": {
+            "en": "Search & Discovery App"
+          }
+        },  
+        {
+          "value": "pet_sidebar_sda",
+          "label": {
+            "en": "Search & Discovery App (Pet)"
+          }
+        }      
+      ],
+      "info": {
+        "en": "[Learn how to set up filter groups](https://help.shopify.com/manual/using-themes/themes-by-shopify/supply#product-tips-tips-specific)."
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "product_show_compare_at_price",
+      "label": {
+        "en": "Show compare at price"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_price",
+      "label": {
+        "en": "Hide price"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "product_show_saved_amount",
+      "label": {
+        "en": "Show saved amount"
+      },
+      "default": true
+    },
+	{
+        "type": "checkbox",
+        "id": "hide_sold_out_overlay",
+        "label": "Disable sold out overlay",
+        "default": false
+    },
+	{
+      "id": "tag_message_color",
+      "type": "color",
+      "label": "Tag Message color",
+      "default": "#000"
+    },
+
+    {
+        "type": "checkbox",
+        "id": "enable_tag_message_1",
+        "label": "Enable Tag Message 1",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "tag_condition_1",
+        "label": "Tag Condition 1",
+        "default": "Tag Condition"
+    },
+    {
+        "type": "text",
+        "id": "tag_message_1",
+        "label": "Tag Message 1",
+        "default": "Tag Message"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_tag_message_2",
+        "label": "Enable Tag Message 2",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "tag_condition_2",
+        "label": "Tag Condition 2",
+        "default": "Tag Condition"
+    },
+    {
+        "type": "text",
+        "id": "tag_message_2",
+        "label": "Tag Message 2",
+        "default": "Tag Message"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_tag_message_3",
+        "label": "Enable Tag Message 3",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "tag_condition_3",
+        "label": "Tag Condition 3",
+        "default": "Tag Condition"
+    },
+    {
+        "type": "text",
+        "id": "tag_message_3",
+        "label": "Tag Message 3",
+        "default": "Tag Message"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_tag_message_4",
+        "label": "Enable Tag Message 4",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "tag_condition_4",
+        "label": "Tag Condition 4",
+        "default": "Tag Condition"
+    },
+    {
+        "type": "text",
+        "id": "tag_message_4",
+        "label": "Tag Message 4",
+        "default": "Tag Message"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_tag_message_5",
+        "label": "Enable Tag Message 5",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "tag_condition_5",
+        "label": "Tag Condition 5",
+        "default": "Tag Condition"
+    },
+    {
+        "type": "text",
+        "id": "tag_message_5",
+        "label": "Tag Message 5",
+        "default": "Tag Message"
+    },
+
+{
+      "id": "type_message_color",
+      "type": "color",
+      "label": "Type Message color",
+      "default": "#000"
+    },
+{
+        "type": "checkbox",
+        "id": "enable_type_message_1",
+        "label": "Enable Type Message 1",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "type_condition_1",
+        "label": "Type Condition 1",
+        "default": "Type Condition"
+    },
+    {
+        "type": "text",
+        "id": "type_message_1",
+        "label": "Type Message 1",
+        "default": "Type Message"
+    },
+
+
+
+{
+        "type": "checkbox",
+        "id": "enable_type_message_2",
+        "label": "Enable Type Message 2",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "type_condition_2",
+        "label": "Type Condition 2",
+        "default": "Type Condition"
+    },
+    {
+        "type": "text",
+        "id": "type_message_2",
+        "label": "Type Message 2",
+        "default": "Type Message"
+    },
+
+{
+        "type": "checkbox",
+        "id": "enable_type_message_3",
+        "label": "Enable Type Message 3",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "type_condition_3",
+        "label": "Type Condition 3",
+        "default": "Type Condition"
+    },
+    {
+        "type": "text",
+        "id": "type_message_3",
+        "label": "Type Message 3",
+        "default": "Type Message"
+    },
+
+{
+        "type": "checkbox",
+        "id": "enable_type_message_4",
+        "label": "Enable Type Message 4",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "type_condition_4",
+        "label": "Type Condition 4",
+        "default": "Type Condition"
+    },
+    {
+        "type": "text",
+        "id": "type_message_4",
+        "label": "Type Message 4",
+        "default": "Type Message"
+    },
+
+{
+        "type": "checkbox",
+        "id": "enable_type_message_5",
+        "label": "Enable Type Message 5",
+        "default": false
+    },
+    {
+        "type": "text",
+        "id": "type_condition_5",
+        "label": "Type Condition 5",
+        "default": "Type Condition"
+    },
+    {
+        "type": "text",
+        "id": "type_message_5",
+        "label": "Type Message 5",
+        "default": "Type Message"
+    }
+
+
+  ]
+}
+{% endschema %}

@@ -1,0 +1,113 @@
+summary.filter-group-summary span {
+    font-weight: bold;
+}
+
+.filter-group-summary .icon-caret {
+  right: 0;
+  margin-left:auto;
+  width: 13px!important;
+  height: 13px!important;
+}
+
+.filter-group-summary {
+  display:flex!important;
+  margin-bottom: 10px;
+}
+
+.filter-group-summary .filter-dropdown-icon {
+  margin-left:auto;
+}
+
+form.filter-form {
+    margin-right: 20px;
+}
+
+.active-filter-pill {
+  padding:5px 20px;
+  border-radius:9999px;
+  margin-right:10px;
+}
+
+.active-clear-all {
+  background:#656565;
+  color:#FFF;
+}
+
+.active-filter-color {
+  background:#eaeaea;
+  color:#656565;
+}
+
+details.filter-group {
+    width: 100%;
+    padding: 15px 10px;
+    margin-bottom: 20px;
+    border: 1px solid #eaeaea;
+    background-color: #fff;
+}
+
+details.filter-group:last-child {
+    border-bottom: 1px solid #eaeaea;
+}
+
+.filter-close-icon svg {
+  width:10px;
+  height:10px;
+}
+
+.filter-group-display__list-item input[type="checkbox"] {
+  margin-right:5px;
+}
+
+li.filter-group-display__list-item label {
+    display: flex;
+    align-items: center;
+}
+
+.filter-group-display__price-range input {
+    width: 100%!important;
+    padding: 10px 13px!important;
+    border-radius: 4px;
+    margin-bottom:0; 
+}
+
+.filter-group-display__price-range-from,
+.filter-group-display__price-range-to {
+  display:flex;
+  align-items:center;
+}
+
+.filter-group-display__price-range {
+  margin-bottom:20px;
+}
+
+ul.filter-group-display__list {
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.active-filters {
+  display: flex;
+  flex-wrap: wrap; /* Enables wrapping of filter pills */
+  gap: 10px;
+  justify-content: left;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-left: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  .active-filters {
+    margin-bottom: 15px;
+    padding-left: 0px;
+    justify-content: center;
+  }  
+}
+
+
+.filters-spaceholder {
+  margin-top:20px;
+  margin-bottom:20px;
+  height:1px;
+  background:transparent;
+}

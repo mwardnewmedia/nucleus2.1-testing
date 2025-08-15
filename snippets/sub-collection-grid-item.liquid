@@ -1,0 +1,31 @@
+<div class="grid-item small--one-half medium--one-third large--one-quarter">
+    <a href="/collections/{{ collection.title | handleize }}" title="Browse our {{ collection.title }} collection" class="featured-box square_with_title">
+      <div class="flex items-center justify-center">
+        <div class="flex items-center justify-center">   
+          {% if collection.image %}
+          <!-- Display the collection image if set -->
+          <img 
+              src="{{ collection.image | img_url: 'large' }}" 
+              alt="{{ collection.title }}"
+              style="width:initial!important; height:244px!important;display:block;margin:0 auto;" 
+              class="no-js collection-thumbnail-image lazyautosizes lazyloaded" 
+              alt="{{ collection.title }} category image"  
+            >
+          {% else %}
+            <!-- Fallback to the first product image in the collection if no collection image is set -->
+            {% assign first_product = collection.products.first %}
+            {% if first_product %}
+              <img src="{{ first_product.featured_image | img_url: 'large' }}" alt="{{ first_product.title }}"
+                style="width:initial!important; height:200px!important;display:block;margin:0 auto;" 
+                class="no-js collection-thumbnail-image lazyautosizes lazyloaded" 
+                >
+            {% else %}
+              <!-- Optional: Display a placeholder or fallback message if no products are in the collection -->
+              <p>No image available.</p>
+            {% endif %}
+          {% endif %}
+        </div>     
+      </div>
+      <span class="featured-box--title text-center" style="height: 46px;">{{ collection.title }}</span>
+    </a>
+  </div>

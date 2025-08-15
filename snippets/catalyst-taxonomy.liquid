@@ -1,0 +1,167 @@
+{% comment %}
+  Catalyst Taxonomy Master List
+
+  @param collection_handle {String}
+    The handle of the current collection
+
+  @param filter_label {String}
+    The label of the filter being processed ('Categories', 'Subcategories', etc.)
+
+  @returns {String}
+    Comma-separated string of allowed values for the given collection and filter combination
+{% endcomment %}
+
+{%- assign allowed_values = '' | split: ',' -%}
+
+{%- case collection_handle -%}
+  {%- when 'farm' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- assign allowed_values = 'Cattle,Dairy Cow,Flock,Horse,Llama & Alpaca,Pigs,Sheep & Goat,Wildlife,Batteries,Beekeeping,Farm Supplies & Hardware,Hay and Bedding'
+        | split: ','
+      -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel,Chicks,Feed,Fencing,Grooming,Pest Control,Seed,Supplies,Treatments,Treats,Show'
+        | split: ','
+      -%}
+    {%- endif -%}
+
+  {%- when 'automotive' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- assign allowed_values = 'Auto Accessories,Basic Repair & Parts,Battery & Electrical Accessories,Cell Phone Accessories,Chemicals & Fluids,Cleaning & Waxing,Dollar Shop,Filters,Gas & Kerosene Cans,Road Safety,RV & Mobile Home Supplies,Snow & Ice Removers,Test & Service Equipment,Tie Downs & Towing,Tire & Wheel Accessories,Trailer Parts & Accessories,Automotive Tools,Tires & Wheels'
+        | split: ','
+      -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- comment -%} No subcategories for Automotive collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- endif -%}
+
+  {%- when 'lawn-garden' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- assign allowed_values = 'Equipment,Garden,Lawn,Snow Removal,Wild Bird' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel,Bird Food,Bird Seed,Decor,Fencing,Fertilizer,Hydroponics & Indoor Gardening,Lawn Mowers & Tractors,Leaf Blowers,Mulch,Pest Control,Plant Food,Planters,Seed,Soil,Supplies,Tillers & Cultivators,Tools,Trimmers & Edgers,Watering,Weed Control,Wheelbarrows & Garden Carts,Suet,Generators,Pressure Washers,Chainsaws,Snow Blowers,Mulchers & Wood Chippers,Parts & Accessories,Pond'
+        | split: ','
+      -%}
+    {%- endif -%}
+
+  {%- when 'pet' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- assign allowed_values = 'Bird,Cat,Dog,Fish,Reptile,Small Animal' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel,Aquariums & Decor,Beds Crates & Gates,Bowls & Feeders,Cleaning & Potty,Dry Food,Fish Food,Flea & Tick,Grooming,Habitats & Decor,Leashes Collars & Training,Litter & Accessories,Reptile Food,Supplies,Toys,Treatments,Treats,Wet Food,Freeze-Dried Food,Raw Food,Frozen Food'
+        | split: ','
+      -%}
+    {%- endif -%}
+
+  {%- when 'hardware' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- assign allowed_values = 'Cabinet Hardware,Casters & Floor Protection,Chain & Wire,Door Knobs & Hardware,Drawer Hardware,Fasteners,Garage Door Openers & Hardware,Gate Hardware,Hinges,Home Safety & Security,Keys & Key Holders,Mailboxes & Signs,Metal Stock,Rope & Twine,Tape,Weatherproofing,Window Hardware,Mobile Home Hardware & Accessories,Tie Downs & Earth Anchors,RV Hardware & Accessories,Angle Bar & Rod Stock,Builders Hardware,Furniture Parts & Accessories,Springs,Hoists & Pulleys'
+        | split: ','
+      -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- comment -%} No subcategories for Hardware collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- endif -%}
+
+  {%- when 'sporting-goods' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- assign allowed_values = 'Archery,Camping,Fishing,Hunting,Exercise,Bicycles,Sports' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- comment -%} No subcategories for Sporting Goods collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- endif -%}
+
+  {%- when 'tools' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- assign allowed_values = 'Equipment,Flooring Materials,Hand Tools,Masonry Tools,Outdoor Power Equipment,Power Tool Accessories,Power Tools,Tool Sets,Tool Storage & Work Surfaces,Welding & Soldering'
+        | split: ','
+      -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- comment -%} No subcategories for Tools collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- endif -%}
+
+  {%- when 'clothing-apparel' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- assign allowed_values = 'Clothing,Footwear,Gloves & Glove Accessories,Hats & Caps,Leather Care,Rain Gear,Winter Apparel,Tool Belt & Aprons,Eyewear,Safety Wear,Jewelry,Handbags Purses & Wallets'
+        | split: ','
+      -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- comment -%} No subcategories for Clothing & Apparel collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- endif -%}
+
+  {%- when 'electrical' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- assign allowed_values = 'Alternative Energy,Batteries,Circuit Breakers Fuses & Load Centers,Conduit & Fittings,Doorbells,Electrical Boxes & Accessories,Extension Cords & Accessories,Home Safety - Electrical,Multi Outlets & Surge Protectors,Outlets,Plugs & Connectors,Smart Home & Security,Switches & Dimmers,Wall Plates,Interior Light Fixtures,Job Site Lighting,Ceiling Fans & Accessories,Generators & Accessories,Light Fixture Parts,Networking & Media Center Components,Light Bulbs & Accessories,Smoke Alarms & Carbon Monoxide Detectors,Electrical Wiring,Flashlights'
+        | split: ','
+      -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- comment -%} No subcategories for Electrical collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- endif -%}
+
+  {%- when 'home-cleaning' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- assign allowed_values = 'Cleaning Tools & Supplies,Dishwashing & Sink Supplies,Dollar Shop,Home Decor,Household Cleaners,Indoor Pest Control,Janitorial Supplies,Kitchen,Laundry Aids & Carts,Personal Care,Trash Cans & Trash Bags,Absorbents,Kids Toys'
+        | split: ','
+      -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- comment -%} No subcategories for Home & Cleaning collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- endif -%}
+
+  {%- when 'plumbing' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- assign allowed_values = 'Conduit & Fittings,Drain Parts & Repair,Electrical Boxes & Accessories,Faucets,Garbage Disposals,Heating & De-Icing Cables,Pipes & Fittings,Pumps & Accessories,Septic Tank & Cesspool Chemicals,Showers & Bathtubs,Sinks,Tape,Valves,Water Filtration,Water Heaters,Water Softeners,Bathroom,Basement Water Barrier Systems,Washing Machine Accessories,Water Meter Accessories,Snakes & Drain Openers,Plumbing Accessories'
+        | split: ','
+      -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- comment -%} No subcategories for Plumbing collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- endif -%}
+   {%- when 'dog' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- comment -%} No categories for Dog collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Fish Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Litter & Accessories, Reptile Food, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food' | split: ',' -%}
+    {%- endif -%}
+  {%- when 'cat' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- comment -%} No categories for Cat collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Fish Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Litter & Accessories, Reptile Food, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food' | split: ',' -%}
+    {%- endif -%}
+  {%- when 'small-animal' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- comment -%} No categories for Small Animal collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Fish Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Litter & Accessories, Reptile Food, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food' | split: ',' -%}
+    {%- endif -%}
+  {%- when 'bird' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- comment -%} No categories for Bird collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Fish Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Litter & Accessories, Reptile Food, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food' | split: ',' -%}
+    {%- endif -%}
+   {%- when 'reptile' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- comment -%} No categories for Reptile collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Fish Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Litter & Accessories, Reptile Food, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food' | split: ',' -%}
+    {%- endif -%}
+  {%- when 'fish' -%}
+    {%- if filter_label == 'Categories' -%}
+      {%- comment -%} No categories for Fish collection {%- endcomment -%}
+      {%- assign allowed_values = '' | split: ',' -%}
+    {%- elsif filter_label == 'Subcategories' -%}
+      {%- assign allowed_values = 'Apparel, Aquariums & Decor, Beds Crates & Gates, Bowls & Feeders, Cleaning & Potty, Dry Food, Fish Food, Flea & Tick, Grooming, Habitats & Decor, Leashes Collars & Training, Litter & Accessories, Reptile Food, Supplies, Toys, Treatments, Treats, Wet Food, Freeze-Dried Food, Raw Food, Frozen Food' | split: ',' -%}
+    {%- endif -%}
+{%- endcase -%}
+
+{{- allowed_values | join: ',' -}}

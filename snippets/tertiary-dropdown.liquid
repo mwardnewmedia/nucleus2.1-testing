@@ -1,0 +1,47 @@
+
+<li
+    class="parent-nav-item site-nav--has-dropdown {% if link.active %}site-nav--active{% endif %}"
+    id="{{ link.title | handleize }}"
+    aria-haspopup="true"
+    {% if link.title == section.settings.tertiary_megamenu %}
+    style="position:initial;"
+    {% endif %}
+    >
+  <a
+     href="{{ link.url }}"
+     class="site-nav--link parent-nav-link"
+     data-meganav-type="parent"
+     aria-controls="MenuParent-{{ parent_index }}"
+     aria-expanded="false"
+     {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+    {{ link.title | escape }}
+    <span class="icon icon-arrow-down" aria-hidden="true"></span>
+  </a> 
+        <ul
+          id="MenuParent-{{ parent_index }}"
+          class="site-nav--dropdown {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %}{% if link.title == section.settings.tertiary_megamenu %} megamenu{% endif %}"
+          data-meganav-dropdown>
+          {% if link.title == section.settings.tertiary_megamenu %}
+          <div class="megamenu-wrap">
+          {% endif %}
+          {% for childlink in link.links %}
+           
+              <li{% if childlink.active %} class="site-nav--active"{% endif %}>
+                <a
+                  href="{{ childlink.url }}"
+                  class="site-nav--link"
+                  data-meganav-type="child"
+                  {% if childlink.active %}aria-current="page"{% endif %}
+                  tabindex="-1">
+                    {{ childlink.title | escape }}
+                </a>
+              </li>
+       
+          {% endfor %}
+          {% if link.title == section.settings.tertiary_megamenu %}
+          </div>
+          {% endif %}
+        </ul>
+       
+      </li>
+
