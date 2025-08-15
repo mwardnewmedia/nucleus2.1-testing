@@ -62,8 +62,6 @@
       <div class="grid-item large--one-fifth medium--two-thirds">
         <div class="text-center">
           
-          
-<<<<<<< HEAD
           {% comment %} Handle rental disclaimer when rates are hidden {% endcomment %}
           {% if product.tags contains "Rental" and settings.rental_rates and settings.rental_pricing_disclaimer != blank %}
             <div class="rental-pricing-disclaimer">
@@ -84,8 +82,12 @@
           {% endif %}
           
           {% unless hide_pricing %} 
-            {% if product.type == 'MAP' %} 
-              <br/><p class="MAP-Disclaimer"><strong><em>Add to cart to see price</em></strong></p>
+            {% if product.type == 'MAP' or settings.map_brand_1 == product.vendor or settings.map_brand_2 == product.vendor or settings.map_brand_3 == product.vendor or settings.map_brand_4 == product.vendor or settings.map_brand_5 == product.vendor or settings.map_brand_6 == product.vendor or settings.map_brand_7 == product.vendor or settings.map_brand_8 == product.vendor or settings.map_brand_9 == product.vendor or settings.map_brand_10 == product.vendor or settings.map_brand_11 == product.vendor or settings.map_brand_12 == product.vendor or settings.map_brand_13 == product.vendor or settings.map_brand_14 == product.vendor or settings.map_brand_15 == product.vendor or settings.map_brand_16 == product.vendor or settings.map_brand_17 == product.vendor or settings.map_brand_18 == product.vendor or settings.map_brand_19 == product.vendor or settings.map_brand_20 == product.vendor %} 
+              {% if settings.map_message != blank %}
+                <p class="MAP-Disclaimer"><strong><em>{{ settings.map_message }}</em></strong></p>
+              {% else %}
+                <p class="MAP-Disclaimer"><strong><em>Add to cart to see price</em></strong></p>
+              {% endif %}
             {% else %}
               <div class="product-item--price">
                 <p class="h1 medium-down--left">
@@ -123,41 +125,6 @@
                 </div>
               {% endif %}
             {% endif %}
-=======
-          {% unless settings.hide_price or section.settings.hide_price %} 
-    		{% if product.type == 'MAP' %} 
-    		<br/><p class="MAP-Disclaimer"><strong><em>Add to cart to see price</em></strong></p>
-      		{% else %}
-          <div class="product-item--price">
-            <p class="h1 medium-down--left">
-              {% if on_sale %}   
-                <span class="visually-hidden">{{ "products.general.sale_price" | t }}</span>
-              {% else %}
-                <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
-              {% endif %}
-              {% include 'price' with product.price %}
-              {% if on_sale and section.settings.product_show_compare_at_price %}
-                <small>
-                  <s>
-                    <span class="visually-hidden">{{ "products.general.regular_price" | t }}</span>
-                    {% include 'price' with product.compare_at_price %}
-                  </s>
-                </small>
-              {% endif %}
-            </p>
-            {%- if product.selected_or_first_available_variant.available and product.selected_or_first_available_variant.unit_price_measurement -%}
-              {% include 'product-unit-price', variant: product.selected_or_first_available_variant %}
-            {%- endif -%}
-          </div>
-          {% if on_sale and section.settings.product_savings %}
-            <div class="sale-tag medium-down--right{% if section.settings.product_reviews_enable %} has-reviews{% endif %}">
-              {% assign compare_price = product.compare_at_price %}
-              {% assign product_price = product.price %}
-              {% include 'price-sale' %}
-            </div>
-          {% endif %}
-          {% endif %}
->>>>>>> 11d27c6385367e8afc22ea0e201a918118572379
           {% endunless %}    
 
           {% if section.settings.product_reviews_enable %}
