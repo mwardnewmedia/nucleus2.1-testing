@@ -1,0 +1,20 @@
+<script>
+// Define enquiry_options first so it's available immediately
+let enquiry_options = {
+    prefix: '{{ (settings.enquiry_environment && 'testing' == settings.enquiry_environment) ? '/storefront/test' : '' }}',
+    enquiry_form_url: '{{ settings.enquiry_form_url ? settings.enquiry_form_url : '/pages/request-availability' }}',
+    enquiry_api_url: '{{ (settings.enquiry_environment && 'testing' == settings.enquiry_environment) ? 'http://enquiry.test/api/request' : 'https://enquiry.newmediaretailer.com/api/request' }}',
+    settings: {
+        hide_price: {{ settings.hide_price | json }},
+        rental_rates: {{ settings.rental_rates | json }}
+    }
+};
+</script>
+
+<script src="{{ 'enquiry.js' | asset_url }}" defer></script>
+
+<script>
+window.addEventListener('load', () => {
+    Enquiry.init(enquiry_options);
+});
+</script>

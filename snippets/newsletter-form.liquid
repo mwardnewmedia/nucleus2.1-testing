@@ -1,0 +1,38 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+<div id=form>
+  {% form 'customer' %}
+    {{ form.errors | default_errors }}
+    {% if form.posted_successfully? %}
+      <p class="note form-success">{{ 'layout.footer.newsletter_confirmation' | t }}</p>
+    {% else %}
+  <input type="hidden" name="contact[tags]" value="newsletter">
+  <div class='grid'>
+    <div class='grid-item small--one-whole large--one-half'>
+      <input type="text" value="{% if customer %}{{ customer.first_name }}{% endif %}" placeholder="{{ 'layout.footer.newsletter_first_name_placeholder' | t }}" name="contact[first_name]" id="first_name" aria-label="{{ 'layout.footer.newsletter_first_name_placeholder' | t }}" autocorrect="off" autocapitalize="off">
+    </div>
+    <div class='grid-item small--one-whole large--one-half'>
+      <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'layout.footer.newsletter_email_placeholder' | t }}" name="contact[email]" id="email" aria-label="{{ 'layout.footer.newsletter_email_placeholder' | t }}" autocorrect="off" autocapitalize="off">
+    </div>
+  </div>
+  <div class="input-group-btn">
+    <button style="width: 100%" type="submit" class="btn" name="commit" id="subscribe">{{ 'layout.footer.newsletter_sign_up' | t }}</button>
+  </div>
+    {% endif %}
+  {% endform %}
+</div>
+
+
+
+
+
+
+

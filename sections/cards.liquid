@@ -1,0 +1,141 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+
+{% case section.blocks.size %}
+  {% when 1 %}
+    {%- assign column_size = 'small--one-whole medium--one-half large--one-half' -%}
+  {% when 2 %}
+    {%- assign column_size = 'small--one-whole medium--one-half large--one-half' -%}
+  {% when 3 %}
+    {%- assign column_size = 'small--one-whole medium--one-third large--one-third' -%}
+  {% when 4 %}
+      {%- assign column_size = 'small--one-whole medium--one-quarter large--one-quarter' -%}  
+  {% when 5 %}
+        {%- assign column_size = 'small--one-whole medium--one-fifth large--one-fifth' -%}      
+  {% else %}
+    {%- assign column_size = 'small--one-whole medium--one-third large--one-sixth' -%}
+{% endcase %}
+
+
+<div class="cards-container" data-count= "{{blockCount}}" data-section-id="{{ section.id }}" data-section-type="featured-images-section">
+  <div class="section-{{section.id}}">
+    <hr>
+    {% if section.settings.cards_title != blank %}
+      <div class="section-header">
+        <h2 class="h2  section-header--left">
+          {{ section.settings.cards_title | escape }}
+        </h2>
+      </div>
+    {% endif %}
+      <div class="grid-uniform text-center">
+      {% for block in section.blocks %}
+        <div class="grid-item {{ column_size }} {% unless forloop.last %}card-grid-item{% endunless %}"">
+          <div class="card-wrapper">
+            <div class="card {% if section.settings.image_type == "circular_with_title" %}circular_with_title{% elsif section.settings.image_type == "square_with_title" %}square_with_title{% endif %}">
+              <a href="{{ block.settings.promo_banner_link }}">
+                <img alt="{{ block.settings.promo_banner_heading | strip_html }}{{ block.settings.promo.alt }}" src="{{ block.settings.promo | img_url:'427x', format:'pjpg' }}" >
+                <div class="card-title">
+                  <h3 style="margin-bottom: 0px;">{{ block.settings.promo_banner_heading }}</h3>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Cards",
+	"max_blocks": 6,
+    "settings": [
+    {
+      "type": "text",
+      "id": "cards_title",
+      "label": "Cards Heading"
+    },
+    {
+      "type": "select",
+      "id": "image_type",
+      "label": {
+        "en": "Select image type"
+      },
+      "default": "square_card",
+      "options": [
+        {
+          "value": "square_card",
+          "label": {
+            "en": "Square Card"
+          }
+        },
+        {
+          "value": "circular_with_title",
+          "label": {
+            "en": "Circular with Title"
+          }
+        },
+        {
+          "value": "square_with_title",
+          "label": {
+            "en": "Square with Title"
+          }
+        }
+      ]
+    }
+  ],
+     "blocks" : [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "promo",
+            "label": "Image",
+			"info": "800 x 600px jpg recommended"
+          },   	
+          {
+            "type": "richtext",
+            "id": "promo_banner_heading",
+            "label": "Heading",
+			"info": "4-6 words maximum"
+          },
+          {
+            "type": "url",
+            "id": "promo_banner_link",
+            "label": "Link URL"
+          }
+	     ]
+	}
+  ],
+	"presets": [
+    {
+      "name": "Cards",
+      "category": "Image",
+	  "blocks": [
+	  {
+        "type": "image"
+      },
+      {
+        "type": "image"
+      }
+	]
+    }
+  ]
+  }
+{% endschema %}

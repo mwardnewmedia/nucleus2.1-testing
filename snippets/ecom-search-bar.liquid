@@ -1,0 +1,104 @@
+<form id="ecom-search-bar" action="{{ routes.search_url }}" method="get" class="search-bar" role="search">
+  <input type="hidden" name="type" value="product">
+  
+  <input id="predictive-search" class="{% if section.settings.search_border %}search-border{% endif %}" type="search" autocomplete="off" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'layout.search_bar.placeholder' | t }}" aria-label="{{ 'layout.search_bar.placeholder' | t }}">
+  <button type="submit" class="search-bar--submit icon-fallback-text">
+    <span class="icon icon-search" aria-hidden="true"></span>
+    <span class="fallback-text">{{ 'layout.search_bar.submit' | t }}</span>
+  </button>
+  <div class="predictive-dropdown" id="dropdown">
+    <div class="predictive-products-container" id="predictive-products"></div>
+    <div class="predictive-collections-container" id="collections"></div>
+    <div class="predictive-pages-container" id="predictive-pages"></div>
+  </div> 
+</form>
+
+<!-- Script to query API for predictive search here for now -->
+ <script>
+  var specifiedElement = document.getElementById('predictive-search');
+  var otherElement = document.getElementById('dropdown')
+  document.addEventListener('click', function(event) {
+    let isClickInside = specifiedElement.contains(event.target);
+    let otherClickInside = otherElement.contains(event.target);
+    let inputData = document.getElementById("predictive-search").value;
+
+    if (!isClickInside && !otherClickInside) {
+      document.getElementById("dropdown").style.display = "none";
+    }
+    else if(isClickInside && inputData !== "") {
+      document.getElementById("dropdown").style.display = "block";
+    };
+  })
+  // ** SELECTORS **
+  let predictiveSearch = document.getElementById("predictive-search");
+  predictiveDropDown = document.getElementById("dropdown");
+  predictiveCollections = document.getElementById('collections');
+  predictivePages = document.getElementById('predictive-pages');
+  predictiveProducts = document.getElementById('predictive-products');
+  // -----------------------------------------------------------------
+  // Load the entire function on DOMContentLoad
+  document.addEventListener("DOMContentLoaded", loadData)
+  function loadData() { 
+    // Add keyup event listener to fire ajax request to API 
+    predictiveSearch.addEventListener('keyup', retrieveData)
+    function retrieveData() {
+      // Pull value from input given by user
+      let data = predictiveSearch.value;
+      // Fetch Data from Database using the query we pulled from user input
+      if(data) {
+        predictiveDropDown.style.display = "block";
+        let queriedData = fetch(`/search/suggest.json?q=${data}&resources[type]=page,product,article,collection&resources[limit]=4&resources[options][unavailable_products]=last`)
+        // Render that data
+        .then(res => res.json()).then(final => {
+          const finalData = final.resources.results;
+          if(finalData.collections.length > 0) {
+            predictiveCollections.innerHTML = `<h2>Collections</h2>` +
+              finalData.collections.map(item => {
+              return  `<ul><li><a href=${item.url}>${item.title}</a></li></ul>`
+            }).join("")
+          }
+          else {
+            predictiveCollections.innerHTML = "<h2>Collections</h2><p>No Results</p>";
+          }
+          if(finalData.pages.length > 0) {
+            predictivePages.innerHTML = `<h2>Pages</h2>` + 
+              finalData.pages.map(page => {
+              return  `<ul><li><a href=${page.url}>${page.title}</a></li></ul>`
+            }).join("")
+          }
+          else {
+            predictivePages.innerHTML = "<h2>Pages</h2><p>No Results</p>";
+          }
+          if(finalData.products.length > 0) {
+            predictiveProducts.innerHTML = `<h2>Products</h2>` + 
+              finalData.products.map(product => {
+              // Strip HTML tags from the product body using Regex and replace
+              const cleanBody = product.body.replace(/(<([^>]+)>)/gi, "");
+			  // Slice off characters to reasonable length
+              const productInfo = cleanBody.slice(0, 120);
+              return `<ul>
+						<li>
+                            <div class="predictive-image-wrap">
+                              ${(product.featured_image && product.featured_image.url) ? `<img src="${product.featured_image.url}" alt="${product.featured_image.alt}" />` : ''}
+                            </div>
+							<div>
+	                        	<a href=${product.url}>${product.title.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))}</a>
+							</div>
+  						</li>
+  					  </ul>`
+            }).join("")
+          }
+          else {
+            predictiveProducts.innerHTML = "<h2>Products</h2><p>No Results</p>";
+          }
+        })
+      }
+      else if(!data) {
+        predictiveDropDown.style.display = "none";
+        predictivePages.innerHTML = "<h2>Pages</h2><p>No Results</p>";
+        predictiveCollections.innerHTML = "<h2>Collections</h2><p>No Results</p>";
+        predictiveProducts.innerHTML = "<h2>Products</h2><p>No Results</p>";
+      }
+    }
+  }
+</script> 

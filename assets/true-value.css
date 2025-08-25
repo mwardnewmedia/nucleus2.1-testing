@@ -1,0 +1,33 @@
+@font-face {
+	font-family: 'Gotham';
+    src: url(//cdn.shopify.com/s/files/1/1976/4273/t/2/assets/Gotham-Medium.woff?12460670713917839681) format('woff'),
+      url(//cdn.shopify.com/s/files/1/1976/4273/t/2/assets/Gotham-Medium.ttf?12460670713917839681) format('truetype'),
+      url(//cdn.shopify.com/s/files/1/1976/4273/t/2/assets/Gotham-Medium.svg?12460670713917839681) format("svg");
+}
+
+@font-face {
+  	   font-family:'bemio';
+       src:url(//cdn.shopify.com/s/files/1/1976/4273/t/2/assets/bemio-webfont.woff?13013481137445639218) format("woff");
+       src:url(//cdn.shopify.com/s/files/1/1976/4273/t/2/assets/bemio-webfont.ttf?13013481137445639218) format("truetype"),
+       url('//cdn.shopify.com/s/files/1/1976/4273/t/2/assets/bemio-webfont.svg?1943944137589326774') format("svg");
+}
+
+@font-face {
+  	   font-family:'bemio_italic';
+       src:url(//cdn.shopify.com/s/files/1/1976/4273/t/2/assets/bemio_italic-webfont.woff?5596018502592022177) format("woff");
+       src:url(//cdn.shopify.com/s/files/1/1976/4273/t/2/assets/bemio_italic-webfont.ttf?5596018502592022177) format("truetype"),
+       url(//cdn.shopify.com/s/files/1/1976/4273/t/2/assets/bemio_italic-webfont.svg?5596018502592022177) format("svg");
+}
+
+body,a,button {
+ 	font-family:'Gotham'!important; 
+}
+
+h1,h2,h3,h4,small {
+ 	font-family:'bemio_italic'!important; 
+  	font-weight:100!important;
+}
+
+.card-title h3, .card-title .h3, .card-title p {
+  font-family:'Gotham'!important;
+}

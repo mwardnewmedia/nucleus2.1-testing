@@ -1,0 +1,56 @@
+{% assign store_product = false %}
+{% assign warehouse_product = false %}
+
+{% for tag in item.product.tags %}
+{% if tag == 'Store Product' %}
+{% assign store_product = true %}
+{% elsif tag == 'Warehouse Product' %}
+{% assign warehouse_product = true %}
+{% endif %}
+{% endfor %}
+     
+
+{% if store_product == true %}
+<div class="CartFulfillmentOptionsContainer">
+  <h4>Checkout Options</h4>  
+  	    <div tabindex="0" class="fulfillmentWrapper">
+          <div class="invWrapper">      
+            <span>
+            <i class="fas fa-store"></i>
+            </span>
+            <div class="msgWrapper store-pickup-msg">
+              <div class="message">Ready for Pickup in 1 Hour</div>
+            </div>
+            <span>
+              <div class="styles__SliderWrapper-RC__sc-1qvzua6-0 gKEIDV"></div>
+            </span>
+          </div>
+        </div>
+        <div tabindex="0" class="fulfillmentWrapper">
+          <div class="invWrapper">
+            <span>
+            <i class="fas fa-shipping-fast"></i>
+            </span>
+            <div class="msgWrapper truck-delivery-msg">
+              <div class="info gd-info met-fulfillment-td">
+                <span class="availability">Next Day Local Delivery</span>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+{% elsif warehouse_product == true and store_product == false %}
+<div class="CartFulfillmentOptionsContainer">
+  <h4>Checkout Options</h4>  
+          <div tabindex="0" class="fulfillmentWrapper">
+            <div class="invWrapper">
+              <span>
+              <i class="fas fa-box-open"></i>
+              </span>
+              <div class="msgWrapper store-pickup-msg">
+                <div class="locInfo">Ready for Pickup in 4-7 Days</div>
+              </div>
+            </div>
+          </div>
+ </div>
+{% endif %}

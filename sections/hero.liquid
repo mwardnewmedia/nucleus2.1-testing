@@ -1,0 +1,187 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+{% if section.settings.full_width %}
+<style>
+  .hero.hero-full-width {
+ 	margin-left: calc(-100vw / 2 + 100% / 2);
+    margin-right: calc(-100vw / 2 + 100% / 2); 
+}
+</style>
+{% endif %}
+<hr>
+<div class="hero-row {% if section.settings.hero_title != blank %}mobile-hero{% endif %}" {% if section.settings.hero__bottom_spacer %}style="margin-bottom: 30px;"{% endif %}>
+  <div class="hero {% if section.settings.full_width %}hero-full-width{% endif %} {% if section.settings.hero_title != blank %}mobile-hero{% endif %}">
+    {% if section.settings.hero_link != blank %}
+    <a href="{{ section.settings.hero_link }}" title="{{ section.settings.hero_title }}">
+    {% endif %}
+    
+    {% if section.settings.hero_image != blank %}
+      <img src="{{ section.settings.hero_image | img_url:'master' }}" alt="{% if section.settings.hero_image.alt %}{{ section.settings.hero_image.alt }}{% else %}Hero Image{% endif %}" style="width:100%;position:relative;" {% if section.settings.hero_title != blank %}class="mobile-hero"{% endif %}>
+    {% else %}
+         {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+          {% capture svg_tag_class %}placeholder-noblocks slide-link slide-link--{{ block.id }}{% endcapture %}
+          {%- assign placeholder = 'placeholder-lifestyle-' | append: current -%}
+          {{ 'lifestyle-' | append: current | placeholder_svg_tag: svg_tag_class }}
+    {% endif %}
+    {% if section.settings.hero_title != blank %}
+    <div class="hero-overlay" {% if section.settings.hero_overlay_color != '0' %} style="text-align:{% if section.settings.hero_content_alignment == 'left' %}left{% elsif section.settings.hero_content_alignment == 'center' %}center{% else section.settings.hero_content_alignment == 'right' %}right{% endif %}; background: rgba(0,0,0, {% if section.settings.hero_overlay_color == 100%} 1 {% else %}0.{{section.settings.hero_overlay_color}} {% endif %}{% endif %}">
+      <div class="hero-overlay-content">
+      {% if section.settings.hero_eyebrow_heading != blank %}
+        <p class="hero-eyebrow-heading">
+          {{ section.settings.hero_eyebrow_heading }}
+        </p>
+      {% endif %}
+      {% if section.settings.hero_title != blank %}
+      <h2 class="h1" {% if section.settings.hero_subtitle == blank %}style="margin-bottom:15px;"{% endif %}>{{ section.settings.hero_title }}</h2>
+      {% endif %}
+      {% if section.settings.hero_subtitle != blank %}
+      <p>{{ section.settings.hero_subtitle }}</p>
+      {% endif %}
+      {% if section.settings.hero_button_text != blank and section.settings.hero_button_link != blank %}
+        <a href="{{ section.settings.hero_button_link }}" class="btn btn_c" title="{{ section.settings.hero_button_text}}" {% if section.settings.new_window == true %}target="_blank"{% endif %}>
+          {{ section.settings.hero_button_text }}
+        </a>
+      {% endif %}
+      </div>
+    </div> 
+      
+    {% endif %}	
+    {% if section.settings.hero_link != blank %}  
+    </a>
+    {% endif %}
+    
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Hero Image"
+  },
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": {
+        "en": "Hero Image"
+      }
+    },
+      {
+      "type": "text",
+      "id": "hero_eyebrow_heading",
+      "label": {
+        "en": "Eyebrow Heading Text"
+      }
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": {
+        "en": "Hero Title"
+      }
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": {
+        "en": "Hero Subtitle"
+      }
+    },
+    {
+      "type": "url",
+      "id": "hero_link",
+      "label": {
+        "en": "Hero Link"
+      }
+    },
+    {
+      "type": "text",
+      "id": "hero_button_text",
+      "label": {
+        "en": "Hero Button Text"
+      }
+    },
+    {
+      "type": "url",
+      "id": "hero_button_link",
+      "label": {
+        "en": "Button Link"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "new_window",
+      "label": {
+        "en": "Open Link in a New Window"
+        },
+        "default": false
+    },
+    {
+        "type": "range",
+        "id": "hero_overlay_color",
+        "label": "Overlay opacity",
+        "info": "Add a darkened overlay over your slide to make text easier to read.  Higher percentages produce darker overlays.",
+          "min":       0,
+        "max":        100,
+        "step":       10,
+        "unit":       "%",
+        "default": 20
+    },
+    {
+      "type": "select",
+      "id": "hero_content_alignment",
+      "label": {
+      "en": "Hero Content Alignment"
+      },
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": {
+          "en": "Left"
+          }
+        },
+        {
+          "value": "center",
+          "label": {
+          "en": "Center"
+          }
+        },
+        {
+          "value": "right",
+          "label": {
+          "en": "Right"
+          }
+        }
+        ]
+      },
+     {
+        "type": "checkbox",
+        "id": "hero__bottom_spacer",
+        "label": "Bottom Spacer",
+        "info": "Add space to the bottom of the hero image to seperate from other content when needed.",
+        "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Hero Image"
+      },
+      "category": {
+        "en": "Image"
+      }
+    }
+  ]
+}
+{% endschema %}

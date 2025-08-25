@@ -1,0 +1,1166 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+<!---- If The Page Template == "DALP" --->
+{% if page.template_suffix contains 'dalp' %} 
+    {% include 'dalp-header' %}
+{% else %}
+
+<!---- If The Page Template != "DALP" ---->
+{% if section.settings.show_site_toggle %}
+<div class="header-tabs">
+	<div class="{% if section.settings.header_type == 'ecommerce_3'%}tab-wrapper{% else %}wrapper{% endif %}">
+      <div class="tab-wrap">
+        <a class="tab-link{% if section.settings.show_site_toggle_underline_1 %} underline{% endif %}" href="{{ section.settings.site_toggle_link_1 }}" aria-label="{{ section.settings.site_toggle_title_1 }}" title="{{ section.settings.site_toggle_title_1 }}"><span>{{ section.settings.site_toggle_title_1 }}</span></a>
+        <a class="tab-link{% if section.settings.show_site_toggle_underline_2 %} underline{% endif %}" href="{{ section.settings.site_toggle_link_2 }}" aria-label="{{ section.settings.site_toggle_title_2 }}" title="{{ section.settings.site_toggle_title_2 }}"><span>{{ section.settings.site_toggle_title_2 }}</span></a>
+      </div>
+  	</div>
+</div>
+{% endif %}
+
+{% if section.settings.header_type == 'ecommerce_1' %}
+{% include 'ecom-header' %}
+{% elsif section.settings.header_type == 'ecommerce_2' %}
+{% include 'ecom-header-2' %}
+{% elsif section.settings.header_type == 'ecommerce_3' %}
+{% include 'ecom-header-3' %}
+{% else %}
+
+
+ {% unless section.settings.hide_customer_login %}  
+  {% if shop.customer_accounts_enabled %}
+  {% if section.settings.mobile_sign_in %}
+  <div class="signinmobile">
+              <span class="site-header--meta-links">
+                {% if customer %}
+                  {% capture first_name %}<a href="{{ routes.account_url }}">{{ customer.first_name }}</a>{% endcapture %}
+                  {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }} &middot; {{ 'layout.customer.log_out' | t | customer_logout_link }}
+                {% else %}
+                  {{ 'layout.customer.sign_in' | t | customer_login_link }}
+                {% endif %}
+              </span>
+     </div>
+    {% endif %}
+    {% endif %}
+  {% endunless %}
+
+{% assign now = "now" | date: "%s" %}<!--Announcement Bar Scheduling-->
+{% assign show_at = section.settings.show_at | date: "%s" %}<!--Announcement Bar Scheduling-->
+{% assign remove_at = section.settings.remove_at | date: "%s" %}<!--Announcement Bar Scheduling-->
+
+  {% if show_at == blank or now > show_at %}<!--Announcement Bar Scheduling-->
+    {% if remove_at == blank or now < remove_at %}<!--Announcement Bar Scheduling--> 
+      <div class="notification-bar" style="background-color:{{ section.settings.announcement_background_color }};">
+        {% if section.settings.show_announcement %}
+                <div class="site-header--text-links{% if section.settings.announcement_text == blank %} medium-down--hide{% endif %}">
+                  {% if section.settings.show_announcement %}
+                    {% if section.settings.announcement_link != blank %}
+                      <a style="color:{{ section.settings.announcement_text_color }};" href="{{ section.settings.announcement_link }}">
+                    {% endif %}
+      
+                      <p style="color:{{ section.settings.announcement_text_color }};">{{ section.settings.announcement_text | escape }}</p>
+      
+                    {% if section.settings.announcement_link != blank %}
+                      </a>
+                    {% endif %}
+                  {% endif %}
+                 
+                </div>
+        {% endif %}
+      </div>
+    {% endif %}<!--Announcement bar scheduling-->
+  {% endif %}<!--Announcement bar scheduling--> 
+
+{% if section.settings.show_contact_bar %}
+<div class="contact-bar">
+    <div class="wrapper">
+    <div class="contact_info medium-down--hide">
+      {% if section.settings.multi_locations %}
+      <ul>
+        <li><a href="{{ section.settings.multi_location_link | escape }}"><i class="fa-regular fa-location-dot"></i>&nbsp;Contact Us</a></li>
+      </ul>
+        
+      {% else %}
+        
+      <ul>
+        {% if section.settings.show_phone %}
+        <li><a href="tel:{{ section.settings.header_phone | escape }}"><span class="fa-solid fa-phone"></span>&nbsp;{{ section.settings.header_phone }}</a></li>
+        {% else %}{% endif %}
+        {% if section.settings.show_email %}
+        <li><a href="mailto:{{ section.settings.header_email | escape }}"><span class="fa-solid fa-envelope"></span>&nbsp;{{ section.settings.header_email }}</a></li>
+        {% else %}{% endif %}
+        {% if section.settings.show_locations %}
+        <li><a href="{{ section.settings.header_locations | escape }}"><span class="fa-solid fa-location-dot"></span>&nbsp;{{ section.settings.header_locations_title }}</a></li>
+        {% else %}{% endif %}
+
+      </ul>
+
+      {% endif %}
+      {% comment %}
+      SOCIAL MEDIA ICONS
+      {% endcomment %}
+      {% if section.settings.show_social_icons %}
+          <ul class="inline-list social-icons">
+             {% if settings.social_twitter_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Twitter' | escape }}">
+                   <i class="fa-brands fa-x-twitter"></i>
+                   <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Twitter</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_facebook_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Facebook' | escape }}">
+                   <i class="fa-brands fa-square-facebook"></i>
+                   <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Facebook</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_pinterest_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_pinterest_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Pinterest' | escape }}">
+                   <i class="fa-brands fa-pinterest-p"></i>
+                   <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Pinterest</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_google_plus_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_google_plus_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Google' | escape }}" rel="publisher">
+                   <i class="fa-brands fa-google-plus-g"></i>
+                   <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Google</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_instagram_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Instagram' | escape }}">
+                   <i class="fa-brands fa-instagram"></i>
+                   <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Instagram</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_snapchat_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_snapchat_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Snapchat' | escape }}">
+                   <i class="fa-brands fa-snapchat"></i>
+                   <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Snapchat</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_tumblr_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_tumblr_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Tumblr' | escape }}">
+                   <i class="fa-brands fa-tumblr"></i>
+                   <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Tumblr</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_youtube_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_youtube_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'YouTube' | escape }}">
+                   <i class="fa-brands fa-youtube"></i>
+                   <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">YouTube</span>
+                 </a>
+               </li>
+             {% endif %}
+             {% if settings.social_vimeo_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_vimeo_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Vimeo' | escape }}">
+                   <i class="fa-brands fa-vimeo-v"></i>
+                   <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Vimeo</span>
+                 </a>
+               </li>
+             {% endif %}
+            {% if settings.social_tiktok_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_tiktok_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Tiktok' | escape }}">
+                   <i class="fa-brands fa-tiktok"></i>
+                   <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Tiktok</span>
+                 </a>
+               </li>
+             {% endif %}
+            {% if settings.social_threads_link != blank %}
+               <li>
+                 <a class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_threads_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Threads' | escape }}">
+                   <i class="fa-brands fa-threads"></i>
+                   <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Threads</span>
+                 </a>
+               </li>
+             {% endif %}
+           </ul>
+          {% endif %}
+        </div>
+  
+    </div>
+</div>
+{% endif %}
+
+<header class="site-header" role="banner" data-section-id="{{ section.id }}" data-section-type="header-section">
+  <div class="wrapper">
+    
+    {% if section.settings.logo_alignment == "logo_left"  %}
+
+    <div class="grid--full">
+      <div class="grid-item large--one-half">
+        {% if request.page_type == 'index' %}
+          <h1 class="header-logo" itemscope itemtype="http://schema.org/Organization">
+        {% else %}
+          <div class="h1 header-logo" itemscope itemtype="http://schema.org/Organization">
+        {% endif %}
+          {% if section.settings.logo %}
+          {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture logo_alt %}{{ section.settings.logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ routes.root_url }}" itemprop="url">
+            <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ logo_alt | escape }}"
+                  style="height:{{ section.settings.logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.logo | img_url: image_size }}"
+                srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settings.logo_max_height }}px;">
+            </noscript>
+          </a>
+          <!--- Sponsor Logo --->
+          {% if section.settings.sponsor_logo %}
+          {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.sponsor_logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture sponsor_logo_alt %}{{ section.settings.sponsor_logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ section.settings.sponsor_link }}" itemprop="url" style="margin-left:10px;" class="medium-down--hide">
+            <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.sponsor_logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.sponsor_logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ sponsor_logo_alt | escape }}"
+                  style="height:{{ section.settings.sponsor_logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.sponsor_logo | img_url: image_size }}"
+                srcset="{{ section.settings.sponsor_logo | img_url: image_size }} 1x, {{ section.settings.sponsor_logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ sponsor_logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settingssponsor_logo_max_height }}px;">
+            </noscript>
+          </a>
+          {% endif %}  
+          {% else %}
+            <a href="{{ routes.root_url }}" itemprop="url">{{ shop.name }}</a>
+          {% endif %}
+        {% if request.page_type == 'index' %}
+          </h1>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="grid-item medium-down--hide large--one-half text-center large--text-right">
+        <div class="site-header--text-links{% if section.settings.announcement_text == blank %} medium-down--hide{% endif %}">
+          <span style="display: flex; align-items: center;">
+            {% unless section.settings.hide_customer_login %}
+              <i style="font-size: 24px;" class="fa-solid fa-circle-user"></i>
+              {% if shop.customer_accounts_enabled %}
+                <span class="site-header--meta-links medium-down--hide">
+                {% if customer %}
+                 {% capture first_name %}{% endcapture %}
+                    <a style="display:block;" href="{{ routes.account_url }}">Hi, {{ customer.first_name }}</a> 
+                  {% else %}
+                    {{ 'layout.customer.sign_in' | t | customer_login_link }}
+                    <span class="site-header--spacer">{{ 'layout.customer.or' | t }}</span>
+                    <span>{{ 'layout.customer.create_account' | t | customer_register_link }}</span>
+                {% endif %}    
+                </span>
+              {% endif %}
+            {% endunless %}      
+          </span>
+        </div>
+          
+          <br class="medium-down--hide">
+
+        {% unless section.settings.hide_shopping_links%}
+        <a href="{{ routes.cart_url }}" class="header-cart-btn cart-toggle" aria-label="shopping cart">
+          <span class="icon icon-cart" style="color: #fff"></span>
+          {{ 'layout.cart.cart' | t }} <span class="cart-count cart-badge--desktop {% if cart.item_count == 0 %}hidden-count{% endif %}">{{ cart.item_count }}</span>
+        </a>
+        {% endunless %}
+
+        {% unless section.settings.hide_search_bar %}
+          {% include 'search-bar' %}
+		{% endunless %}
+      </div>
+    </div>
+    
+    {% elsif section.settings.logo_alignment == "logo_center" %}
+    
+    <div class="logo-center">
+      <div class="logo-center-wrap">
+        {% if request.page_type == 'index' %}
+          <h1 class="header-logo text-center" itemscope itemtype="http://schema.org/Organization">
+        {% else %}
+          <div class="h1 header-logo text-center" itemscope itemtype="http://schema.org/Organization">
+        {% endif %}
+          {% if section.settings.logo %}
+          {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture logo_alt %}{{ section.settings.logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ routes.root_url }}" itemprop="url">
+            <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ logo_alt | escape }}"
+                  style="height:{{ section.settings.logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.logo | img_url: image_size }}"
+                srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settings.logo_max_height }}px;">
+            </noscript>
+          </a>
+          <!--- Sponsor Logo --->
+          {% if section.settings.sponsor_logo %}
+          {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.sponsor_logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture sponsor_logo_alt %}{{ section.settings.sponsor_logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ section.settings.sponsor_link }}" itemprop="url" style="margin-left:10px;" class="medium-down--hide">
+            <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.sponsor_logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.sponsor_logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ sponsor_logo_alt | escape }}"
+                  style="height:{{ section.settings.sponsor_logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.sponsor_logo | img_url: image_size }}"
+                srcset="{{ section.settings.sponsor_logo | img_url: image_size }} 1x, {{ section.settings.sponsor_logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ sponsor_logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settingssponsor_logo_max_height }}px;">
+            </noscript>
+          </a>
+          {% endif %}  
+          {% else %}
+            <a href="{{ routes.root_url }}" itemprop="url">{{ shop.name }}</a>
+          {% endif %}
+        {% if request.page_type == 'index' %}
+          </h1>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+
+        <div class="text-center search-center">
+          <div class="site-header--text-links{% if section.settings.announcement_text == blank %} medium-down--hide{% endif %}">
+            <span style="display: flex; align-items: center;">
+              {% unless section.settings.hide_customer_login %}
+                <i style="font-size: 24px;" class="fa-solid fa-circle-user"></i>
+              {% if shop.customer_accounts_enabled %}
+                <span class="site-header--meta-links medium-down--hide">
+              {% if customer %}
+                {% capture first_name %}<a href="{{ routes.account_url }}">{{ customer.first_name }}</a>{% endcapture %}
+                {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }} &middot; {{ 'layout.customer.log_out' | t | customer_logout_link }}
+              {% else %}
+                {{ 'layout.customer.sign_in' | t | customer_login_link }}
+                <span class="site-header--spacer">{{ 'layout.customer.or' | t }}</span>
+                <span style="margin-right: 30px;">
+                {{ 'layout.customer.create_account' | t | customer_register_link }}
+                </span>
+              {% endif %}    
+              </span>
+              {% endif %}
+            {% endunless %}
+          </span>
+        </div>
+
+        <br class="medium-down--hide">
+
+        {% unless section.settings.hide_search_bar %}
+        {% include 'search-bar' %}
+		{% endunless %}
+   
+		{% unless section.settings.hide_shopping_links %}
+        <a href="{{ routes.cart_url }}" class="header-cart-btn cart-toggle">
+          <span class="icon icon-cart"></span>
+          {{ 'layout.cart.cart' | t }} <span class="cart-count cart-badge--desktop {% if cart.item_count == 0 %}hidden-count{% endif %}">{{ cart.item_count }}</span>
+        </a>
+        {% endunless %}
+      </div>
+    </div>
+    
+    {% endif %}
+
+  </div>
+</header>
+
+
+
+<div id="mobileNavBar">
+  <div class="display-table-cell">
+    <button class="menu-toggle mobileNavBar-link" aria-controls="navBar" aria-expanded="false"><span class="icon icon-hamburger" aria-hidden="true"></span><span class="sr-only">Menu</span></button>
+  </div>
+  <div class="display-table-cell">
+    {% unless section.settings.hide_shopping_links %}
+    <a href="{{ routes.cart_url }}" class="cart-toggle mobileNavBar-link">
+      <span class="icon icon-cart"></span>
+      <span class="sr-only">Cart</span><span class="cart-count {% if cart.item_count == 0 %}hidden-count{% endif %}" style="position: absolute; right: 13px; top: 0px;">{{ cart.item_count }}</span>
+    </a>
+    {% endunless %}
+  </div>
+</div>
+
+{% unless section.settings.hide_search_bar %}          
+  <div id="ecom-mobile-search">
+    <form id="ecom-search-bar" action="/search" method="get" class="search-bar" role="search">
+    <input type="hidden" name="type" value="product">
+
+    <input type="search" name="q" value="" placeholder="Search all products..." aria-label="Search all products...">
+    <button type="submit" class="search-bar--submit icon-fallback-text">
+      <span class="icon icon-search" aria-hidden="true"></span>
+      <span class="fallback-text">Search</span>
+    </button>
+  </form>
+  </div> 
+{% endunless %} 
+
+<nav class="nav-bar" id="navBar" role="navigation">
+  
+  <div class="wrapper">
+    {% include 'search-bar' %}
+    {% include 'mobile-nav' %}
+    {% include 'site-nav' %}
+  </div>
+</nav>
+
+{% endif %}
+  
+  
+{% if section.settings.sticky_header %}
+
+<script>
+  
+  
+  document.getElementById('shopify-section-header').style.display = "block";
+  
+  document.getElementById('shopify-section-header').classList.add("sticky-header");
+  
+  let headerHeight = document.getElementById('shopify-section-header').offsetHeight;
+  
+  document.body.style.marginTop = headerHeight+"px";
+  
+</script>
+  
+{% endif %}
+
+{% endif %}
+{% schema %}
+{
+  "name": {
+    "da": "Overskrift",
+    "de": "Titel",
+    "en": "Header",
+    "es": "Encabezado",
+    "fi": "Ylätunniste",
+    "fr": "En-tête",
+    "hi": "हैडर",
+    "it": "Header",
+    "ja": "ヘッダー",
+    "ko": "머리글",
+    "nb": "Header",
+    "nl": "Koptekst",
+    "pt-BR": "Cabeçalho",
+    "pt-PT": "Cabeçalho",
+    "sv": "Rubrik",
+    "th": "ส่วนหัว",
+    "zh-CN": "标头",
+    "zh-TW": "標頭"
+  },
+  "class": "header-section",
+  "settings": [
+    {
+        "type": "select",
+        "id": "header_type",
+        "label": "Header Type",
+        "options": [
+          {
+            "value": "original",
+            "label": "Original"
+          },
+          {
+            "value": "ecommerce_1",
+            "label": "Ecommerce 1"
+          },
+          {
+            "value": "ecommerce_2",
+            "label": "Ecommerce 2"
+          },
+          {
+            "value": "ecommerce_3",
+            "label": "Ecommerce 3"
+          }
+        ]
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": {
+        "da": "Menu",
+        "de": "Menü",
+        "en": "Menu",
+        "es": "Menú",
+        "fi": "Valikko",
+        "fr": "Menu",
+        "hi": "मेनू",
+        "it": "Menu",
+        "ja": "メニュー",
+        "ko": "메뉴",
+        "nb": "Meny",
+        "nl": "Menu",
+        "pt-BR": "Menu",
+        "pt-PT": "Menu",
+        "sv": "Meny",
+        "th": "เมนู",
+        "zh-CN": "菜单",
+        "zh-TW": "選單"
+      },
+      "default": "main-menu"
+    },
+    {
+        "type": "text",
+        "id": "catalyst_megamenu",
+        "label": "Catalyst Megamenu"
+    },
+    {
+        "type": "checkbox",
+        "id": "only_catalyst_categories",
+        "label": "Only Catalyst categories (Megamenu only)"
+    },
+    {
+        "type": "text",
+        "id": "secondary_megamenu",
+        "label": "Secondary Megamenu"
+    },
+    {
+        "type": "text",
+        "id": "tertiary_megamenu",
+        "label": "Tertiary Megamenu"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "label": {
+        "en": "Sticky header"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_sign_in",
+      "label": {
+        "en": "Mobile Sign In Link"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "search_border",
+      "label": {
+        "en": "Search border"
+      },
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": {
+        "en": "Site toggle"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "show_site_toggle",
+      "label": {
+        "en": "Show site toggle"
+      },
+      "default": false
+    },    
+    {
+        "type": "text",
+        "id": "site_toggle_title_1",
+        "label": "Site toggle url 1",
+        "default": "Pickup & Delivery"
+    },
+    {
+      "type": "url",
+      "id": "site_toggle_link_1",
+      "label": {
+        "en": "Site toggle link 1"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "show_site_toggle_underline_1",
+      "label": {
+        "en": "Show underline 1"
+      },
+      "default": false
+    },
+    {
+        "type": "text",
+        "id": "site_toggle_title_2",
+        "label": "Site toggle url 2",
+        "default": "Ship it to Me"
+    },
+    {
+      "type": "url",
+      "id": "site_toggle_link_2",
+      "label": {
+        "en": "Site toggle link 2"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "show_site_toggle_underline_2",
+      "label": {
+        "en": "Show underline 2"
+      },
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": {
+        "en": "Contact Bar"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact_bar",
+      "label": {
+        "en": "Show contact bar"
+      },
+      "default": false
+    },
+
+    {
+      "type": "checkbox",
+      "id": "multi_locations",
+      "label": {
+        "en": "Hide phone & email if multiple locations"
+      },
+      "default": false
+    },
+
+{
+        "type": "text",
+        "id": "multi_location_link",
+        "label": "Multi location link",
+        "default": "/a/pages/locations"
+    },
+
+{
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": {
+        "en": "Show Phone Number"
+      },
+      "default": true
+    },
+{
+      "type": "checkbox",
+      "id": "show_email",
+      "label": {
+        "en": "Show Email Address"
+      },
+      "default": true
+    },
+{
+      "type": "checkbox",
+      "id": "show_locations",
+      "label": {
+        "en": "Show Locations Link"
+      },
+      "default": true
+    },
+    {
+        "type": "text",
+        "id": "header_phone",
+        "label": "Phone number",
+        "default": "800.555.5555"
+    },
+    
+
+{
+        "type": "text",
+        "id": "header_email",
+        "label": "Email address",
+        "default": "example@cooktime.com"
+    },
+{
+        "type": "text",
+        "id": "header_locations_title",
+        "label": "Location title",
+        "default": "Locations"
+    },
+
+{
+        "type": "text",
+        "id": "header_locations",
+        "label": "Locations link",
+        "default": "/a/pages/locations"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_icons",
+      "label": {
+        "en": "Show social icons"
+      },
+      "default": false
+    },
+
+{
+      "type": "checkbox",
+      "id": "social_new_tab",
+      "label": {
+        "en": "Have social links create new tab"
+      },
+      "default": false
+    },
+    {
+        "type": "select",
+        "id": "logo_alignment",
+        "label": "Logo alignment",
+        "options": [
+          {
+            "value": "logo_left",
+            "label": "Logo left align"
+          },
+          {
+            "value": "logo_center",
+            "label": "Logo center align"
+          }
+        ]
+    },
+    {
+        "type": "select",
+        "id": "header_style",
+        "label": "Nav alignment",
+        "options": [
+          {
+            "value": "nav-left",
+            "label": "Nav left align"
+          },
+          {
+            "value": "nav-center",
+            "label": "Nav center align"
+          }
+        ]
+    },    
+    {
+      "type": "header",
+      "content": {
+        "da": "Logo",
+        "de": "Logo",
+        "en": "Logo",
+        "es": "Logotipo",
+        "fi": "Logo",
+        "fr": "Logo",
+        "hi": "लोगो",
+        "it": "Logo",
+        "ja": "ロゴ",
+        "ko": "로고",
+        "nb": "Logo",
+        "nl": "Logo",
+        "pt-BR": "Logotipo",
+        "pt-PT": "Logótipo",
+        "sv": "Logotyp",
+        "th": "โลโก้",
+        "zh-CN": "logo",
+        "zh-TW": "商標"
+      }
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "da": "Tilpasset logo",
+        "de": "Benutzerdefiniertes Logo",
+        "en": "Custom logo",
+        "es": "Logotipo personalizado",
+        "fi": "Mukautettu logo",
+        "fr": "Logo personnalisé",
+        "hi": "कस्टम लोगो",
+        "it": "Logo personalizzato",
+        "ja": "ロゴをカスタムする",
+        "ko": "사용자 지정 로고",
+        "nb": "Tilpasset logo",
+        "nl": "Aangepast logo",
+        "pt-BR": "Logotipo personalizado",
+        "pt-PT": "Logótipo personalizado",
+        "sv": "Anpassad logotyp",
+        "th": "โลโก้แบบกำหนดเอง",
+        "zh-CN": "自定义 logo",
+        "zh-TW": "自訂商標"
+      },
+      "info": {
+        "da": ".png med bredde på 400 px anbefales",
+        "de": "400px breite .png empfohlen",
+        "en": "400px wide .png recommended",
+        "es": "400px de ancho .png recomendado",
+        "fi": "200 px leveä .png suositeltu",
+        "fr": "400 px de largeur .png recommandé",
+        "hi": "400px चौड़ा .png अनुसंशा की गई",
+        "it": "Consigliato file .png con larghezza 400 pixel",
+        "ja": "400ピクセル幅.png推奨",
+        "ko": "400 픽셀 와이드 .png 권장",
+        "nb": ".png med bredde på 400 piksler anbefalt",
+        "nl": "400px breed .png aanbevolen",
+        "pt-BR": ".png com 400 px de largura recomendado",
+        "pt-PT": ".png com 400 px de largura recomendado",
+        "sv": "200px bred .png rekommenderade",
+        "th": "แนะนำ ความกว้าง 400px .png",
+        "zh-CN": "建议使用 400 px 宽的 .png",
+        "zh-TW": "400px wide .png建議"
+      }
+    },
+    {
+      "type": "text",
+      "id": "logo_max_height",
+      "label": {
+        "da": "Tilpasset logobredde",
+        "de": "Logobreite",
+        "en": "Custom logo height",
+        "es": "Ancho del logotipo personalizado",
+        "fi": "Mukautetun logon leveys",
+        "fr": "Largeur personnalisée du logo",
+        "hi": "कस्टम लोगो की चौड़ाई",
+        "it": "Larghezza logo personalizzato",
+        "ja": "ロゴの幅をカスタマイズする",
+        "ko": "사용자 지정 로고 폭",
+        "nb": "Tilpasset logobredde",
+        "nl": "Aangepaste logo-breedte",
+        "pt-BR": "Largura do logotipo personalizado",
+        "pt-PT": "Largura de logótipo personalizada",
+        "sv": "Anpassad logotypsbredd",
+        "th": "ความกว้างของโลโก้ที่กำหนดเอง",
+        "zh-CN": "自定义 logo 宽度",
+        "zh-TW": "自訂商標寬度"
+      },
+      "default": {
+        "da": "305",
+        "de": "305",
+        "en": "305",
+        "es": "305",
+        "fi": "305",
+        "fr": "305",
+        "hi": "305",
+        "it": "305",
+        "ja": "305",
+        "ko": "305",
+        "nb": "305",
+        "nl": "305",
+        "pt-BR": "305",
+        "pt-PT": "305",
+        "sv": "305",
+        "th": "305",
+        "zh-CN": "305",
+        "zh-TW": "305"
+      }
+    },
+     {
+      "type": "header",
+      "content": {
+        "da": "Logo",
+        "de": "Logo",
+        "en": "Sponsor Logo",
+        "es": "Logotipo",
+        "fi": "Logo",
+        "fr": "Logo",
+        "hi": "लोगो",
+        "it": "Logo",
+        "ja": "ロゴ",
+        "ko": "로고",
+        "nb": "Logo",
+        "nl": "Logo",
+        "pt-BR": "Logotipo",
+        "pt-PT": "Logótipo",
+        "sv": "Logotyp",
+        "th": "โลโก้",
+        "zh-CN": "logo",
+        "zh-TW": "商標"
+      }
+    },
+    {
+      "type": "image_picker",
+      "id": "sponsor_logo",
+      "label": {
+        "da": "Tilpasset logo",
+        "de": "Benutzerdefiniertes Logo",
+        "en": "Custom logo",
+        "es": "Logotipo personalizado",
+        "fi": "Mukautettu logo",
+        "fr": "Logo personnalisé",
+        "hi": "कस्टम लोगो",
+        "it": "Logo personalizzato",
+        "ja": "ロゴをカスタムする",
+        "ko": "사용자 지정 로고",
+        "nb": "Tilpasset logo",
+        "nl": "Aangepast logo",
+        "pt-BR": "Logotipo personalizado",
+        "pt-PT": "Logótipo personalizado",
+        "sv": "Anpassad logotyp",
+        "th": "โลโก้แบบกำหนดเอง",
+        "zh-CN": "自定义 logo",
+        "zh-TW": "自訂商標"
+      },
+      "info": {
+        "da": ".png med bredde på 400 px anbefales",
+        "de": "400px breite .png empfohlen",
+        "en": "400px wide .png recommended",
+        "es": "400px de ancho .png recomendado",
+        "fi": "200 px leveä .png suositeltu",
+        "fr": "400 px de largeur .png recommandé",
+        "hi": "400px चौड़ा .png अनुसंशा की गई",
+        "it": "Consigliato file .png con larghezza 400 pixel",
+        "ja": "400ピクセル幅.png推奨",
+        "ko": "400 픽셀 와이드 .png 권장",
+        "nb": ".png med bredde på 400 piksler anbefalt",
+        "nl": "400px breed .png aanbevolen",
+        "pt-BR": ".png com 400 px de largura recomendado",
+        "pt-PT": ".png com 400 px de largura recomendado",
+        "sv": "200px bred .png rekommenderade",
+        "th": "แนะนำ ความกว้าง 400px .png",
+        "zh-CN": "建议使用 400 px 宽的 .png",
+        "zh-TW": "400px wide .png建議"
+      }
+    },
+    {
+      "type": "text",
+      "id": "sponsor_logo_max_height",
+      "label": {
+        "da": "Tilpasset logobredde",
+        "de": "Logobreite",
+        "en": "Sponsor logo height",
+        "es": "Ancho del logotipo personalizado",
+        "fi": "Mukautetun logon leveys",
+        "fr": "Largeur personnalisée du logo",
+        "hi": "कस्टम लोगो की चौड़ाई",
+        "it": "Larghezza logo personalizzato",
+        "ja": "ロゴの幅をカスタマイズする",
+        "ko": "사용자 지정 로고 폭",
+        "nb": "Tilpasset logobredde",
+        "nl": "Aangepaste logo-breedte",
+        "pt-BR": "Largura do logotipo personalizado",
+        "pt-PT": "Largura de logótipo personalizada",
+        "sv": "Anpassad logotypsbredd",
+        "th": "ความกว้างของโลโก้ที่กำหนดเอง",
+        "zh-CN": "自定义 logo 宽度",
+        "zh-TW": "自訂商標寬度"
+      },
+      "default": {
+        "da": "305",
+        "de": "305",
+        "en": "305",
+        "es": "305",
+        "fi": "305",
+        "fr": "305",
+        "hi": "305",
+        "it": "305",
+        "ja": "305",
+        "ko": "305",
+        "nb": "305",
+        "nl": "305",
+        "pt-BR": "305",
+        "pt-PT": "305",
+        "sv": "305",
+        "th": "305",
+        "zh-CN": "305",
+        "zh-TW": "305"
+      }
+    },
+    {
+      "type": "url",
+      "id": "sponsor_link",
+      "label": {
+        "da": "Link",
+        "de": "Link",
+        "en": "Link",
+        "es": "Enlace",
+        "fi": "Linkki",
+        "fr": "Lien",
+        "hi": "लिंक",
+        "it": "Link",
+        "ja": "リンク",
+        "ko": "링크",
+        "nb": "Kobling",
+        "nl": "Link",
+        "pt-BR": "Link",
+        "pt-PT": "Ligação",
+        "sv": "Länk",
+        "th": "ลิงก์",
+        "zh-CN": "链接",
+        "zh-TW": "連結"
+      },
+      "info": {
+        "da": "Valgfri",
+        "de": "Optional",
+        "en": "Optional",
+        "es": "Opcional",
+        "fi": "Valinnainen",
+        "fr": "Facultatif",
+        "hi": "वैकल्पिक",
+        "it": "Facoltativo",
+        "ja": "オプション",
+        "ko": "선택 사항",
+        "nb": "Valgfritt",
+        "nl": "Optioneel",
+        "pt-BR": "Opcional",
+        "pt-PT": "Opcional",
+        "sv": "Valfritt",
+        "th": "ไม่จำเป็น",
+        "zh-CN": "可选",
+        "zh-TW": "(選填)"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_shopping_links",
+      "label": {
+        "en": "Hide shopping links"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_customer_login",
+      "label": {
+        "en": "Hide customer login"
+      },
+      "default": false
+    },
+ {
+      "type": "checkbox",
+      "id": "hide_search_bar",
+      "label": {
+        "en": "Hide search bar"
+      },
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": {
+        "en": "Nav item highlight"
+      }
+    },	
+    {
+      "type": "text",
+      "id": "nav_highlight_icon",
+      "label": {
+        "en": "Nav Highlight Icon (code)"
+      }
+    },
+    {
+      "type": "text",
+      "id": "nav_highlight_target",
+      "label": {
+        "en": "Nav Highlight Target"
+      }
+    },
+    {
+      "type": "color",
+      "id": "nav_highlight_background",
+      "label": {
+        "en": "Nav Highlight Background"
+      }
+    },
+    {
+      "type": "color",
+      "id": "nav_highlight_color",
+      "label": {
+        "en": "Nav Highlight Color"
+      }
+    },
+    {
+      "type": "header",
+      "content": {
+        "en": "Announcement bar"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": {
+        "en": "Show announcement"
+      },
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "announcement_text_color",
+      "label": "Announcement text color",
+      "default": "#191919"
+    },
+    {
+      "type": "color",
+      "id": "announcement_background_color",
+      "label": "Announcement background color",
+      "default": "#F2F2F2"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": {
+        "en": "Text"
+      },
+      "default": {
+        "en": "Announce something here"
+      }
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": {
+        "en": "Link"
+      },
+      "info": {
+        "en": "Optional"
+      }
+    },
+    {
+      "type": "text",
+      "id": "show_at",
+      "label": "Show At (yyyy-mm-dd)"
+    },
+    {
+      "type": "text",
+      "id": "remove_at",
+      "label": "Remove At (yyyy-mm-dd)"
+    }
+  ]
+}
+{% endschema %}

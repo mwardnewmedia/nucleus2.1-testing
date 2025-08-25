@@ -1,0 +1,82 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+{% include 'breadcrumb' %}
+<script src="{{ 'contact-spam.js' | asset_url }}"></script>
+
+<div class="grid">
+
+  <div class="grid-item large--two-thirds push--large--one-sixth">
+
+    <h2>{{ page.title }}</h2>
+    <p style="margin-bottom: 30px;">Please fill out this form to contact us and we'll get back to you right away!</p>
+    <div class="rte">
+      {{ page.content }}
+    </div>
+
+    <div>
+      {% form 'contact', id: 'contact_form' %}
+
+        {% if form.posted_successfully? %}
+          <p class="note form-success">
+            {{ 'contact.form.post_success' | t }}
+          </p>
+        {% endif %}
+
+        {% include 'form-errors-custom' %}
+
+        <div id="contactFormWrapper">
+          
+          {%- comment -%} HONEYPOT {%- endcomment -%}
+          <div style="position:absolute; left:-9999px; top:-9999px; visibility:hidden;">
+            <label for="contact_spam_check">Please leave this field blank</label>
+            <input type="text" id="contact_spam_check" name="contact[spam_check]" autocomplete="off" />
+          </div>
+
+          {%- comment -%} TIMESTAMP {%- endcomment -%}
+          <input type="hidden" id="contact_timestamp" name="contact[timestamp]" value="" />
+
+          {%- comment -%} REGULAR FORM FIELDS {%- endcomment -%}
+          <label for="contactFormName" class="contact-form-label contact-form-label-required">{{ 'contact.form.name' | t }}</label>
+          <input required type="text" id="contactFormName" name="contact[{{ 'contact.form.name' | t }}]" 
+                 placeholder="{{ 'contact.form.name' | t }}" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" />
+
+          <label for="contactFormEmail" class="contact-form-label contact-form-label-required">{{ 'contact.form.email' | t }}</label>
+          <input required type="email" id="contactFormEmail" name="contact[email]" 
+                 placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" 
+                 value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" />
+
+          <label for="contactFormPhone" class="contact-form-label contact-form-label-required">{{ 'contact.form.phone' | t }}</label>
+          <input required type="tel" id="contactFormPhone" name="contact[{{ 'contact.form.phone' | t }}]" 
+                 placeholder="{{ 'contact.form.phone' | t }}" 
+                 value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" />
+
+          <label for="contactFormMessage" class="contact-form-label contact-form-label-required">{{ 'contact.form.message' | t }}</label>
+          <textarea required rows="10" id="contactFormMessage" name="contact[{{ 'contact.form.message' | t }}]" 
+                    placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+          {% unless settings.hide_contact_form_math %}
+            {%- comment -%} MATH {%- endcomment -%}
+            <label for="contact_math" class="contact-form-label contact-form-label-required" >Security Verification: 3 + 4 = ?</label>
+            <p style="font-size: .9rem">Please solve the math problem below to verify you're not a robot.</p>
+            <input type="text" id="contact_math" name="contact[math_answer]" required placeholder="Just a quick check — what's 3 + 4?"/>
+            <div id="math_error" class="math-error" style="display: none; margin-top: 10px;">The answer to the math problem is incorrect. Please try again.</div>
+          {% endunless %}
+
+        <input type="submit" class="btn right" value="{{ 'contact.form.send' | t }}">
+
+        </div>
+
+      {% endform %}
+    </div>
+
+  </div>
+
+</div>

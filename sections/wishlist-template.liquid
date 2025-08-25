@@ -1,0 +1,60 @@
+{% comment %}
+  Shopify Wishlist
+  Usage:
+    - Create a new page in the Shopify admin
+      - Admin > Online store > Pages > Add page
+    - Set the new page's template to: 'page.wishlist'
+    - Do NOT remove the `grid-wishlist` attribute
+  
+  Notes:
+  - The grid will be populated with product cards using Javascript
+  - Any content inside of the `[grid-wishlist]` element will be completely replaced by the product cards
+  
+  Tip:
+  - Place a loading element inside the `[grid-wishlist]` element and it will automatically be removed once the product cards have loaded
+  - Add any liquid code before/after the grid element
+{% endcomment %}
+<script>
+  function printContent (el) {
+    var restorePage = document.body.innerHTML;
+    var printContent = document.getElementById(el).innerHTML;
+    document.body.innerHTML = printContent;
+    window.print();
+    document.body.innerHTML = restorePage;
+  }
+</script>
+
+
+
+{%  include 'breadcrumb' %}
+ <div class="grid">
+   <div class="grid-item two-thirds">
+    <h1>{{  page.title }}</h1>   
+   </div>
+   <div class="grid-item one-third text-right">
+     <button onclick="printContent('wishlistPrint')" class="btn shopping-list-header-link" href="#"><i class="fa fa-print" aria-hidden="true"></i>Print</button>
+   </div>
+ </div>
+      
+      <div id="wishlistPrint" class="wishlist__grid flex container" grid-wishlist>
+        {% comment %} Sample loading element {% endcomment %}
+        <p class="wishlist__loader full-width text-center">Loading...</p>
+      </div>     
+
+<style>
+
+  .shopping-list-header-link {
+    font-size: 16px;
+    margin-left: 20px;
+  }
+  .shopping-list-header-link .fa {
+    margin-right: 3px;
+  }
+
+</style>
+
+{% schema %}
+  {
+    "templates": ["page"]
+  }
+{% endschema %}

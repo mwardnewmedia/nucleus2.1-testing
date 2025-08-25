@@ -1,0 +1,42 @@
+<div class="wishlist-product-card grid">
+  <div 
+    style="
+    position:relative;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    
+    "
+    >
+
+    <div class="grid-item one-quarter" style="position: relative; height: 200px;display:flex;vertical-align:middle;align-items:center;">
+        <div class="product-grid-image--centered" style="width:100%;">
+            <div class="product-image">
+              {{ product.featured_image | img_url: '150x150' | img_tag: product.featured_image.alt }}
+            </div>
+        </div>
+    </div>
+    <div class="grid-item one-half" style="display:flex;vertical-align:middle;flex-direction: column;">
+            <div class="product-vendor">
+              <h3 class="list-view-item__vendor">{{  product.vendor }}</h3>
+            </div>
+            <div class="product-title">
+              <a href="{{ product.url }}" class="wishlist-item">
+                <p>{{  product.title }}</p>
+              </a>
+            </div>
+            <div class="product-price">
+              {% unless settings.hide_price or section.settings.hide_price %}
+              {% if product.price_varies and template == 'collection' %}
+              <p>From {{ product.price_min | money }} to {{ product.price_max | money }}</p>
+              {% else %}
+                <p>{{ product.price | money }}</p>
+              {% endif %}
+              {% endunless %}
+            </div>
+    </div>
+    <div class="grid-item one-quarter text-right" style="display:flex;vertical-align:middle;flex-direction: row-reverse;">
+      {%- render 'button-wishlist-remove', product: product -%}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,395 @@
+{% unless page.template_suffix contains 'dalp' %}
+<div class="notification-bar" id="ecom3-notification-bar" style="background-color:{{ section.settings.announcement_background_color }};">
+  <div class="ecom-header-3-wrapper">
+    <div class="flex-notification-bar">   
+    {% if section.settings.show_announcement %}
+
+      {% assign now = "now" | date: "%s" %}<!--Announcement Bar Scheduling-->
+      {% assign show_at = section.settings.show_at | date: "%s" %}<!--Announcement Bar Scheduling-->
+      {% assign remove_at = section.settings.remove_at | date: "%s" %}<!--Announcement Bar Scheduling-->
+
+    {% if show_at == blank or now > show_at %}<!--Announcement Bar Scheduling-->
+    {% if remove_at == blank or now < remove_at %}<!--Announcement Bar Scheduling--> 
+
+    <div class="announcement-text site-header--text-links">
+      {% if section.settings.show_announcement %}
+        {% if section.settings.announcement_link != blank %}
+          <a style="color:{{ section.settings.announcement_text_color }};" href="{{ section.settings.announcement_link }}">
+        {% endif %}
+          <span style="color:{{ section.settings.announcement_text_color }};">{{ section.settings.announcement_text | escape }}</span>
+        {% if section.settings.announcement_link != blank %}
+          </a>
+        {% endif %}
+      {% endif %}
+    </div>
+      
+    {% endif %}
+    {% endif %}
+    {% endif %}
+
+  
+  {% if section.settings.show_contact_bar %}
+      <div class="contact-bar medium-down--hide">
+          <div class="contact_info">
+           {% if section.settings.multi_locations %}
+            <ul>
+              <li><a href="/a/pages/locations"  style="color:{{ section.settings.announcement_text_color }}"><i class="fa-solid fa-location-dot"></i>&nbsp;Contact Us</a></li>
+            </ul>
+            {% else %}
+            <ul>
+
+              {% if section.settings.show_phone %}
+              <li><a style="color:{{ section.settings.announcement_text_color }};" href="tel:{{ section.settings.header_phone | escape }}"><span class="fa-solid fa-phone"></span>&nbsp;{{ section.settings.header_phone }}</a></li>
+              {% else %}{% endif %}
+              {% if section.settings.show_email %}
+              <li><a style="color:{{ section.settings.announcement_text_color }};" href="mailto:{{ section.settings.header_email | escape }}"><span class="fa-solid fa-envelope"></span>&nbsp;{{ section.settings.header_email }}</a></li>
+              {% else %}{% endif %}
+              {% if section.settings.show_locations %}
+              <li><a style="color:{{ section.settings.announcement_text_color }};" href="{{ section.settings.header_locations | escape }}"><span class="fa-solid fa-location-dot"></span>&nbsp;{{ section.settings.header_locations_title }}</a></li>
+              {% else %}{% endif %}
+
+            </ul>
+            {% endif %}
+    
+            {% comment %}
+            SOCIAL MEDIA ICONS
+            {% endcomment %}
+            {% if section.settings.show_social_icons %}
+              <ul class="inline-list social-icons">
+               {% if settings.social_twitter_link != blank %}
+                 <li>
+                   <a style="background-color:{{ section.settings.announcement_text_color }};" class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Twitter' | escape }}">
+                     <i class="fa-brands fa-x-twitter" style="color:{{ section.settings.announcement_background_color }};"></i>
+                     <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Twitter</span>
+                   </a>
+                 </li>
+               {% endif %}
+               {% if settings.social_facebook_link != blank %}
+                 <li>
+                   <a style="background-color:{{ section.settings.announcement_text_color }};" class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Facebook' | escape }}">
+                     <i class="fa-brands fa-square-facebook" style="color:{{ section.settings.announcement_background_color }};"></i>
+                     <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Facebook</span>
+                   </a>
+                 </li>
+               {% endif %}
+               {% if settings.social_pinterest_link != blank %}
+                 <li>
+                   <a style="background-color:{{ section.settings.announcement_text_color }};" class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_pinterest_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Pinterest' | escape }}">
+                     <i class="fa-brands fa-pinterest-p" style="color:{{ section.settings.announcement_background_color }};"></i>
+                     <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Pinterest</span>
+                   </a>
+                 </li>
+               {% endif %}
+               {% if settings.social_google_plus_link != blank %}
+                 <li>
+                   <a style="background-color:{{ section.settings.announcement_text_color }};" class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_google_plus_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Google' | escape }}" rel="publisher">
+                     <i class="fa-brands fa-google-plus-g" style="color:{{ section.settings.announcement_background_color }};"></i>
+                     <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Google</span>
+                   </a>
+                 </li>
+               {% endif %}
+               {% if settings.social_instagram_link != blank %}
+                 <li>
+                   <a style="background-color:{{ section.settings.announcement_text_color }};" class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Instagram' | escape }}">
+                     <i class="fa-brands fa-instagram" style="color:{{ section.settings.announcement_background_color }};"></i>
+                     <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Instagram</span>
+                   </a>
+                 </li>
+               {% endif %}
+               {% if settings.social_snapchat_link != blank %}
+                 <li>
+                   <a style="background-color:{{ section.settings.announcement_text_color }};" class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_snapchat_link }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Snapchat' | escape }}">
+                     <i class="fa-brands fa-snapchat" style="color:{{ section.settings.announcement_background_color }};"></i>
+                     <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Snapchat</span>
+                   </a>
+                 </li>
+               {% endif %}
+               {% if settings.social_tumblr_link != blank %}
+                 <li>
+                   <a style="background-color:{{ section.settings.announcement_text_color }};" class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_tumblr_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Tumblr' | escape }}">
+                     <i class="fa-brands fa-tumblr" style="color:{{ section.settings.announcement_background_color }};"></i>
+                     <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Tumblr</span>
+                   </a>
+                 </li>
+               {% endif %}
+               {% if settings.social_youtube_link != blank %}
+                 <li>
+                   <a style="background-color:{{ section.settings.announcement_text_color }};" class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_youtube_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'YouTube' | escape }}">
+                     <i class="fa-brands fa-youtube" style="color:{{ section.settings.announcement_background_color }};"></i>
+                     <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">YouTube</span>
+                   </a>
+                 </li>
+               {% endif %}
+               {% if settings.social_vimeo_link != blank %}
+                 <li>
+                   <a style="background-color:{{ section.settings.announcement_text_color }};" class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_vimeo_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Vimeo' | escape }}">
+                     <i class="fa-brands fa-vimeo-v" style="color:{{ section.settings.announcement_background_color }};"></i>
+                     <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Vimeo</span>
+                   </a>
+                 </li>
+               {% endif %}
+              {% if settings.social_tiktok_link != blank %}
+                 <li>
+                   <a style="background-color:{{ section.settings.announcement_text_color }};" class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_tiktok_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Tiktok' | escape }}">
+                     <i class="fa-brands fa-tiktok" style="color:{{ section.settings.announcement_background_color }};"></i>
+                     <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Tiktok</span>
+                   </a>
+                 </li>
+               {% endif %}
+              {% if settings.social_threads_link != blank %}
+                 <li>
+                   <a style="background-color:{{ section.settings.announcement_text_color }};" class="icon-fallback-text" {% if section.settings.social_new_tab %} target="_blank" {% endif %} href="{{ settings.social_threads_link | escape }}" title="{{ 'layout.footer.store_on_social_network' | t: store_name: shop.name, social_network: 'Threads' | escape }}">
+                     <i class="fa-brands fa-threads" style="color:{{ section.settings.announcement_background_color }};"></i>
+                     <span class="fallback-text" style="color:{{ section.settings.announcement_text_color }}; background-color:{{ section.settings.announcement_background_color }};">Threads</span>
+                   </a>
+                 </li>
+               {% endif %}
+             </ul>
+            {% endif %}
+          </div>
+      </div>
+  {% endif %}
+     </div><!--end flex-->
+   </div><!--end wrapper-->
+</div>
+{% endunless %}
+
+<header class="site-header" role="banner" data-section-id="{{ section.id }}" data-section-type="header-section" id="ecom3-site-header">
+  <div class="ecom-header-3-wrapper">
+
+    <div class="flex">
+      
+      <div class="flex-logo flex-item" style="margin-right:60px;">
+        {% if request.page_type == 'index' %}
+          <h1 class="header-logo" itemscope itemtype="http://schema.org/Organization">
+        {% else %}
+          <div class="h1 header-logo" itemscope itemtype="http://schema.org/Organization">
+        {% endif %}
+        
+        {% if section.settings.logo %}
+          {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture logo_alt %}{{ section.settings.logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ routes.root_url }}" itemprop="url">
+            <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ logo_alt | escape }}"
+                  style="height:{{ section.settings.logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.logo | img_url: image_size }}"
+                srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settings.logo_max_height }}px;">
+            </noscript>
+          </a>
+            
+          <!--- Sponsor Logo --->
+          {% if section.settings.sponsor_logo %}
+            {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+            {%- assign img_url = section.settings.sponsor_logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            {% capture sponsor_logo_alt %}{{ section.settings.sponsor_logo.alt | default: shop.name }}{% endcapture %}
+            <a href="{{ section.settings.sponsor_link }}" itemprop="url" style="margin-left:10px;" class="medium-down--hide">
+              <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.sponsor_logo_max_height }}px;">
+                  <img class="lazyload js"
+                    data-src="{{ img_url }}"
+                    data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                    data-aspectratio="{{ section.settings.sponsor_logo.aspect_ratio }}"
+                    data-sizes="auto"
+                    alt="{{ sponsor_logo_alt | escape }}"
+                    style="height:{{ section.settings.sponsor_logo_max_height }}px;">
+              </div>
+              <noscript>
+                {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+                <img src="{{ section.settings.sponsor_logo | img_url: image_size }}"
+                  srcset="{{ section.settings.sponsor_logo | img_url: image_size }} 1x, {{ section.settings.sponsor_logo | img_url: image_size, scale: 2 }} 2x"
+                  alt="{{ sponsor_logo_alt | escape }}"
+                  itemprop="logo"
+                  style="max-height:{{ section.settingssponsor_logo_max_height }}px;">
+              </noscript>
+            </a>
+          {% endif %}
+          {% else %}
+            <a href="{{ routes.root_url }}" itemprop="url">{{ shop.name }}</a>
+          {% endif %}
+          
+          {% if request.page_type == 'index' %}
+            </h1>
+          {% else %}
+            </div>
+          {% endif %}
+      </div>
+
+      {% unless section.settings.hide_search_bar or page.template_suffix contains 'dalp' %}
+        <div class="flex-auto flex-item" style="text-align: center;">
+          {% include 'ecom3-search-bar' %}
+        </div>
+      {% endunless %}
+            
+      <div class="flex-item" style="margin-left:5px;" id="ecom3-account-cart">      
+		{% unless section.settings.hide_customer_login or page.template_suffix contains 'dalp' %}
+          {% if settings.new_shopify_accounts_url != blank %}
+            <span class="site-header--meta-links medium-down--hide" style="display:flex;align-items:center;">
+              <i style="font-size:24px; margin-right:7px; " class="fa-solid fa-circle-user"></i> <a href="{{ settings.new_shopify_accounts_url }}" id="customer_login_link">Log In</a>
+            </span>
+          {% else %}       
+          {% if shop.customer_accounts_enabled %}
+            <span class="site-header--meta-links medium-down--hide" style="display:flex;align-items:center;">
+          {% if customer %}
+            {% capture first_name %}{% endcapture %}
+            <i style="font-size:24px;" class="fa-solid fa-circle-user"></i> 
+            <span class="site-header--meta-links medium-down--hide">
+            <a style="display:block;" href="{{ routes.account_url }}">Hi, {{ customer.first_name }}</a> 
+            </span>
+          {% else %}
+             <i style="font-size:24px; margin-right:7px;" class="fa-solid fa-circle-user"></i> <a href="/account/login" id="customer_login_link">Log In</a>
+          {% endif %}
+           </span>
+          {% endif %}
+         {% endif %}
+        {% endunless %}
+      </div> 
+
+		{% unless section.settings.hide_shopping_links or page.template_suffix contains 'dalp' %}
+          <a href="{{ routes.cart_url }}" class="header-cart-btn ecom3-cart cart-toggle" id="ecom-header-cart" aria-label="shopping cart">
+            <span class="icon icon-cart"></span>
+    		<span class="cart-count cart-badge--desktop">{{ cart.item_count }}</span>
+          </a>
+        {% endunless %}
+     </div>
+  </div>
+</header>
+
+
+<div id="mobileNavBar" class="ecom3-mobileNavBar">
+  <div class="flex-header wrapper" style="
+              display: flex;
+              align-items: center;
+              padding-top: 10px;
+              padding-bottom: 10px;
+          ">
+  <div class="flex-header-item" style="flex:auto;">
+    {% unless page.template_suffix contains 'dalp' %}<button class="menu-toggle mobileNavBar-link" aria-controls="navBar" aria-expanded="false" style="display:flex;flex-direction:column;align-items:center;justify-content:center;"><span class="icon icon-hamburger" aria-hidden="true" style="margin-right:0;"></span><span class="sr-only">Menu</span></button>{% endunless %}
+  </div>
+  
+  <div class="flex-header-item" style="flex:auto;">
+        {% if request.page_type == 'index' %}
+          <h1 class="header-logo" itemscope itemtype="http://schema.org/Organization" style="display:block;">
+        {% else %}
+          <div class="h1 header-logo" style="display:flex;align-items:center;justify-content:center;" itemscope itemtype="http://schema.org/Organization" style="display:block;">
+        {% endif %}
+          {% if section.settings.logo %}
+          {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture logo_alt %}{{ section.settings.logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ routes.root_url }}" itemprop="url">
+            <div style="display:flex;align-items:center;justify-content:center;" class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.logo_max_height }}">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ logo_alt | escape }}"
+                  style="max-height:{{ section.settings.logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.logo | img_url: image_size }}"
+                srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settings.logo_max_height }}px;">
+            </noscript>
+          </a>
+          <!--- Sponsor Logo --->
+          {% if section.settings.sponsor_logo %}
+          {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+          {%- assign img_url = section.settings.sponsor_logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {% capture sponsor_logo_alt %}{{ section.settings.sponsor_logo.alt | default: shop.name }}{% endcapture %}
+          <a href="{{ section.settings.sponsor_link }}" itemprop="url" style="margin-left:10px;" class="medium-down--hide">
+            <div class="lazyload__image-wrapper no-js header-logo__image" style="max-height:{{ section.settings.sponsor_logo_max_height }}px;">
+                <img class="lazyload js"
+                  data-src="{{ img_url }}"
+                  data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                  data-aspectratio="{{ section.settings.sponsor_logo.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ sponsor_logo_alt | escape }}"
+                  style="height:{{ section.settings.sponsor_logo_max_height }}px;">
+            </div>
+            <noscript>
+              {% capture image_size %}{{ section.settings.sponsor_logo_max_height | escape }}x{% endcapture %}
+              <img src="{{ section.settings.sponsor_logo | img_url: image_size }}"
+                srcset="{{ section.settings.sponsor_logo | img_url: image_size }} 1x, {{ section.settings.sponsor_logo | img_url: image_size, scale: 2 }} 2x"
+                alt="{{ sponsor_logo_alt | escape }}"
+                itemprop="logo"
+                style="max-height:{{ section.settings.sponsor_logo_max_height }}px;">
+            </noscript>
+          </a>
+          {% endif %}  
+          {% else %}
+            <a href="{{ routes.root_url }}" itemprop="url">{{ shop.name }}</a>
+          {% endif %}
+        {% if request.page_type == 'index' %}
+          </h1>
+        {% else %}
+          </div>
+    {% endif %}
+  </div>
+ 
+  <div class="flex-header-item" id="shopping-links" style="flex:auto;">
+    {% unless page.template_suffix contains 'dalp' %}
+    {% if section.settings.hide_shopping_links %}
+    	<ul id="mobile-contact-info">
+        {% if section.settings.show_phone %}
+        <li><a aria-label="phone number" href="tel:{{ section.settings.header_phone | escape }}"><span class="fa-solid fa-phone"></span></a></li>
+        {% endif %}
+        {% if section.settings.show_email %}
+        <li><a aria-label="email" href="mailto:{{ section.settings.header_email | escape }}"><span class="fa-solid fa-envelope"></span></a></li>
+        {% endif %}
+        {% if section.settings.show_locations %}
+        <li><a aria-label="locations" href="{{ section.settings.header_locations | escape }}"><span class="fa-solid fa-location-pin"></span></a></li>
+        {% endif %}
+      </ul>
+    {% else %}
+        <a href="/cart" class="cart-toggle mobileNavBar-link" style="display: flex; line-height: 1.6; flex-direction: column;">
+        <span class="icon icon-cart" style="line-height: 1.6;"></span>
+        <span class="sr-only">Cart</span>
+        <span class="cart-count {% if cart.item_count == 0 %}hidden-count{% endif %}">{{ cart.item_count }}</span>
+    </a>
+    {% endif %}
+    {% endunless %}
+  </div>
+
+  </div>  
+  {% unless section.settings.hide_search_bar or page.template_suffix contains 'dalp' %}
+  <div id="ecom-mobile-search">
+    <form id="ecom-round-search-bar" action="/search" method="get" class="search-bar" role="search">
+    <input type="hidden" name="type" value="product">
+
+    <input type="search" name="q" value="" placeholder="Search all products..." aria-label="Search all products...">
+    <button type="submit" class="search-bar--submit icon-fallback-text">
+      <span class="icon icon-search" aria-hidden="true"></span>
+      <span class="fallback-text">Search</span>
+    </button>
+  </form>
+  </div> 
+  {% endunless %}
+</div>
+
+{% unless page.template_suffix contains 'dalp' %}
+<nav class="nav-bar ecom3-nav-bar" id="navBar" role="navigation">
+  
+  <div class="ecom-header-3-wrapper">
+    {% include 'mobile-nav' %}
+    {% include 'site-nav' %}
+  </div>
+</nav>
+{% endunless %}
+
+

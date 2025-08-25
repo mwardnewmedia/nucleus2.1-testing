@@ -1,0 +1,187 @@
+{%- comment -%}
+***************************************************************
+PLEASE NOTE: Do not change this file! 
+This theme is managed by the Replica app. 
+Any manual changes may be automatically overwritten at any time.
+3rd PARTY APP DEVELOPERS BEWARE WITH INSTALLS!
+Modify at your own peril, a broken website is the likely result.
+***************************************************************
+{%- endcomment -%}
+
+{% assign now = "now" | date: "%s" %}<!--Bulletin Board Scheduling-->
+
+{% assign section_show_at = section.settings.section_show_at | date: "%s" %}<!--Bulletin Board Section Scheduling-->
+{% assign section_remove_at = section.settings.section_remove_at | date: "%s" %}<!--Bulletin Board Section Scheduling-->
+
+{% if section_show_at == blank or now > section_show_at %}<!--Bulletin Board Section Scheduling-->
+    {% if section_remove_at == blank or now < section_remove_at %}<!--Bulletin Board Section Scheduling-->
+        {% if section.settings.title != blank %}
+            {% assign has_bulletin_message = false %}
+            {% assign valid_message_exists = false %}
+            {% for block in section.blocks %}
+                {% assign remove_at = block.settings.remove_at | date: "%s" %}
+                {% if block.settings.bulletin_message != blank %}
+                    {% assign has_bulletin_message = true %}
+                {% endif %}
+                {% if remove_at == blank or now < remove_at %}
+                    {% assign valid_message_exists = true %}
+                {% endif %}
+            {% endfor %}
+
+            {% if has_bulletin_message and valid_message_exists %}
+                <hr>
+                <div class="bulletin-board-heading">
+                    <h2 class="h2"><i class="fa-regular fa-circle-exclamation"></i> 
+                        {{ section.settings.title | escape }}
+                    </h2>
+                    <section class="bulletin-board--container">
+                        <div class="home-section--content bulletin-board--inner bulletin-slick flex" style="margin-left:40px;margin-right:40px;">
+                            {% for block in section.blocks %}
+                                {% assign show_at = block.settings.show_at | date: "%s" %}<!--Bulletin Board Scheduling-->
+                                {% assign remove_at = block.settings.remove_at | date: "%s" %}<!--Bulletin Board Scheduling-->
+                                {% if show_at == blank or now > show_at %}<!--Bulletin Board Scheduling-->
+                                    {% if remove_at == blank or now < remove_at %}<!--Bulletin Board Scheduling-->
+                                        <div class="bulletin-flex-item" {{ block.shopify_attributes }}>
+                                            <div class="bulletin-message-wrapper">
+                                                {{ block.settings.bulletin_message }} 
+                                            </div>   
+                                        </div>
+                                    {% endif %}
+                                {% endif %} 
+                            {% endfor %}
+                        </div>
+                        {% comment %}
+                        Script to load the slick slider functionality with responsive 
+                        {% endcomment %}
+                        {% if settings.slick %}
+                             <script>
+                                $(document).ready(function(){
+                                    var $bulletinSlick = $('.bulletin-slick');
+                                    var slideCount = $bulletinSlick.children().length;
+
+                                    var autoplayEnabled = false;
+                                      {% if section.settings.autoplay %}
+                                        autoplayEnabled = true;
+                                      {% endif %}
+
+                                    var slickOptions = {
+                                        dots: slideCount > 1,
+                                        arrows: true,
+                                        infinite: false,
+                                        speed: 600,
+                                        slidesToShow: 1,
+                                        slidesToScroll: 1,
+                                        infinite: true,
+                                        adaptiveHeight: true,
+                                        autoplay: autoplayEnabled,
+                                        autoplaySpeed: 8000,
+                                        cssEase: 'ease-in-out',
+                                        responsive: [
+                                            {
+                                                breakpoint: 1024,
+                                                settings: {
+                                                    slidesToShow: 1,
+                                                    slidesToScroll: 1,
+                                                    infinite: true,
+                                                    dots: slideCount > 1
+                                                }
+                                            },
+                                            {
+                                                breakpoint: 600,
+                                                settings: {
+                                                    slidesToShow: 1,
+                                                    slidesToScroll: 1,
+                                                    infinite: true,
+                                                    dots: slideCount > 1
+                                                }
+                                            },
+                                            {
+                                                breakpoint: 480,
+                                                settings: {
+                                                    slidesToShow: 1,
+                                                    slidesToScroll: 1,
+                                                    infinite: true,
+                                                    dots: slideCount > 1
+                                                }
+                                            }
+                                        ]
+                                    };
+
+                                    $bulletinSlick.slick(slickOptions);
+                                });
+                            </script>
+                        {% endif %}
+                    </section>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+ 
+{% schema %}
+  {
+    "name": "Bulletin Board",
+    "class": "bulletin-board--section",
+    "max_blocks": 6,
+    "settings": [
+       {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Auto-rotate bulletins",
+        "default": false   
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Bulletin Board"
+      },
+      {
+        "id": "section_show_at",
+        "type": "text",
+        "label": "Section Show at (yyyy-mm-dd)"
+      },
+      {
+        "id": "section_remove_at",
+        "type": "text",
+        "label": "Section Remove at (yyyy-mm-dd)"
+      }    
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Bulletin Message",
+        "settings": [
+          {
+            "id": "bulletin_message",
+            "type": "html",
+            "label": "HTML"
+          },
+          {
+            "id": "show_at",
+            "type": "text",
+            "label": "Show at (yyyy-mm-dd)"
+          },
+          {
+            "id": "remove_at",
+            "type": "text",
+            "label": "Remove at (yyyy-mm-dd)"
+          }
+        ]
+      }
+    ],
+    "presets": [
+        {
+          "name": "Bulletin Board",
+          "blocks": [
+            {
+              "type": "text"
+            },
+            {
+              "type": "text"
+            }
+          ]
+        }
+      ]
+  }
+  {% endschema %}

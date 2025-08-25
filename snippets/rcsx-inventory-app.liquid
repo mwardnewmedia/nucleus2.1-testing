@@ -1,0 +1,6 @@
+{% unless product.selected_or_first_available_variant.inventory_management == null %}
+              <br/>  <label class="inventory-per-location-app quantity-selector quantity-selector-{{ section.id }}">Inventory Per Location:</label>
+          <div id="inventoryLocationInformation">
+              <span class="inventoryLocationLoading"></span>
+          </div>
+{% endunless %}

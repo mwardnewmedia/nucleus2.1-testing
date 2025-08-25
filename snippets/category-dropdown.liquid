@@ -1,0 +1,44 @@
+
+<li
+    class="parent-nav-item site-nav--has-dropdown {% if link.active %}site-nav--active{% endif %}"
+    id="{{ link.title | handleize }}"
+    aria-haspopup="true"
+    {% if link.title == section.settings.catalyst_megamenu %}
+    style="position:initial;"
+    {% endif %}
+    >
+  <a
+     href="{{ link.url }}"
+     class="site-nav--link parent-nav-link"
+     data-meganav-type="parent"
+     aria-controls="MenuParent-{{ parent_index }}"
+     aria-expanded="false"
+     {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+    {{ link.title | escape }}
+    <span class="icon icon-arrow-down" aria-hidden="true"></span>
+  </a> 
+        <ul
+          id="MenuParent-{{ parent_index }}"
+          class="site-nav--dropdown {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %}{% if link.title == section.settings.catalyst_megamenu %} megamenu{% endif %}"
+          data-meganav-dropdown>
+          {% if link.title == section.settings.catalyst_megamenu %}
+          <a href="/collections/" style="
+              font-weight: initial;
+              text-decoration: underline;
+          ">Shop all categories</a>
+          <div class="megamenu-wrap">
+          {% endif %}
+          {% for collection in collections %} 
+            {% if section.settings.only_catalyst_categories %}
+              {% include 'catalyst-collection-list' %}
+            {% else %}
+              {% include 'catalyst-dropdown-link' %}
+            {% endif %}  
+          {% endfor %}
+          {% if link.title == section.settings.catalyst_megamenu %}
+          </div>
+          {% endif %}
+        </ul>
+       
+      </li>
+

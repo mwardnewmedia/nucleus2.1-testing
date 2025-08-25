@@ -1,0 +1,37 @@
+{% comment %}
+  Shopify Wishlist
+  Usage:
+    - Markup: {%- render 'button-wishlist-remove', product: product -%}
+    - Place this snippet inside your existing product card snippet
+  Parameters:
+    - product: <Shopify product> (required)
+{% endcomment %}
+{%- if product.handle != blank -%}
+  <button type="button" 
+    aria-label="Add to wishlist" 
+    button-wishlist
+    data-product-handle="{{ product.handle }}" 
+    style="
+    width: 25px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    top:0;
+    ">
+    <style scoped>
+      .icon {
+        fill: transparent;
+        stroke: #000000;
+        transition: fill 0.3s ease;
+      }
+      .active .icon {
+        fill: red;
+        stroke: #000000;
+      }
+    </style>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+
+  </button>
+{%- endif -%}
