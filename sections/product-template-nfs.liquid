@@ -36,6 +36,138 @@ Modify at your own peril, a broken website is the likely result.
   </style>
 {% endif %}
 
+<style>
+  /* Modern Quantity Selector Styles */
+  .js-qty {
+    width: 100%;
+    border: 1px solid #E9E9E9;
+    border-radius: 2px;
+    background: white;
+    position: relative;
+    overflow: visible;
+    height: 50px; /* Match select height */
+  }
+  
+  .js-qty .js--num {
+    display: block;
+    background: none;
+    text-align: center;
+    width: 100%;
+    padding: 8px 30px;
+    margin: 0;
+    border: none;
+    font-size: 14px;
+    color: #333;
+    border-radius: 2px;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
+  .js-qty .js--qty-adjuster {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    padding: 8px 0;
+    width: 30px;
+    text-align: center;
+    overflow: hidden;
+    user-select: none;
+    transition: all 0.2s ease-out;
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+    background: transparent;
+    border: none;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
+  .js-qty .js--qty-adjuster:hover {
+    background-color: #f5f5f5;
+    color: #333;
+  }
+  
+  .js-qty .js--qty-adjuster:active {
+    background-color: #e0e0e0;
+  }
+  
+  .js-qty .js--add {
+    right: 0;
+    border-left: 1px solid #E9E9E9;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+  
+  .js-qty .js--minus {
+    left: 0;
+    border-right: 1px solid #E9E9E9;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+  }
+  
+  .js-qty .js--num:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  }
+  
+  /* Ensure select elements match height */
+  .selector-wrapper select,
+  .product-variants select {
+    height: 50px;
+    box-sizing: border-box;
+  }
+  
+  /* Add min-height to addToCartForm select */
+  .addToCartForm select {
+    min-height: 50px;
+  }
+  
+  /* Fix input#quantity width */
+  input#quantity {
+    width: 100% !important;
+  }
+  
+  /* Add spacing between quantity selector and add to cart button */
+  .js-qty {
+    margin-bottom: 20px;
+  }
+</style>
+
+<script>
+  $(document).ready(function() {
+    // Setup quantity selector functionality
+    $('.js--qty-adjuster').on('click', function() {
+      var el = $(this);
+      var qtySelector = el.siblings('.js--num');
+      var qty = parseInt(qtySelector.val()) || 1;
+      var qtyMin = 1;
+      
+      // Add or subtract from the current quantity
+      if (el.hasClass('js--add')) {
+        qty = qty + 1;
+      } else {
+        qty = qty <= qtyMin ? qtyMin : qty - 1;
+      }
+      
+      // Update the input's number
+      qtySelector.val(qty);
+      
+      // Trigger change event for form submission
+      qtySelector.trigger('change');
+    });
+    
+    // Ensure quantity is always at least 1
+    $('.js--num').on('blur', function() {
+      var qty = parseInt($(this).val()) || 1;
+      if (qty < 1) {
+        $(this).val(1);
+      }
+    });
+  });
+</script>
+
 <div class="grid" itemscope itemtype="http://schema.org/Product">
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
@@ -322,7 +454,11 @@ Modify at your own peril, a broken website is the likely result.
 
         {% if section.settings.product_quantity_enable %}
           <label for="quantity" class="quantity-selector quantity-selector-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
-          <input type="number" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
+          <div class="js-qty">
+            <input type="text" class="js--num" value="1" min="1" data-id="quantity" aria-label="quantity" pattern="[0-9]*" name="quantity" id="quantity">
+            <span class="js--qty-adjuster js--add" data-id="quantity" data-qty="1">+</span>
+            <span class="js--qty-adjuster js--minus" data-id="quantity" data-qty="-1">-</span>
+          </div>
         {% endif %}
       
 		<!-- Temporarily disable this and move it to the top of the Product page -->
